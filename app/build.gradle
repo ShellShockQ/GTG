@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'GTGKeystore'
+            keyPassword 'in102doit'
+            storeFile file('../GTGKeystore.jks')
+            storePassword 'in102doit'
+        }
+    }
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId 'com.gametimegiving.mobile'
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 15
+        versionName "1.0.15"
+        signingConfig signingConfigs.config
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile 'com.android.support:design:22.2.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile files('libs/signpost-commonshttp4-1.2.1.1.jar')
+    compile files('libs/signpost-core-1.2.1.1.jar')
+    compile files('libs/signpost-jetty6-1.2.1.1.jar')
+    compile files('libs/twitter4j-core-4.0.4.jar')
+    compile files('libs/universal-image-loader-1.9.0.jar')
+    compile files('libs/prime.jar')
+    compile files('libs/ziesemer.jar')
+    compile files('libs/cover.jar')
+    compile files('libs/libGoogleAnalyticsServices.jar')
+    compile files('libs/nineoldandroids.jar')
+}

@@ -1,0 +1,144 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/logo_512" />
+
+
+    <TextView
+        android:id="@+id/logo_splash_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:tag="@string/font_kozgopro"
+        android:text="@string/app_name"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/versionnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo_splash_title"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="@string/about_version" />
+
+    <TextView
+        android:id="@+id/copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/versionnum"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/about_copy" />
+
+    <TextView
+        android:id="@+id/credits"
+        style="@style/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/copy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/about_credits" />
+
+    <TextView
+        android:id="@+id/rate"
+        style="@style/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/credits"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/about_rate" />
+
+    <TextView
+        android:id="@+id/support"
+        style="@style/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/about_support" />
+
+    <LinearLayout
+        android:id="@+id/social"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/support"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:contentDescription="@string/empty"
+            android:onClick="onFacebookClick"
+            android:src="@drawable/selector_facebook_logo" />
+
+        <ImageView
+            android:id="@+id/twitter"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/empty"
+            android:onClick="onTwitterClick"
+            android:src="@drawable/selector_twitter_logo" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/terms"
+        style="@style/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/social"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/about_terms" />
+
+    <TextView
+        android:id="@+id/privacy"
+        style="@style/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/terms"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/about_privacy" />
+
+
+    <ImageView
+        android:id="@+id/gracenote"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/privacy"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/empty"
+        android:onClick="onGraceNoteClick"
+        android:src="@drawable/x" />
+
+</RelativeLayout>

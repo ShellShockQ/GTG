@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="donationmethod">
+        <item>Pay Pal</item>
+        <item>Credit/Debit card</item>
+
+    </string-array>
+
+</resources>

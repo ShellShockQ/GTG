@@ -1,0 +1,69 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    =============loginpage===============
+    <dimen name="margin_left">40dp</dimen>
+    <dimen name="margin_right">40dp</dimen>
+    <dimen name="margin_top">30dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="layout_40">40dp</dimen>
+    <dimen name="layout_45">45dp</dimen>
+    <dimen name="layout_50">50dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="layout_170">170dp</dimen>
+    <dimen name="hieght_1">1dp</dimen>
+    ======================================
+    ============selectgame======================
+    <dimen name="margin_60">60dp</dimen>
+    ============================================
+    ========================charities===============
+    <dimen name="layout_150">150dp</dimen>
+    <dimen name="padding_15">15dp</dimen>
+    <dimen name="textsize_20">20sp</dimen>
+    <dimen name="textsize_17">17sp</dimen>
+    <dimen name="textsize_15">15sp</dimen>
+    =======================================================
+    ===================================Forgotpassword==============
+    <dimen name="margin_50">50dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="width_30">30dp</dimen>
+
+
+    =======================gameboard===================================
+    <dimen name="layout_360">340dp</dimen>
+    <dimen name="layout_65">65dp</dimen>
+    <dimen name="hight_50">50dp</dimen>
+    <dimen name="hight_40">40dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
+    <dimen name="margin_top20">20dp</dimen>
+    <dimen name="layout_340">340dp</dimen>
+    <dimen name="width_330">330dp</dimen>
+    <dimen name="hight_30">30dp</dimen>
+    <dimen name="hight_420">420dp</dimen>
+    <dimen name="hight_260">260dp</dimen>
+    <dimen name="textsize_25">25sp</dimen>
+    ======================================================================
+
+    =========================Personal status=================
+    <dimen name="margin_left20">20dp</dimen>
+    <dimen name="margin_right20">20dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="margin_left10">10dp</dimen>
+    <dimen name="margin_right10">10dp</dimen>
+    ========================================================
+
+    ===========================Profile======================
+    <dimen name="margin_160">160dp</dimen>
+    <dimen name="loyout_110">110dp</dimen>
+    <dimen name="loyout_30">30dp</dimen>
+    <dimen name="padding_25">25dp</dimen>
+    <dimen name="textsize_18">18sp</dimen>
+    <dimen name="padding_120">120dp</dimen>
+    <dimen name="width_90">90dp</dimen>
+    <dimen name="hight_45">45dp</dimen>
+    <dimen name="view_2">2dp</dimen>
+    ======================================================
+</resources>

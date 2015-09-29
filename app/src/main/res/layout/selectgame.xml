@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_60"
+            android:background="@drawable/intro_img"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_top"
+            android:layout_marginRight="@dimen/margin_top"
+            android:layout_marginTop="@dimen/margin_top"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner1"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_50"
+                android:layout_gravity="center"
+                android:popupBackground="@color/white_color"
+                android:spinnerMode="dropdown" />
+
+            <Button
+
+                android:id="@+id/btn_game_select"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_50"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_15"
+                android:background="@drawable/custombutton"
+                android:text="@string/btn_select"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

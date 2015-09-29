@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlHighlight">@color/primary_500</item> 
+        <item name="android:windowBackground">@color/background_material_light</item>
+        <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
+
+        <item name="android:listDivider">@color/black_color</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/black_color</item>
+
+    </style>
+
+    <style name="SpinnerItem.DropDownItem" parent="@android:style/Widget.DropDownItem.Spinner">
+        <item name="android:textColor">@color/black_color</item>
+
+    </style>
+
+    <style name="Toolbar_Theme">
+        <item name="colorControlNormal">@color/white_color</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:textColor">#fff</item>
+        <item name="android:background">@drawable/spinner_bg</item>
+
+        <!-- <item name="android:layout_marginLeft">10dp</item>
+         <item name="android:layout_marginRight">10dp</item>
+         <item name="android:layout_marginBottom">10dp</item>
+         <item name="android:paddingLeft">8dp</item>
+         <item name="android:paddingTop">5dp</item>
+         <item name="android:paddingBottom">5dp</item>
+        -->
+    </style>
+
+    <style
+
+        name="Theme_Dialog_Translucent" parent="android:Theme.Dialog">
+
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+    <style name="link">
+        <item name="android:textColorLink">@color/link</item>
+    </style>
+</resources>

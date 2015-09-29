@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_50"
+
+                    android:background="@drawable/rounded_edittext"
+
+                    android:padding="@dimen/padding_10"
+                    android:text="Total Amount Pledge.......................$540"
+                    android:textColor="#000"
+                    android:textSize="@dimen/textsize_17" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_50"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@drawable/rounded_edittext"
+
+                    android:padding="@dimen/padding_10"
+                    android:text="Total Pledge Donate........................$280"
+                    android:textColor="#000"
+                    android:textSize="@dimen/textsize_17" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_50"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_edittext"
+
+                    android:padding="@dimen/padding_10"
+                    android:text="Avg Pledged Amt Per Game.............$35"
+                    android:textColor="#000"
+                    android:textSize="@dimen/textsize_17" />
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@drawable/rounded_edittext">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:padding="@dimen/padding_10"
+                            android:text="Charities Supported"
+                            android:textColor="#000"
+                            android:textSize="@dimen/textsize_17" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_left10"
+                            android:layout_marginRight="@dimen/margin_right10"
+
+                            android:background="#f4f4f4"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/padding_5"
+                            android:weightSum="2">
+
+                            <ImageView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/layout_40"
+                                android:src="@drawable/profile" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/margin_left10"
+                                android:layout_weight="1"
+                                android:text="UNCF"
+                                android:textColor="#000"
+                                android:textSize="@dimen/textsize_15" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="$80"
+                                android:textColor="#c80000"
+                                android:textSize="@dimen/textsize_15" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_left10"
+                            android:layout_marginRight="@dimen/margin_right10"
+                            android:orientation="horizontal"
+                            android:padding="5dp"
+                            android:weightSum="2">
+
+                            <ImageView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/layout_40"
+                                android:src="@drawable/profile" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/margin_left10"
+                                android:layout_weight="1"
+                                android:text="BR Women Shelter"
+                                android:textColor="#000"
+                                android:textSize="@dimen/textsize_15" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="$85"
+                                android:textColor="#c80000"
+                                android:textSize="@dimen/textsize_15" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_left10"
+                            android:layout_marginRight="@dimen/margin_right10"
+                            android:background="#f4f4f4"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/padding_5"
+                            android:weightSum="2">
+
+                            <ImageView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/layout_40"
+                                android:src="@drawable/profile" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/margin_left10"
+                                android:layout_weight="1"
+                                android:text="Solvation Army"
+                                android:textColor="#000"
+                                android:textSize="@dimen/textsize_15" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="$20"
+                                android:textColor="#c80000"
+                                android:textSize="@dimen/textsize_15" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_left10"
+                            android:layout_marginRight="@dimen/margin_right10"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/padding_5"
+                            android:weightSum="2">
+
+                            <ImageView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/layout_40"
+                                android:src="@drawable/profile" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/margin_left10"
+                                android:layout_weight="1"
+                                android:text="NAACP"
+                                android:textColor="#000"
+                                android:textSize="@dimen/textsize_15" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="$54"
+                                android:textColor="#c80000"
+                                android:textSize="@dimen/textsize_15" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_left10"
+                            android:layout_marginRight="@dimen/margin_right10"
+                            android:background="#f4f4f4"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/padding_5"
+                            android:weightSum="2">
+
+                            <ImageView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/layout_40"
+                                android:src="@drawable/profile" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/margin_left10"
+                                android:layout_weight="1"
+                                android:text="Word Vision"
+                                android:textColor="#000"
+                                android:textSize="@dimen/textsize_15" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="$65"
+                                android:textColor="#c80000"
+                                android:textSize="@dimen/textsize_15" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</LinearLayout>
