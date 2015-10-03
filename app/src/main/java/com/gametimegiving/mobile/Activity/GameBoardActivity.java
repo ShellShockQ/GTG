@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,6 +39,9 @@ import java.util.TimerTask;
 
 public class GameBoardActivity extends AppCompatActivity implements View.OnClickListener {
     private final static String TAG = "GameBoard";
+    private static final String LOGO_BASE_URL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_LOGO_BASE_URL);
+    final int MaxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+    final int cacheSize = MaxMemory / 8;
     String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
     Utilities util = new Utilities();
     private double mTeamPldgesValue = 15;
@@ -51,6 +55,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private Button mUndoLastPledge;
     private String GameStatus;
     private String mToken;
+    private LruCache<Integer, Bitmap> imageMemCache;
 
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -100,7 +105,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 break;
         }
 
-
+        imageMemCache = new LruCache<>(cacheSize);
         //Set Period
         String ag = util.ReadSharedPref("activegame", this);
         //TODO:SetTeam logo photo
@@ -131,12 +136,12 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         showdialog();
         getGame(260, 0);
-        Bitmap homeTeamLogo = getTeamLogo("PHI");
-        ImageView homelogo = (ImageView) findViewById(R.id.hometeamlogo);
-        homelogo.setImageBitmap(homeTeamLogo);
-        Bitmap awayTeamLogo = getTeamLogo("DAL");
-        ImageView awaylogo = (ImageView) findViewById(R.id.awayteamlogo);
-        awaylogo.setImageBitmap(awayTeamLogo);
+        //  Bitmap homeTeamLogo = getTeamLogo("PHI");
+//        ImageView homelogo = (ImageView) findViewById(R.id.hometeamlogo);
+//        homelogo.setImageBitmap(homeTeamLogo);
+//        Bitmap awayTeamLogo = getTeamLogo("DAL");
+//        ImageView awaylogo = (ImageView) findViewById(R.id.awayteamlogo);
+//        awaylogo.setImageBitmap(awayTeamLogo);
 
     }
 
@@ -161,22 +166,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    /* Pulls the logos for each team asynchronously and stores them in cache for future use */
-    private Bitmap getTeamLogo(String team) {
-        Team t = new Team();
-        String imageurl = mApiServerUrl + "/ph/" + t.getLogo();
-        try {
-            InputStream in = (InputStream) new URL(imageurl).getContent();
-            Bitmap bitmap = BitmapFactory.decodeStream(in);
-            t.setLogo(bitmap);
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return t.getLogo();
-    }
 
     /*
     * Add Pledges
@@ -288,18 +277,21 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         util.ShowMsg(this, "Calling Braintree");
     }
 
-    private void GetMyGame(String uri) {
-        //String url = String.format(java.util.Locale.ENGLISH,  "%s/api/%s", mApiServerUrl, "game");
-        String url = String.format(java.util.Locale.ENGLISH, "%s/dwn/%s", mApiServerUrl, "testgame.php");
-        RequestPackage p = new RequestPackage();
-        p.setMethod("POST");
-        p.setUri(url);
-        GetMyGame task = new GetMyGame();
-        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
-
-    }
+//    private void GetMyGame(String uri) {
+//        //String url = String.format(java.util.Locale.ENGLISH,  "%s/api/%s", mApiServerUrl, "game");
+//        String url = String.format(java.util.Locale.ENGLISH, "%s/dwn/%s", mApiServerUrl, "testgame.php");
+//        RequestPackage p = new RequestPackage();
+//        p.setMethod("POST");
+//        p.setUri(url);
+//        GetMyGame task = new GetMyGame();
+//        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+//
+//    }
 
     public void UpdateGameBoard(Game game) {
+        Team homeTeam = null;
+        Team awayTeam = null;
+
         TextView tv_homeTeamScore = (TextView) findViewById(R.id.tv_HomeTeamScore);
         TextView tv_awayTeamScore = (TextView) findViewById(R.id.tv_AwayTeamScore);
         TextView pledges = (TextView) findViewById(R.id.pledges);
@@ -314,11 +306,11 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         tv_GamePeriod.setText(String.format("%s in %s", game.getTimeLeft(), Integer.toString(game.getPeriod())));
         tv_HomeTeamPledges.setText(util.FormatCurrency(game.getHometeam_pledge(), 0));
         tv_AwayTeamPledges.setText(util.FormatCurrency(game.getVisitingteam_pledge(), 0));
-//        game.setHome_score(2
-//        game.setPeriod(3);
-//        game.setTimeLeft("3:32");
-//        game.setPersonalPledgeAmt(8);
-//        util.ShowMsg(this, "Updating Game Board:" + game.getHome_LongName() + " vs " + game.getAway_LongName());
+        ImageView homeLogo = (ImageView) findViewById(R.id.hometeamlogo);
+        ImageView awayLogo = (ImageView) findViewById(R.id.awayteamlogo);
+        homeLogo.setImageBitmap(game.getHomeLogobitmap());
+        awayLogo.setImageBitmap(game.getAwayLogobitmap());
+        //TODO:Increase the size of the images if possible
     }
 
     public void getGame(int game_id, int page) {
@@ -339,30 +331,51 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             Log.e(TAG, exc.toString());
         }
     }
-//    public void getGame(int game_id, int page){
-//        try {
-//
-//            ArrayList<String> list = new ArrayList<String>();
-//            if (game_id != 0) list.add(String.format(java.util.Locale.ENGLISH,  "\"game_id\":\"%d\"", game_id));
-//
-//            String json = String.format(java.util.Locale.ENGLISH,  "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, page);
-//
-//            if (list.size() > 0) {
-//                String params = TextUtils.join(",", list.toArray());
-//                json = String.format(java.util.Locale.ENGLISH,  "{\"token\":\"%s\",\"page\":\"%d\",%s}", mToken, page, params);
-//            }
-//
-//            String args = URLEncoder.encode(json, "UTF-8");
-//            String method = "game";
-//
-//            HttpRequest request = new HttpRequest(method, args);
-//          //  request.addEventListener();
-//            request.execute();
-//        } catch (Exception exc) {
-//            Log.e(TAG, exc.toString());
-//        }
-//    }
 
+    public Bitmap getBitmapFromMemCache(int key) {
+        try {
+            return imageMemCache.get(key);
+        } catch (Exception e) {
+            return null;
+
+        }
+
+    }
+
+    public void addBitmapToMemoryCache(int key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            imageMemCache.put(key, bitmap);
+        }
+    }
+
+    public class Imageloader extends AsyncTask<String, Void, Team> {
+
+        @Override
+        protected Team doInBackground(String... Team) {
+            Team t = new Team();
+            try {
+                String imageurl = LOGO_BASE_URL + t.getLogo();
+                InputStream in = (InputStream) new URL(imageurl).getContent();
+                Bitmap bitmap = BitmapFactory.decodeStream(in);
+                t.setBitmap(bitmap);
+                in.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+        // @Override
+        //protected void onPostExecute(Bitmap image) {
+        //     ImageView image = (ImageView)result.view.findViewById(R.id.imageView1);
+        //     image.setImageBitmap(result.bitmap);
+        //     //result.flower.setBitmap(result.bitmap);
+        //     imageCache.put(result.flower.getProductId(),result.bitmap);
+        //}
+
+
+    }
     public class GetMyGame extends AsyncTask<RequestPackage, String, Game> {
 
         @Override
@@ -373,8 +386,44 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         protected Game doInBackground(RequestPackage... strings) {
 
             String content = HttpManager.getData(strings[0]);
+            Game game = MyGameJSONParser.parseFeed(content);
+            String imageurl;
+            Bitmap homeBitmap;
+            Bitmap awayBitmap;
+            InputStream homeIn;
+            InputStream awayIn;
 
-            return MyGameJSONParser.parseFeed(content);
+            try {
+                homeBitmap = getBitmapFromMemCache(game.getHome_Id());
+                awayBitmap = getBitmapFromMemCache(game.getAway_Id());
+                if (homeBitmap == null) {
+                    String homelogourl = LOGO_BASE_URL + game.getHomeLogo();
+                    homeIn = (InputStream) new URL(homelogourl).getContent();
+                    homeBitmap = BitmapFactory.decodeStream(homeIn);
+                    game.setHomeLogobitmap(homeBitmap);
+                    homeIn.close();
+                    addBitmapToMemoryCache(game.getHome_Id(), homeBitmap);
+                } else {
+                    game.setHomeLogobitmap(homeBitmap);
+                }
+
+                if (awayBitmap == null) {
+                    String awaylogourl = LOGO_BASE_URL + game.getAwayLogo();
+                    awayIn = (InputStream) new URL(awaylogourl).getContent();
+                    awayBitmap = BitmapFactory.decodeStream(awayIn);
+                    game.setAwayLogobitmap(awayBitmap);
+                    awayIn.close();
+                    addBitmapToMemoryCache(game.getAway_Id(), awayBitmap);
+                } else {
+                    game.setAwayLogobitmap(awayBitmap);
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+            return game;
         }
 
         @Override

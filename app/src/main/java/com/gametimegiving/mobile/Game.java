@@ -1,5 +1,7 @@
 package com.gametimegiving.mobile;
 
+import android.graphics.Bitmap;
+
 public class Game {
     private int GameId;
     private int home_Id;
@@ -15,6 +17,10 @@ public class Game {
     private int hometeam_pledge;
     private int visitingteam_pledge;
     private int PersonalPledgeAmt;
+    private String homeLogo;
+    private String awayLogo;
+    private Bitmap homeLogobitmap;
+    private Bitmap awayLogobitmap;
 
     public int getHometeam_pledge() {
         return hometeam_pledge;
@@ -129,6 +135,37 @@ public class Game {
         this.timeLeft = timeLeft;
     }
 
+    public String getHomeLogo() {
+        return homeLogo;
+    }
+
+    public void setHomeLogo(String homeLogo) {
+        this.homeLogo = homeLogo;
+    }
+
+    public String getAwayLogo() {
+        return awayLogo;
+    }
+
+    public void setAwayLogo(String awayLogo) {
+        this.awayLogo = awayLogo;
+    }
+
+    public Bitmap getHomeLogobitmap() {
+        return homeLogobitmap;
+    }
+
+    public void setHomeLogobitmap(Bitmap homeLogobitmap) {
+        this.homeLogobitmap = homeLogobitmap;
+    }
+
+    public Bitmap getAwayLogobitmap() {
+        return awayLogobitmap;
+    }
+
+    public void setAwayLogobitmap(Bitmap awayLogobitmap) {
+        this.awayLogobitmap = awayLogobitmap;
+    }
 
     public void ClearBoard() {
         setAway_score(0);

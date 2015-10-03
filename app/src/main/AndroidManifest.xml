@@ -62,6 +62,11 @@
             android:name="API_SERVER_URL"
             android:value="http://api.gametimegiving.com" />
 
+        <meta-data
+            android:name="LOGO_BASE_URL"
+            android:value="http://api.gametimegiving.com/public/ph/" />
+
+
     </application>
 
 </manifest>

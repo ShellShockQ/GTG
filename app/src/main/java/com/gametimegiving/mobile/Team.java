@@ -9,7 +9,8 @@ public class Team {
     private int teamId;
     private String teamName;
     private String nickName;
-    private Bitmap logo;
+    private String logo;
+    private Bitmap bitmap;
 
     public int getTeamId() {
         return teamId;
@@ -35,13 +36,19 @@ public class Team {
         this.nickName = nickName;
     }
 
-    public Bitmap getLogo() {
+    public String getLogo() {
         return logo;
     }
 
-    public void setLogo(Bitmap logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 }

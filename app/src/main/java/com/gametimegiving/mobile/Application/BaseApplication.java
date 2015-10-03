@@ -32,6 +32,7 @@ import javax.security.auth.x500.X500Principal;
 public class BaseApplication extends Application {
 
     public static final String META_DATA_API_SERVER_URL = "API_SERVER_URL";
+    public static final String META_DATA_LOGO_BASE_URL = "LOGO_BASE_URL";
     private static final X500Principal DEBUG_DN = new X500Principal("CN=Android Debug,O=Android,C=US");
     private static final boolean GA_OPT_OUT = false;
     private static final boolean GA_IS_DRY_RUN = false;
@@ -72,13 +73,7 @@ public class BaseApplication extends Application {
 
         this.Debuggable = isDebuggable(this);
 
-        if (!this.Debuggable) {
-            //Crashlytics.start(this);
-//      Fabric.with(this, new Crashlytics());
-        }
 
-//    SQLite sqlite = new SQLite(this, "sqlite", null, 1);
-//    this.db = sqlite.getWritableDatabase();
         mBaseApplication = this;
 
         this.Api = new BaseApi(this);
@@ -124,8 +119,7 @@ public class BaseApplication extends Application {
 
     public String getPreference(String key) {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String value = settings.getString(key, null);
-        return value;
+        return settings.getString(key, null);
     }
 
     public String getMetaData(String key) {

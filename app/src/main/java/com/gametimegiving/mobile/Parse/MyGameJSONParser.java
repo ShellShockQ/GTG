@@ -21,6 +21,11 @@ public class MyGameJSONParser {
                 game.setTimeLeft(obj.getString("clock"));
                 game.setHometeam_pledge(obj.getInt("home_pledge"));
                 game.setVisitingteam_pledge(obj.getInt("away_pledge"));
+                game.setHomeLogo(obj.getString("home_photo"));
+                game.setAwayLogo(obj.getString("away_photo"));
+                game.setHome_Id(obj.getInt("home_id"));
+                game.setAway_Id(obj.getInt("away_id"));
+
 
             }
 
