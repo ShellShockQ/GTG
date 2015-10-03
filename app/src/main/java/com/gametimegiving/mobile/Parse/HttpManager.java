@@ -2,7 +2,6 @@ package com.gametimegiving.mobile.Parse;
 
 
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,21 +13,6 @@ public class HttpManager {
     private static final String TAG = "HTTPManager";
 
     public static String getData(RequestPackage p) {
-//        AndroidHttpClient client = AndroidHttpClient.newInstance("AndroidAgent");
-//        HttpGet request = new HttpGet(uri);
-//        HttpResponse response;
-//       try {
-//           response = client.execute(request);
-//           return EntityUtils.toString(response.getEntity());
-//
-//       }catch(Exception e){
-//            e.printStackTrace();
-//           return null;
-//        }finally{
-//            client.close();
-//        }
-
-        //   }
         BufferedReader reader = null;
         String uri = p.getUri();
         if (p.getMethod().equals("GET")) {
@@ -40,14 +24,12 @@ public class HttpManager {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod(p.getMethod());
             if (p.getMethod().equals("POST")) {
+                con.setRequestProperty("content-type", "application/json; charset=utf-8");
+                con.setUseCaches(false);
+                con.setRequestProperty("Cache-Control", "max-age=0");
                 con.setDoOutput(true);
                 OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
-                // writer.write(p.getEncodedParams());
-                //writer.write("{""token"":0,""page"":0,""game_id"":12}");
-                writer.write("{token:0,page:0,game_id:12}");
-                Log.d(TAG, url.toString());
-                // Log.d(TAG, p.getEncodedParams());
-
+                writer.write(p.getEncodedParams("json"));
                 writer.flush();
             }
             StringBuilder sb = new StringBuilder();
@@ -77,21 +59,6 @@ public class HttpManager {
     }
 
     public static String getData(RequestPackage p, String userName, String password) {
-//        AndroidHttpClient client = AndroidHttpClient.newInstance("AndroidAgent");
-//        HttpGet request = new HttpGet(uri);
-//        HttpResponse response;
-//       try {
-//           response = client.execute(request);
-//           return EntityUtils.toString(response.getEntity());
-//
-//       }catch(Exception e){
-//            e.printStackTrace();
-//           return null;
-//        }finally{
-//            client.close();
-//        }
-
-        //   }
         BufferedReader reader = null;
         String uri = p.getUri();
         byte[] loginBytes = (userName + ":" + password).getBytes();

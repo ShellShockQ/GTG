@@ -130,7 +130,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
 
         showdialog();
-        getGame(12, 0);
+        getGame(260, 0);
         Bitmap homeTeamLogo = getTeamLogo("PHI");
         ImageView homelogo = (ImageView) findViewById(R.id.hometeamlogo);
         homelogo.setImageBitmap(homeTeamLogo);
@@ -323,20 +323,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
     public void getGame(int game_id, int page) {
         try {
-            game_id = 12;
             String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", mApiServerUrl, "game");
-            // String url = String.format(java.util.Locale.ENGLISH,  "%s/dwn/%s", mApiServerUrl, "testgame.php");
-            //ArrayList<String> list = new ArrayList<String>();
-//            if (game_id != 0) list.add(String.format(java.util.Locale.ENGLISH,  "\"game_id\":\"%d\"", game_id));
-//
-//            String json = String.format(java.util.Locale.ENGLISH, "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, page);
-//
-//            if (list.size() > 0) {
-//                String params = TextUtils.join(",", list.toArray());
-//                json = String.format(java.util.Locale.ENGLISH,  "{\"token\":\"%s\",\"page\":\"%d\",%s}", mToken, page, params);
-//            }
-//
-//            String args = URLEncoder.encode(json, "UTF-8");
             String method = "game";
 
             RequestPackage p = new RequestPackage();
@@ -352,6 +339,29 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             Log.e(TAG, exc.toString());
         }
     }
+//    public void getGame(int game_id, int page){
+//        try {
+//
+//            ArrayList<String> list = new ArrayList<String>();
+//            if (game_id != 0) list.add(String.format(java.util.Locale.ENGLISH,  "\"game_id\":\"%d\"", game_id));
+//
+//            String json = String.format(java.util.Locale.ENGLISH,  "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, page);
+//
+//            if (list.size() > 0) {
+//                String params = TextUtils.join(",", list.toArray());
+//                json = String.format(java.util.Locale.ENGLISH,  "{\"token\":\"%s\",\"page\":\"%d\",%s}", mToken, page, params);
+//            }
+//
+//            String args = URLEncoder.encode(json, "UTF-8");
+//            String method = "game";
+//
+//            HttpRequest request = new HttpRequest(method, args);
+//          //  request.addEventListener();
+//            request.execute();
+//        } catch (Exception exc) {
+//            Log.e(TAG, exc.toString());
+//        }
+//    }
 
     public class GetMyGame extends AsyncTask<RequestPackage, String, Game> {
 
@@ -363,6 +373,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         protected Game doInBackground(RequestPackage... strings) {
 
             String content = HttpManager.getData(strings[0]);
+
             return MyGameJSONParser.parseFeed(content);
         }
 

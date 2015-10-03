@@ -1,10 +1,13 @@
 package com.gametimegiving.mobile.Parse;
 
+import android.util.Log;
+
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RequestPackage {
+    private static final String TAG = "RequestPackage";
     private String uri;
     private String method = "GET";
     private Map<String, String> params = new HashMap<>();
@@ -58,23 +61,47 @@ public class RequestPackage {
         return sb.toString();
     }
 
-    public String getEncodedParams(String Json) {
+    public String getEncodedParams(String json) {
         StringBuilder sb = new StringBuilder();
         String value = null;
-        org.json.JSONArray jArr = new JSONArray();
+        sb.append("{");
+        int cnt = 0;
+        int paramCnt = params.size();
         for (String key : params.keySet()) {
-            try {
-                value = URLEncoder.encode(params.get(key), "UTF-8");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-//            if (sb.length() > 0) {
-//                sb.append("&");
-//            }
-//            sb.append(key + ":" + value);
+            sb.append(String.format("\"%s\":\"%s\"", key, params.get(key)));
+            if (cnt < paramCnt - 1) sb.append(",");
+            cnt++;
         }
-        return sb.toString();
+        sb.append("}");
+        Log.d(TAG, "JSONString: " + sb.toString());
+        try {
+            value = URLEncoder.encode(sb.toString(), "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "args=" + value);
+        return "args=" + value;
     }
+//    public String getEncodedParams(String Json) {
+//        StringBuilder sb = new StringBuilder();
+//        String value = null;
+//        String args ="";
+//        String json;
+//        String arguments="{\"token\":\"null\",\"page\":\"0\",\"game_id\":\"257\"}";
+//       try {
+//     args = URLEncoder.encode(arguments, "UTF-8");
+//       }catch (Exception exc) {
+//        Log.e(TAG, exc.toString());
+//    }
+//        for (String key : params.keySet()) {
+//            try {
+//                sb.append(key + ":" + value);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        return "args="+args;
+//    }
 
 }

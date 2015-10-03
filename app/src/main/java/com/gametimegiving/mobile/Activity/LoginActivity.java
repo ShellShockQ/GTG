@@ -213,6 +213,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.putBoolean(Constant.ISLOGIN, true);
                                     editor.putString(Constant.ISLOGINFROM, "facebook");
                                     editor.commit();
+                                    //TODO:Update the user table in database
+                                    //
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
