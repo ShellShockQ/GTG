@@ -397,6 +397,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 homeBitmap = getBitmapFromMemCache(game.getHome_Id());
                 awayBitmap = getBitmapFromMemCache(game.getAway_Id());
                 if (homeBitmap == null) {
+
                     String homelogourl = LOGO_BASE_URL + game.getHomeLogo();
                     homeIn = (InputStream) new URL(homelogourl).getContent();
                     homeBitmap = BitmapFactory.decodeStream(homeIn);
