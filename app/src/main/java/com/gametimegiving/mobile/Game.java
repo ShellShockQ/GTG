@@ -19,6 +19,7 @@ public class Game {
     private int PersonalPledgeAmt;
     private String homeLogo;
     private String awayLogo;
+    private int userteam_id;
     private Bitmap homeLogobitmap;
     private Bitmap awayLogobitmap;
 
@@ -165,6 +166,14 @@ public class Game {
 
     public void setAwayLogobitmap(Bitmap awayLogobitmap) {
         this.awayLogobitmap = awayLogobitmap;
+    }
+
+    public int getUserteam_id() {
+        return userteam_id;
+    }
+
+    public void setUserteam_id(int userteam_id) {
+        this.userteam_id = userteam_id;
     }
 
     public void ClearBoard() {

@@ -27,6 +27,7 @@ import com.gametimegiving.mobile.Game;
 import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.MyGameJSONParser;
 import com.gametimegiving.mobile.Parse.RequestPackage;
+import com.gametimegiving.mobile.Pledge;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Team;
 import com.gametimegiving.mobile.Utils.CustomizeDialog;
@@ -42,10 +43,12 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private static final String LOGO_BASE_URL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_LOGO_BASE_URL);
     final int MaxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
     final int cacheSize = MaxMemory / 8;
+    public Integer ActiveGameID;
+    public Integer mUserTeamID;
     String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
     Utilities util = new Utilities();
-    private double mTeamPldgesValue = 15;
-    private double mYourPldgesValue = 5;
+    private double mTeamPldgesValue = 0;
+    private double mYourPldgesValue = 0;
     private double mLastPladgeValue = 0;
     private TextView tvPledges, tv_$15;
     private Button btn_$1, btn_$2, btn_$5;
@@ -62,7 +65,15 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-
+        if (getIntent().getExtras() != null) {
+            Bundle extras = getIntent().getExtras();
+            try {
+                ActiveGameID = Integer.parseInt(extras.getString("selectedgameid"));
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+            //ActiveGameID = getIntent().getExtras().getInt("selectedgameid");
+        }
         setContentView(R.layout.gameboard);
         View l = findViewById(R.id.pledgeButtons);
         View ppl = findViewById(R.id.personalpledgelayout);
@@ -132,16 +143,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         btn_$1.setOnClickListener(this);
         btn_$2.setOnClickListener(this);
         btn_$5.setOnClickListener(this);
-
-
         showdialog();
-        getGame(260, 0);
-        //  Bitmap homeTeamLogo = getTeamLogo("PHI");
-//        ImageView homelogo = (ImageView) findViewById(R.id.hometeamlogo);
-//        homelogo.setImageBitmap(homeTeamLogo);
-//        Bitmap awayTeamLogo = getTeamLogo("DAL");
-//        ImageView awaylogo = (ImageView) findViewById(R.id.awayteamlogo);
-//        awaylogo.setImageBitmap(awayTeamLogo);
+        getGame(ActiveGameID, 0);
+
 
     }
 
@@ -159,9 +163,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private void getGameName() {
         if (getIntent().getExtras() != null) {
             String games = getIntent().getExtras().getString("selectedgame");
-//            arr = games.split("vs");
-//            mTvYourTeam.setText(arr[0]);
-//            mTvOpponentTeam.setText(arr[1]);
 
         }
     }
@@ -171,8 +172,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     * Add Pledges
     *
     * */
-    private void addPledges(int value) {
-
+    private void addPledges(int value, int game_id, int team_id) {
         mUndoLastPledge.setEnabled(true);
         mLastPladgeValue = value;
         mTeamPldgesValue = mTeamPldgesValue + value;
@@ -180,6 +180,15 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         tvPledges.setText(util.FormatCurrency(mYourPldgesValue));
         //TODO: Add personal pledges to server totals
+        Pledge pledge = new Pledge();
+        pledge.setAmount((int) mYourPldgesValue);
+        pledge.setUser(1);//TODO:Get the User ID
+        pledge.setPreferredCharity_id(1);//TODO:Get the preferred for this user
+        pledge.setGame_id(game_id);
+        pledge.setTeam_id(team_id);
+        pledge.SubmitPledge();
+        getGame(ActiveGameID, 0);
+
     }
 
 
@@ -195,6 +204,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         tvPledges.setText(util.FormatCurrency(mYourPldgesValue));
         //TODO:Remove personal pledge from server totals
+
     }
 
     /*
@@ -240,15 +250,15 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.btn_$1:
                 openDailogPledgesAdd(1);
-                addPledges(1);
+                addPledges(1, ActiveGameID, mUserTeamID);
                 break;
             case R.id.btn_$2:
                 openDailogPledgesAdd(2);
-                addPledges(2);
+                addPledges(2, ActiveGameID, mUserTeamID);
                 break;
             case R.id.btn_$5:
                 openDailogPledgesAdd(5);
-                addPledges(5);
+                addPledges(5, ActiveGameID, mUserTeamID);
                 break;
             case R.id.btnundolastpledge:
                 undoPladgesValue();
@@ -277,16 +287,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         util.ShowMsg(this, "Calling Braintree");
     }
 
-//    private void GetMyGame(String uri) {
-//        //String url = String.format(java.util.Locale.ENGLISH,  "%s/api/%s", mApiServerUrl, "game");
-//        String url = String.format(java.util.Locale.ENGLISH, "%s/dwn/%s", mApiServerUrl, "testgame.php");
-//        RequestPackage p = new RequestPackage();
-//        p.setMethod("POST");
-//        p.setUri(url);
-//        GetMyGame task = new GetMyGame();
-//        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
-//
-//    }
 
     public void UpdateGameBoard(Game game) {
         Team homeTeam = null;
@@ -348,35 +348,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    public class Imageloader extends AsyncTask<String, Void, Team> {
-
-        @Override
-        protected Team doInBackground(String... Team) {
-            Team t = new Team();
-            try {
-                String imageurl = LOGO_BASE_URL + t.getLogo();
-                InputStream in = (InputStream) new URL(imageurl).getContent();
-                Bitmap bitmap = BitmapFactory.decodeStream(in);
-                t.setBitmap(bitmap);
-                in.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-            return null;
-        }
-
-        // @Override
-        //protected void onPostExecute(Bitmap image) {
-        //     ImageView image = (ImageView)result.view.findViewById(R.id.imageView1);
-        //     image.setImageBitmap(result.bitmap);
-        //     //result.flower.setBitmap(result.bitmap);
-        //     imageCache.put(result.flower.getProductId(),result.bitmap);
-        //}
-
-
-    }
-    public class GetMyGame extends AsyncTask<RequestPackage, String, Game> {
+    private class GetMyGame extends AsyncTask<RequestPackage, Void, Game> {
 
         @Override
         protected void onPreExecute() {
@@ -392,13 +364,11 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             Bitmap awayBitmap;
             InputStream homeIn;
             InputStream awayIn;
-
             try {
                 homeBitmap = getBitmapFromMemCache(game.getHome_Id());
                 awayBitmap = getBitmapFromMemCache(game.getAway_Id());
                 if (homeBitmap == null) {
-
-                    String homelogourl = LOGO_BASE_URL + game.getHomeLogo();
+                    String homelogourl = String.format("%s%s.png", LOGO_BASE_URL, game.getHomeLogo());
                     homeIn = (InputStream) new URL(homelogourl).getContent();
                     homeBitmap = BitmapFactory.decodeStream(homeIn);
                     game.setHomeLogobitmap(homeBitmap);
@@ -409,7 +379,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 }
 
                 if (awayBitmap == null) {
-                    String awaylogourl = LOGO_BASE_URL + game.getAwayLogo();
+                    String awaylogourl = String.format("%s%s.png", LOGO_BASE_URL, game.getAwayLogo());
+                    //String awaylogourl = LOGO_BASE_URL + game.getAwayLogo()+".png";
                     awayIn = (InputStream) new URL(awaylogourl).getContent();
                     awayBitmap = BitmapFactory.decodeStream(awayIn);
                     game.setAwayLogobitmap(awayBitmap);
@@ -433,6 +404,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 Log.i(TAG, "Can't connect to Webservice");
                 return;
             }
+            game.setUserteam_id(game.getHome_Id());
+            mUserTeamID = game.getUserteam_id();
             UpdateGameBoard(game);
 
         }

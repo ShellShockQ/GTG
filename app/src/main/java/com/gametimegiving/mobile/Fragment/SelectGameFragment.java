@@ -29,12 +29,14 @@ import java.util.List;
 
 public class SelectGameFragment extends BaseFragment implements View.OnClickListener {
     private final static String TAG = "SelectGameFragment";
+    public String[] gameIdArray;
     protected BaseApi mApi;
     List<Game> listOfGames;
     String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
     private Button mBtnSelect;
     private boolean isGameSelected = false;
     private String selctedgame;
+    private String selectedgameid;
     private Spinner mSelectGameSpinner;
     private ArrayAdapter<Game> adapter;
     private boolean spinnerFlag = true;
@@ -67,8 +69,12 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
 
                 if (isGameSelected) {
                     selctedgame = mSelectGameSpinner.getSelectedItem().toString();
+                    selectedgameid = gameIdArray[mSelectGameSpinner.getSelectedItemPosition()];
                     Intent intent = new Intent(getActivity(), GameBoardActivity.class);
-                    intent.putExtra("selectedgame", selctedgame);
+                    Bundle extras = new Bundle();
+                    extras.putString("selectedgame", selctedgame);
+                    extras.putString("selectedgameid", selectedgameid);
+                    intent.putExtras(extras);
 
                     //TODO:Write active game id to sharepreferences
 
@@ -86,7 +92,6 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
 
     public void addListenerOnSpinnerItemSelection(List<Game> s) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
-
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -94,7 +99,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
                 if (position == getCount()) {
                     ((TextView) v.findViewById(android.R.id.text1)).setText("");
                     ((TextView) v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
-                    ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
+                    //  ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
                 }
 
                 return v;
@@ -108,14 +113,17 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         };
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        String theGame;
+        //  String theGame;
+        int cnt = 0;
+        gameIdArray = new String[s.size()];
         for (Game g : s) {
-            theGame = g.getHome_LongName() + " vs " + g.getAway_LongName();
-
-            adapter.add(theGame);
+            //  theGame = g.getHome_LongName() + " vs " + g.getAway_LongName();
+            adapter.add(String.format("%s vs. %s", g.getHome_LongName(), g.getAway_LongName()));
+            gameIdArray[cnt] = String.valueOf(g.getGameId());
+            cnt++;
         }
         adapter.add("Select a game"); //This is the text that will be displayed as hint.
-
+        Log.d(TAG, String.format("%d items in the gameidarray", gameIdArray.length));
 
         mSelectGameSpinner.setAdapter(adapter);
         mSelectGameSpinner.setSelection(adapter.getCount()); //set the hint the default selection so it appears on launch.
