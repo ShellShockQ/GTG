@@ -23,10 +23,10 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
     private final static String TAG = "CharityList";
     public static boolean[] selectedItems;
     public static ArrayList<String> selectedCharity = new ArrayList<>();
+    public String[] CharityIdArray;
     Context context;
     String[] objects;
     private List<Charity> listOfCharities;
-
     public CharityListAdapter(Context context, int resource, List<Charity> objects) {
         this.context = context;
         this.listOfCharities = objects;
@@ -83,10 +83,17 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
         chk.setTag(position);
         chk.setOnCheckedChangeListener(this);
         label.setText(charity.getCharityName());
+        btnMore.setTag(String.valueOf(charity.getCharityId()));
+        //      int cnt = 0;
+        // for (Charity c:listOfCharities) {
+        //      CharityIdArray[position] = String.valueOf(charity.getCharityId());
+        //     cnt++;
+        // }
+//        charitIdArray[cnt] = String.valueOf(g.getGameId());
 //        if (position == objects.length - 1) {
 ////            btnSubmit.setVisibility(View.VISIBLE);
 //        }
-        //       btnMore.setTag(position + " " + objects[position]);
+//              btnMore.setTag(position + " " + objects[position]);
 
         btnMore.setOnClickListener(new View.OnClickListener() {
 
@@ -94,13 +101,16 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
             public void onClick(final View v) {
 
                 final String tag = (String) v.getTag();
-                final String[] arr = tag.split(" ");
+                //final String[] arr = tag.split(" ");
                 final CustomizeDialog charitycustomizeDialog = new CustomizeDialog(context);
                 charitycustomizeDialog.setContentView(R.layout.charitiesdialog);
                 final ImageButton imgClose = (ImageButton) charitycustomizeDialog.findViewById(R.id.imgbtn_cancel);
                 Button btnAddToProfile = (Button) charitycustomizeDialog.findViewById(R.id.btnaddtoprofile);
-                if (selectedItems[Integer.parseInt(arr[0])])
-                    btnAddToProfile.setVisibility(View.GONE);
+                //TODO:Make an asynch call to get the charity information
+                TextView tv_MissionStatement = (TextView) charitycustomizeDialog.findViewById(R.id.missionstatment);
+                tv_MissionStatement.setText("This is our mission statement");
+                //  if (selectedItems[Integer.parseInt(tag)])
+                btnAddToProfile.setVisibility(View.VISIBLE);
 
 
                 btnAddToProfile.setOnClickListener(new View.OnClickListener() {
@@ -120,10 +130,10 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
                         } else {
                             charitycustomizeDialog.dismiss();
 
-                            selectedItems[Integer.parseInt(arr[0])] = true;
+                            selectedItems[Integer.parseInt(tag)] = true;
                             // selectedCharity.add(arr[1]);
 
-                            selectedCharity.add(objects[Integer.parseInt(arr[0])]);
+                            selectedCharity.add(objects[Integer.parseInt(tag)]);
                             notifyDataSetChanged();
 
 
