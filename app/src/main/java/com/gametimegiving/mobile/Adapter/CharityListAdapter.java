@@ -1,6 +1,10 @@
 package com.gametimegiving.mobile.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,24 +13,35 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gametimegiving.mobile.Application.BaseApplication;
 import com.gametimegiving.mobile.Charity;
+import com.gametimegiving.mobile.Parse.CharityDetailJSONParser;
+import com.gametimegiving.mobile.Parse.HttpManager;
+import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Utils.CustomizeDialog;
+import com.gametimegiving.mobile.Utils.Utilities;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CharityListAdapter extends BaseAdapter implements CompoundButton.OnCheckedChangeListener {
-
+    private static final String LOGO_BASE_URL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_LOGO_BASE_URL);
     private final static String TAG = "CharityList";
     public static boolean[] selectedItems;
     public static ArrayList<String> selectedCharity = new ArrayList<>();
     public String[] CharityIdArray;
+    public CustomizeDialog charitycustomizeDialog;
+    String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
     Context context;
     String[] objects;
     private List<Charity> listOfCharities;
+    private Utilities util = new Utilities();
     public CharityListAdapter(Context context, int resource, List<Charity> objects) {
         this.context = context;
         this.listOfCharities = objects;
@@ -84,16 +99,6 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
         chk.setOnCheckedChangeListener(this);
         label.setText(charity.getCharityName());
         btnMore.setTag(String.valueOf(charity.getCharityId()));
-        //      int cnt = 0;
-        // for (Charity c:listOfCharities) {
-        //      CharityIdArray[position] = String.valueOf(charity.getCharityId());
-        //     cnt++;
-        // }
-//        charitIdArray[cnt] = String.valueOf(g.getGameId());
-//        if (position == objects.length - 1) {
-////            btnSubmit.setVisibility(View.VISIBLE);
-//        }
-//              btnMore.setTag(position + " " + objects[position]);
 
         btnMore.setOnClickListener(new View.OnClickListener() {
 
@@ -102,13 +107,11 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
 
                 final String tag = (String) v.getTag();
                 //final String[] arr = tag.split(" ");
-                final CustomizeDialog charitycustomizeDialog = new CustomizeDialog(context);
+                charitycustomizeDialog = new CustomizeDialog(context);
                 charitycustomizeDialog.setContentView(R.layout.charitiesdialog);
                 final ImageButton imgClose = (ImageButton) charitycustomizeDialog.findViewById(R.id.imgbtn_cancel);
                 Button btnAddToProfile = (Button) charitycustomizeDialog.findViewById(R.id.btnaddtoprofile);
-                //TODO:Make an asynch call to get the charity information
-                TextView tv_MissionStatement = (TextView) charitycustomizeDialog.findViewById(R.id.missionstatment);
-                tv_MissionStatement.setText("This is our mission statement");
+                GetCharityDetail(tag);
                 //  if (selectedItems[Integer.parseInt(tag)])
                 btnAddToProfile.setVisibility(View.VISIBLE);
 
@@ -181,4 +184,65 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
 
     }
 
+    public void UpdateCharityDetail(Charity theCharity) {
+        TextView tv_MissionStatement = (TextView) charitycustomizeDialog.findViewById(R.id.missionstatment);
+        TextView tv_PurposeStatement = (TextView) charitycustomizeDialog.findViewById(R.id.purposestatment);
+        TextView tv_CharityName = (TextView) charitycustomizeDialog.findViewById(R.id.charityName);
+        ImageView CharityLogo = (ImageView) charitycustomizeDialog.findViewById(R.id.charityLogo);
+        CharityLogo.setImageBitmap(theCharity.getBitmap());
+        tv_MissionStatement.setText(theCharity.getMission());
+        tv_PurposeStatement.setText(theCharity.getPurpose());
+        tv_CharityName.setText(theCharity.getCharityName());
+    }
+
+    public void GetCharityDetail(String charity_id) {
+        try {
+            String method = "charity";
+            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", mApiServerUrl, method);
+
+            RequestPackage p = new RequestPackage();
+            p.setMethod("POST");
+            p.setUri(url);
+            p.setParam("token", null);
+            p.setParam("charity_id", charity_id);
+            GetThisCharity task = new GetThisCharity();
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+
+        } catch (Exception exc) {
+            Log.e(TAG, exc.toString());
+        }
+    }
+
+    private class GetThisCharity extends AsyncTask<RequestPackage, Void, Charity> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected Charity doInBackground(RequestPackage... strings) {
+
+            String content = HttpManager.getData(strings[0]);
+            Charity charity = CharityDetailJSONParser.parseFeed(content);
+            String CharityLogoURL = String.format("%s%s.png", LOGO_BASE_URL, charity.getLogo());
+            try {
+                InputStream CharityIn = (InputStream) new URL(CharityLogoURL).getContent();
+                Bitmap CharityLogoBitmap = BitmapFactory.decodeStream(CharityIn);
+                charity.setBitmap(CharityLogoBitmap);
+                CharityIn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+            return charity;
+        }
+
+        @Override
+        protected void onPostExecute(Charity charity) {
+            UpdateCharityDetail(charity);
+
+        }
+
+    }
 }
