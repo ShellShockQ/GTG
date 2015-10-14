@@ -15,13 +15,13 @@ android {
         applicationId 'com.gametimegiving.mobile'
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 16
-        versionName "1.0.16"
+        versionCode 17
+        versionName '1.0.17 Alpha'
         signingConfig signingConfigs.config
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
@@ -35,7 +35,7 @@ android {
 
 dependencies {
     compile 'com.android.support:design:22.2.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
@@ -49,4 +49,5 @@ dependencies {
     compile files('libs/cover.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile files('libs/nineoldandroids.jar')
+    compile 'com.braintreepayments.api:braintree:1.+'
 }

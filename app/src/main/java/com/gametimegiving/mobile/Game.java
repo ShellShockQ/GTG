@@ -183,4 +183,12 @@ public class Game {
         setPersonalPledgeAmt(0);
         setTimeLeft("0:00");
     }
+
+    public void ClearGamePledgeTotals() {
+        setHometeam_pledge(0);
+        setVisitingteam_pledge(0);
+
+    }
+
+
 }

@@ -55,9 +55,8 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         mBtnSelect = (Button) view.findViewById(R.id.btn_game_select);
         mSelectGameSpinner = (Spinner) view.findViewById(R.id.spinner1);
         mBtnSelect.setOnClickListener(this);
-        GetGames(mApiServerUrl + "/api/game");
-
-//        mApi.getGame(0);
+        GetGames(mApiServerUrl + "/api/game", 0);
+        //mApi.getGame(0);
 
         return view;
     }
@@ -154,8 +153,9 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         });
     }
 
-    private void GetGames(String uri) {
+    private void GetGames(String uri, int page) {
         RequestPackage p = new RequestPackage();
+        p.setParam("page", Integer.toString(page));
         p.setMethod("POST");
         p.setUri(uri);
         GetGamesAsynch task = new GetGamesAsynch();
