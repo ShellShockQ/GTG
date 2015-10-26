@@ -11,11 +11,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.gametimegiving.mobile.DBOpenHelper;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Utils.Constant;
 
@@ -29,6 +34,20 @@ public class SplashActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+        DBOpenHelper helper = new DBOpenHelper(this);
+        SQLiteDatabase _db = helper.getWritableDatabase();
+
+        try {
+            PackageManager packageManager = getPackageManager();
+            String packageName = getPackageName();
+            PackageInfo pInfo = packageManager.getPackageInfo(packageName, 0);
+            String versionName = pInfo.versionName;
+            String version_value = String.format(java.util.Locale.ENGLISH, "Version %s", versionName);
+            TextView tv_VersionOnSplashPage = (TextView) findViewById(R.id.versiontext);
+            tv_VersionOnSplashPage.setText(version_value);
+        } catch (Exception exc) {
+        }
+
         new Handler().postDelayed(new Runnable() {
 
             /*

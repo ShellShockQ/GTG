@@ -61,14 +61,7 @@ public class GameListSpinnerAdapter extends ArrayAdapter<Game> {
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-//            Game game = listOfGames.get(position);
         TextView label = new TextView(context);
-//            label.setTextColor(Color.BLACK);
-//            label.setText(game.getHome_LongName());
-//            label.setTextSize(18);
-//           // ((TextView) adapterView.getChildAt(0)).setText("Select My Game");
-        // ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
-        // ((TextView) adapterView.getChildAt(0)).setTextSize(18);
 
         return label;
     }

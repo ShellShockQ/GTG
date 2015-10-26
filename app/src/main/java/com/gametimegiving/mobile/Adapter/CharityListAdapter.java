@@ -88,7 +88,7 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View row = inflater.inflate(R.layout.spinner_row, parent, false);
-        Charity charity = listOfCharities.get(position);
+        final Charity charity = listOfCharities.get(position);
         TextView label = (TextView) row.findViewById(R.id.spinner_text);
         Button btnMore = (Button) row.findViewById(R.id.btn_more);
         Button btnSubmit = (Button) row.findViewById(R.id.btn_submit);
@@ -133,10 +133,10 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
                         } else {
                             charitycustomizeDialog.dismiss();
 
-                            selectedItems[Integer.parseInt(tag)] = true;
-                            // selectedCharity.add(arr[1]);
+                            //                          selectedItems[Integer.parseInt(tag)] = true;
+                            selectedCharity.add(charity.getCharityName());
 
-                            selectedCharity.add(objects[Integer.parseInt(tag)]);
+                            //          selectedCharity.add(objects[Integer.parseInt(tag)]);
                             notifyDataSetChanged();
 
 

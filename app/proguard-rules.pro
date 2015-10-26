@@ -52,3 +52,7 @@
 
 -keep class java.lang.management.** { *; }
 -dontwarn java.lang.management.**
+
+
+-keep class twitter4j.** { *; }
+-dontwarn twitter4j.**

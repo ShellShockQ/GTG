@@ -25,10 +25,9 @@
             android:layout_height="wrap_content">
 
             <ImageView
-
+                android:id="@+id/charityLogo"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_150"
-                android:background="@drawable/charity_pic" />
+                android:layout_height="@dimen/layout_150" />
         </FrameLayout>
 
         <ScrollView
@@ -57,28 +56,26 @@
                         android:padding="@dimen/padding_15">
 
                         <TextView
-                            android:id="@+id/tv1"
+                            android:id="@+id/charityName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_15"
-                            android:text="Mission :"
                             android:textColor="#000"
-                            android:textSize="20sp" />
+                            android:textSize="25sp" />
 
                         <TextView
                             android:id="@+id/missionstatment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/margin_15"
-                            android:text="Lorem Ipsum Is simply dummy text of the Printing and typesetting industry.Lorem Ipsum has been the industry standard dummy text since the 1500's,when an unknown printer took a gallery of type and scrambled it to make a type specimen book"
                             android:textColor="#000"
-                            android:textSize="15sp" />
+                            android:textSize="20sp" />
 
                         <TextView
+                            android:id="@+id/purposestatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_15"
-                            android:text="Purpose :"
                             android:textColor="#000"
                             android:textSize="20sp" />
 
@@ -86,7 +83,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/margin_15"
-                            android:text="Lorem Ipsum Is simply dummy text of the Printing and typesetting industry.Lorem Ipsum has been the industry standard dummy text since the 1500's,when an unknown printer took a gallery of type and scrambled it to make a type specimen book."
                             android:textColor="#000"
                             android:textSize="15sp" />
 

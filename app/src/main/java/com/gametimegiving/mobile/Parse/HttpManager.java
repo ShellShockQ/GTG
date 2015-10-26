@@ -2,6 +2,7 @@ package com.gametimegiving.mobile.Parse;
 
 
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,6 +32,7 @@ public class HttpManager {
                 OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
                 writer.write(p.getEncodedParams("json"));
                 writer.flush();
+                Log.d(TAG, String.format("The encoded parameters are %s", p.getEncodedParams()));
             }
             StringBuilder sb = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(con.getInputStream()));

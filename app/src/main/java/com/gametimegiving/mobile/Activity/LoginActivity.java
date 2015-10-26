@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -97,6 +99,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.login);
+        try {
+            PackageManager packageManager = getPackageManager();
+            String packageName = getPackageName();
+            PackageInfo pInfo = packageManager.getPackageInfo(packageName, 0);
+            String versionName = pInfo.versionName;
+            String version_value = String.format(java.util.Locale.ENGLISH, "Version %s", versionName);
+            TextView tv_VersionOnLoginPage = (TextView) findViewById(R.id.versiontextonlogin);
+            tv_VersionOnLoginPage.setText(version_value);
+        } catch (Exception exc) {
+        }
 
         context = this;
         mTwitterBtn = (Button) findViewById(R.id.twt);

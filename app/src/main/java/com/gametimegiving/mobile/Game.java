@@ -3,6 +3,7 @@ package com.gametimegiving.mobile;
 import android.graphics.Bitmap;
 
 public class Game {
+    private static String GameStatus;
     private int GameId;
     private int home_Id;
     private int away_Id;
@@ -13,7 +14,6 @@ public class Game {
     private int period;
     private String starttime;
     private String timeLeft;
-    private String GameStatus;
     private int hometeam_pledge;
     private int visitingteam_pledge;
     private int PersonalPledgeAmt;

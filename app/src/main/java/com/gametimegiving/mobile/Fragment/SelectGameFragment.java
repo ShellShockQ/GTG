@@ -22,6 +22,7 @@ import com.gametimegiving.mobile.Parse.BaseApi;
 import com.gametimegiving.mobile.Parse.GameJSONParser;
 import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.RequestPackage;
+import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Utils.Utilities;
 
@@ -55,8 +56,10 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         mBtnSelect = (Button) view.findViewById(R.id.btn_game_select);
         mSelectGameSpinner = (Spinner) view.findViewById(R.id.spinner1);
         mBtnSelect.setOnClickListener(this);
-        GetGames(mApiServerUrl + "/api/game", 0);
-        //mApi.getGame(0);
+        //TODO: Get games from preferences
+        Player player = new Player();
+
+        GetGames(mApiServerUrl + "/api/game", 0, player);
 
         return view;
     }
@@ -153,9 +156,10 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         });
     }
 
-    private void GetGames(String uri, int page) {
+    private void GetGames(String uri, int page, Player player) {
         RequestPackage p = new RequestPackage();
         p.setParam("page", Integer.toString(page));
+//        p.setParam("team_ids",player.getMyTeams().toString());
         p.setMethod("POST");
         p.setUri(uri);
         GetGamesAsynch task = new GetGamesAsynch();

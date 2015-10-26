@@ -177,7 +177,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                         TeamListAdapter.selectedTeams != null && TeamListAdapter.selectedTeams.size() > 0 && isDonationSelect) {
                     SharedPreferences sharedpreferences = getActivity().getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
-
+                    editor.putString("mycharities", CharityListAdapter.selectedCharity.toString());
+                    editor.putString("myteam", TeamListAdapter.selectedTeams.toString());
                     editor.putBoolean(Constant.ISPROFILESUBMITTED, true);
                     editor.commit();
                     BaseActivity.mDrawerToggle.setDrawerIndicatorEnabled(true);
@@ -309,11 +310,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         int id = v.getId();
         switch (id) {
 
-          /*  *//*
-            *
-            * Without Json Data Comes Static
-            * */
-
 
             case R.id.btncharity_spinner:
                 GetCharities(mApiServerUrl + "/api/charity");
@@ -329,10 +325,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                         mCustomizeDialog.dismiss();
                     }
                 });
-//                ListView listView = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
-//                CharityListAdapter charityListAdapter = new CharityListAdapter(getActivity(),R.layout.spinner_row,listOfCharities);
-//
-//                listView.setAdapter(charityListAdapter);
 
                 mCustomizeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -348,7 +340,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 mCustomizeDialog.show();
                 break;
             case R.id.btnteam_spinner:
-//                RequestPackage p= new RequestPackage();
                 GetTeams(mApiServerUrl + "/api/team");
                 mCustomizeDialog = new CustomizeDialog(getActivity());
                 mCustomizeDialog.setCancelable(false);
@@ -362,10 +353,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                         mCustomizeDialog.dismiss();
                     }
                 });
-//                ListView listView1 = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
-
-//                TeamListAdapter teamListAdapter = new TeamListAdapter(getActivity(),R.layout.spinner_row,listOfTeams);
-//                listView1.setAdapter(teamListAdapter);
                 mCustomizeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
@@ -380,77 +367,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 mCustomizeDialog.show();
                 break;
 
-            //====================================for Json============================================
-           /* case R.id.btncharity_spinner:
-                if (isNetworkStatusAvialable(getActivity())) {
-                    mCustomizeDialog = new CustomizeDialog(getActivity());
-                    mCustomizeDialog.setCancelable(false);
-                    mCustomizeDialog.setContentView(R.layout.organization_dialog);
-                    TextView tvTitle = (TextView) mCustomizeDialog.findViewById(R.id.tvtitle);
-                    Button btnDone = (Button) mCustomizeDialog.findViewById(R.id.btn_done);
-                    btnDone.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mCustomizeDialog.dismiss();
-                        }
-                    });
-                    ListView listView = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
-                    CharityListAdapter charityListAdapter = new CharityListAdapter(getActivity(), arr_charty);
-                    listView.setAdapter(charityListAdapter);
-                    mCustomizeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if (CharityListAdapter.selectedCharity != null && CharityListAdapter.selectedCharity.size() > 0) {
-                                String chariy = CharityListAdapter.selectedCharity.toString();
-                                mBtnCharity.setText(chariy.substring(1, chariy.length() - 1));
-                            } else {
-                                mBtnCharity.setText(getResources().getString(R.string.Charityprompt));
-                            }
-                        }
-                    });
-                    mCustomizeDialog.show();
-                } else {
-                    Toast.makeText(getActivity(), "internet is not avialable", Toast.LENGTH_SHORT).show();
-
-                }
-                break;
-
-            case R.id.btnteam_spinner:
-                if (isNetworkStatusAvialable(getActivity())) {
-                    mCustomizeDialog = new CustomizeDialog(getActivity());
-                    mCustomizeDialog.setCancelable(false);
-                    mCustomizeDialog.setContentView(R.layout.organization_dialog);
-                    TextView tvTitle1 = (TextView) mCustomizeDialog.findViewById(R.id.tvtitle);
-                    tvTitle1.setText("Select Team");
-                    Button btnDone1 = (Button) mCustomizeDialog.findViewById(R.id.btn_done);
-                    btnDone1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mCustomizeDialog.dismiss();
-                        }
-                    });
-                    ListView listView1 = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
-                    TeamListAdapter teamListAdapter = new TeamListAdapter(getActivity(), arr_team);
-                    listView1.setAdapter(teamListAdapter);
-
-                    mCustomizeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if (TeamListAdapter.selectedTeams != null && TeamListAdapter.selectedTeams.size() > 0) {
-                                String team = TeamListAdapter.selectedTeams.toString();
-                                mBtnTeam.setText(team.substring(1, team.length() - 1));
-                            } else {
-                                mBtnTeam.setText(getResources().getString(R.string.Teamprompt));
-                            }
-                        }
-                    });
-                    mCustomizeDialog.show();
-                } else {
-                    Toast.makeText(getActivity(), "internet is not avialable", Toast.LENGTH_SHORT).show();
-
-                }
-                break;*/
-            //======================================================================================================================================
 
         }
     }

@@ -6,6 +6,7 @@ package com.gametimegiving.mobile.Activity;
  * Description : This is GameBoardActivity where user see detail of select team and donate money of charity.
  ***************************************************************************************/
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,17 +23,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.braintreepayments.api.dropin.BraintreePaymentActivity;
+import com.braintreepayments.api.dropin.Customization;
 import com.gametimegiving.mobile.Application.BaseApplication;
+import com.gametimegiving.mobile.DBOpenHelper;
 import com.gametimegiving.mobile.Game;
 import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.MyGameJSONParser;
 import com.gametimegiving.mobile.Parse.RequestPackage;
+import com.gametimegiving.mobile.Payment;
 import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.Pledge;
+import com.gametimegiving.mobile.PledgeProvider;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Team;
 import com.gametimegiving.mobile.Utils.CustomizeDialog;
 import com.gametimegiving.mobile.Utils.Utilities;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -42,11 +51,15 @@ import java.util.TimerTask;
 public class GameBoardActivity extends AppCompatActivity implements View.OnClickListener {
     private final static String TAG = "GameBoard";
     private static final String LOGO_BASE_URL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_LOGO_BASE_URL);
+    private final static int SUBMIT_PAYMENT_REQUEST_CODE = 100;
     final int MaxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
     final int cacheSize = MaxMemory / 8;
     private final Player player = new Player();
     public Integer ActiveGameID;
     public Integer mUserTeamID;
+    public String ClientToken;
+    public Payment payment;
+    public String MyPledgeAmount;
     String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
     Utilities util = new Utilities();
     private double mTeamPldgesValue = 0;
@@ -58,10 +71,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private String[] arr = null;
     private TextView mTvYourTeam, mTvOpponentTeam;
     private Button mUndoLastPledge;
-    private String GameStatus;
     private String mToken;
     private LruCache<Integer, Bitmap> imageMemCache;
-
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -86,9 +97,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         tvPledges = (TextView) findViewById(R.id.pledges);
 
         Game game = new Game();
-
+        game.setGameStatus("NotStarted");
         //TODO:Determine Game Status based on the time
-        game.setGameStatus("InProgress");
+
         /* ********************************************** */
 
         switch (game.getGameStatus()) {
@@ -103,14 +114,26 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
                 break;
             case "GameOver":
+                GenerateClientToken();
                 if (tvPledges.getText() != "$0.00") {
+                    MyPledgeAmount = tvPledges.getText().toString();
                     l.setVisibility(View.GONE);
                     btn.setVisibility(View.GONE);
                     btnPay.setVisibility(View.VISIBLE);
                     btnPay.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            handlePayNow();
+                            Customization customization = new Customization.CustomizationBuilder()
+                                    .primaryDescription("My Pledge  ")
+                                    .amount(MyPledgeAmount)
+                                    .submitButtonText("Donate Now")
+                                    .build();
+                            Intent intent = new Intent(context, BraintreePaymentActivity.class)
+                                    .putExtra(BraintreePaymentActivity.EXTRA_CLIENT_TOKEN,
+                                            ClientToken);
+                            intent.putExtra(BraintreePaymentActivity.EXTRA_CUSTOMIZATION, customization);
+                            startActivityForResult(intent, SUBMIT_PAYMENT_REQUEST_CODE);
+
                         }
                     });
                 } else {
@@ -152,6 +175,18 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SUBMIT_PAYMENT_REQUEST_CODE) {
+            if (resultCode == BraintreePaymentActivity.RESULT_OK) {
+                String nonce = data.getStringExtra(
+                        BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE
+                );
+
+                SendNonceToBraintree(nonce, MyPledgeAmount);
+            }
+        }
+    }
     private void TurnOffPledgeMechanisms(View l, View ppl, Button btn, Button btnPay) {
         ppl.setVisibility(View.GONE);
         l.setVisibility(View.GONE);
@@ -159,6 +194,17 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         btnPay.setVisibility(View.GONE);
     }
 
+    public void SendNonceToBraintree(String nonce, String donation) {
+        RequestPackage p = new RequestPackage();
+        String method = "nonce";
+        p.setMethod("POST");
+        p.setParam("payment_method_nonce", nonce);
+        p.setParam("amount", donation);
+        p.setUri(String.format("%s/api/%s", mApiServerUrl, method));
+        SendNonceTask task = new SendNonceTask();
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+
+    }
     /*
     *
     * Select Game Show in GameBoard Screen
@@ -170,6 +216,14 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    public void GenerateClientToken() {
+        RequestPackage p = new RequestPackage();
+        String method = "token";
+        p.setMethod("POST");
+        p.setUri(String.format("%s/api/%s", mApiServerUrl, method));
+        GetClientTokenTask task = new GetClientTokenTask();
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+    }
 
     /*
     * Add Pledges
@@ -183,18 +237,22 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         player.setMyLastPledgeAmount(value);
         player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount() + value);
         tvPledges.setText(util.FormatCurrency(player.getMyTotalPledgeAmount()));
-        //TODO: Add personal pledges to server totals
+        //Insert Pledge data in SQLLite Database
         Pledge pledge = new Pledge();
+        ContentValues values = new ContentValues();
         pledge.setAmount(value);
+        values.put(DBOpenHelper.PLEDGE_AMT, value);
         pledge.setUser(player.getPlayer_id());
+        values.put(DBOpenHelper.USER_ID, player.getPlayer_id());
         pledge.setPreferredCharity_id(1);//TODO:Get the preferred for this user
         pledge.setGame_id(game_id);
+        values.put(DBOpenHelper.GAME_ID, game_id);
         pledge.setTeam_id(team_id);
+        getContentResolver().insert(PledgeProvider.CONTENT_URI, values);
         pledge.SubmitPledge();
         //   getGame(ActiveGameID, 0);
 
     }
-
 
     /*
     *
@@ -292,11 +350,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 //  //      getGame(ActiveGameID, 0);
     }
 
-    private void handlePayNow() {
-        util.ShowMsg(this, "Calling Braintree");
-    }
-
-
     public void UpdateGameBoard(Game game) {
         Team homeTeam = null;
         Team awayTeam = null;
@@ -321,6 +374,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         awayLogo.setImageBitmap(game.getAwayLogobitmap());
         //TODO:Increase the size of the images if possible
     }
+
     public void getGame(int game_id, int page) {
         try {
             String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", mApiServerUrl, "game");
@@ -353,6 +407,42 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     public void addBitmapToMemoryCache(int key, Bitmap bitmap) {
         if (getBitmapFromMemCache(key) == null) {
             imageMemCache.put(key, bitmap);
+        }
+    }
+
+    private class SendNonceTask extends AsyncTask<RequestPackage, Void, String> {
+
+        @Override
+        protected String doInBackground(RequestPackage... params) {
+
+            return HttpManager.getData(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.d(TAG, String.format("The response from the result is %s", result.toString()));
+        }
+    }
+
+    private class GetClientTokenTask extends AsyncTask<RequestPackage, Void, String> {
+
+        @Override
+        protected String doInBackground(RequestPackage... params) {
+
+            return HttpManager.getData(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(result);
+                ClientToken = jsonObject.getString("token");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
