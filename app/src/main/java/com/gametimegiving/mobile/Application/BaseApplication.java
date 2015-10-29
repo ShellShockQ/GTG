@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.gametimegiving.mobile.Parse.BaseApi;
 import com.gametimegiving.mobile.Utils.Log;
 import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -30,7 +32,6 @@ import javax.security.auth.x500.X500Principal;
 //import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 public class BaseApplication extends Application {
-
     public static final String META_DATA_API_SERVER_URL = "API_SERVER_URL";
     public static final String META_DATA_LOGO_BASE_URL = "LOGO_BASE_URL";
     private static final X500Principal DEBUG_DN = new X500Principal("CN=Android Debug,O=Android,C=US");
@@ -46,6 +47,7 @@ public class BaseApplication extends Application {
     public int AndroidApiVersion;
     public boolean Debuggable;
     public SQLiteDatabase db;
+    private RequestQueue mRequestQueue;
     private boolean mCamera;
     private ApplicationInfo mApplicationInfo;
     private DisplayMetrics mDisplayMetrics;
@@ -73,6 +75,7 @@ public class BaseApplication extends Application {
 
         this.Debuggable = isDebuggable(this);
 
+        mRequestQueue = Volley.newRequestQueue(this);
 
         mBaseApplication = this;
 
@@ -160,8 +163,8 @@ public class BaseApplication extends Application {
 
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            for (int i = 0; i < signatures.length; i++) {
-                ByteArrayInputStream stream = new ByteArrayInputStream(signatures[i].toByteArray());
+            for (Signature signature : signatures) {
+                ByteArrayInputStream stream = new ByteArrayInputStream(signature.toByteArray());
                 X509Certificate cert = (X509Certificate) cf.generateCertificate(stream);
                 debuggable = cert.getSubjectX500Principal().equals(DEBUG_DN);
                 if (debuggable)
@@ -173,5 +176,10 @@ public class BaseApplication extends Application {
             //debuggable variable will remain false
         }
         return debuggable;
+    }
+
+
+    public RequestQueue getRequestQueue() {
+        return mRequestQueue;
     }
 }

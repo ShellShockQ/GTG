@@ -10,7 +10,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
-        android:contentDescription="@string/empty"
         android:src="@drawable/logo_512" />
 
 
@@ -92,8 +91,6 @@
             android:layout_height="44dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
-            android:contentDescription="@string/empty"
-            android:onClick="onFacebookClick"
             android:src="@drawable/selector_facebook_logo" />
 
         <ImageView
@@ -102,8 +99,6 @@
             android:layout_height="44dp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:contentDescription="@string/empty"
-            android:onClick="onTwitterClick"
             android:src="@drawable/selector_twitter_logo" />
 
     </LinearLayout>
@@ -137,8 +132,6 @@
         android:layout_height="50dp"
         android:layout_below="@+id/privacy"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/empty"
-        android:onClick="onGraceNoteClick"
         android:src="@drawable/x" />
 
 </RelativeLayout>

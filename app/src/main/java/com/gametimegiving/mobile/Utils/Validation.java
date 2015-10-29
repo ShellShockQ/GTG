@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation {
+    static final String TAG = "Validation";
     static final String PASSWORD_PATTERN = "^.{8,12}$";
     static String regexMMDDYYYY = "^([1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20)\\d\\d$";
     static String regexDDMMYYYY = "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$";
@@ -19,9 +20,9 @@ public class Validation {
         if (ed != null) {
             String uname = ed.getText().toString().trim();
             if (uname.equals("") || uname.length() <= 0)
-                return true;
+                return false;
         }
-        return false;
+        return true;
     }
 
     // Begins with 0, +91 or 0091
@@ -89,4 +90,6 @@ public class Validation {
         String Lname = lastName.getText().toString().trim();
         return !Pattern.matches(LastNamePtrn, Lname);
     }
+
+
 }

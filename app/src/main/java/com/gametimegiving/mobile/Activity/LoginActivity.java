@@ -36,6 +36,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Twitter.TwitterApp;
 import com.gametimegiving.mobile.Utils.CommanDialog;
@@ -49,7 +50,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
     public static final String twitter_consumer_key = "3qNkkdNh3vahsZ1i9xTIXqKAV";
     public static final String twitter_secret_key = "8JJe8Avu5MLgmngd8oMrSaTYQosuYn56aF9kcHibIToMdEDo0h";
     SharedPreferences sharedpreferences;
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String version_value = String.format(java.util.Locale.ENGLISH, "Version %s", versionName);
             TextView tv_VersionOnLoginPage = (TextView) findViewById(R.id.versiontextonlogin);
             tv_VersionOnLoginPage.setText(version_value);
-        } catch (Exception exc) {
+        } catch (Exception ignored) {
         }
 
         context = this;
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         mTwitterBtn.setOnClickListener(this);
 
-        mTwitter = new TwitterApp(this, twitter_consumer_key, twitter_secret_key);
+        mTwitter = new TwitterApp(this, twitter_consumer_key);
 
         mTwitter.setListener(mTwLoginDialogListener);
 
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 mTwitter.authorize();
             }
         } else {
-            CommanDialog.showAlertDialogForInternetConnection(context, "No Internet Connection", "You don't have internet connection.");
+            CommanDialog.showAlertDialogForInternetConnection(context, "No Internet Connection");
         }
 
     }
@@ -252,7 +252,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onError(FacebookException exception) {
-                CommanDialog.showAlertDialogForInternetConnection(LoginActivity.this, "No Internet Connection", "You don't have internet connection.");
+                CommanDialog.showAlertDialogForInternetConnection(LoginActivity.this, "No Internet Connection");
                 System.out.println("onCancel");
             }
         });
@@ -268,7 +268,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String strPassword = mEtPassword.getText().toString();
         editor.putString(Constant.EMAILADDRESS, strEmail);
         editor.putString(Constant.PASSWORD, strPassword);
-        editor.putBoolean(Constant.ISLOGIN, true);
+        editor.putBoolean(Constant.ISLOGIN, false);
         editor.putString(Constant.ISLOGINFROM, "gametime");
         editor.commit();
 
@@ -288,11 +288,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent1);
                 break;
             case R.id.btn_signin:
-                if (!Validation.isFieldEmpty(mEtEmail) && !Validation.isFieldEmpty(mEtPassword)) {
+                if (Validation.isFieldEmpty(mEtEmail) && Validation.isFieldEmpty(mEtPassword)) {
                     if (!Validation.isEmailValid(mEtEmail.getText().toString())) {
-                        Intent intent3 = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent3);
-                        finish();
+                        Player player = new Player();
+                        if (Player.isRegisteredPlayer(mEtEmail.getText().toString(),
+                                mEtPassword.getText().toString(), LoginActivity.this)) {
+                            Intent intent3 = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent3);
+                            finish();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Not Registered", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         mEtEmail.setError("Invalid E_mail");
                         Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_SHORT).show();

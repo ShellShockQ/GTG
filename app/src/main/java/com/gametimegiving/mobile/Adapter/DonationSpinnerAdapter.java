@@ -14,9 +14,6 @@ import com.gametimegiving.mobile.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Narendra on 8/6/2015.
- */
 public class DonationSpinnerAdapter extends ArrayAdapter<String> implements CompoundButton.OnCheckedChangeListener {
 
     public static boolean[] selectedItems;

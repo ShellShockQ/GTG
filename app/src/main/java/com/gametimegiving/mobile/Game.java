@@ -1,8 +1,19 @@
 package com.gametimegiving.mobile;
 
 import android.graphics.Bitmap;
+import android.util.Log;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.gametimegiving.mobile.Application.BaseApplication;
+import com.gametimegiving.mobile.Parse.RequestPackage;
+import com.gametimegiving.mobile.Utils.Constant;
+
+import org.json.JSONObject;
 
 public class Game {
+    private static final String TAG = "GAME";
     private static String GameStatus;
     private int GameId;
     private int home_Id;
@@ -43,16 +54,16 @@ public class Game {
         return GameStatus;
     }
 
-    public void setGameStatus(String gameStatus) {
-        GameStatus = gameStatus;
+    public void setGameStatus() {
+        GameStatus = "NotStarted";
     }
 
     public int getPersonalPledgeAmt() {
         return PersonalPledgeAmt;
     }
 
-    public void setPersonalPledgeAmt(int personalPledgeAmt) {
-        PersonalPledgeAmt = personalPledgeAmt;
+    public void setPersonalPledgeAmt() {
+        PersonalPledgeAmt = 0;
     }
 
 
@@ -180,7 +191,7 @@ public class Game {
         setAway_score(0);
         setHome_score(0);
         setPeriod(0);
-        setPersonalPledgeAmt(0);
+        setPersonalPledgeAmt();
         setTimeLeft("0:00");
     }
 
@@ -189,6 +200,50 @@ public class Game {
         setVisitingteam_pledge(0);
 
     }
+
+    public Game getCurrentGame(Integer gameId) {
+        Game mGame = null;
+        RequestPackage p = new RequestPackage();
+        try {
+            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
+            String method = "game";
+
+
+            p.setMethod("POST");
+            p.setUri(url);
+            p.setParam("token", null);
+            p.setParam("page", Integer.toString(0));
+            p.setParam("game_id", Integer.toString(gameId));
+//            GetMyGame task = new GetMyGame();
+//            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+
+        } catch (Exception exc) {
+            Log.e(TAG, exc.toString());
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(p.getUri(), null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, String.format("The volley response was %s", response.toString()));
+                    }
+                },
+
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, String.format("The Error from volley response was %s", error.toString()));
+
+                    }
+                }
+        );
+        BaseApplication.getInstance().getRequestQueue().add(request);
+
+        return mGame;
+    }
+
 
 
 }

@@ -55,7 +55,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:background="#002F5D"
-            android:scrollbars="vertical"></ExpandableListView>
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.DrawerLayout>
 

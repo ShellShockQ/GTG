@@ -24,7 +24,7 @@ public class JSONArray extends org.json.JSONArray {
         JSONArray result = new JSONArray();
         try {
             result = new JSONArray(s);
-        } catch (Exception exc) {
+        } catch (Exception ignored) {
         }
         return result;
     }

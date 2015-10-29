@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-            android:text="Max Charity Limit Reached"
+            android:text="@string/maximum_charity_limit_reached"
             android:textColor="#000"
             android:textSize="@dimen/textsize_20" />
 

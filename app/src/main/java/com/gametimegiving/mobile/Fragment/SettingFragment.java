@@ -38,7 +38,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_update:
 
-                if (!Validation.isFieldEmpty(mEtEmail) && !Validation.isFieldEmpty(mEtpassword)) {
+                if (Validation.isFieldEmpty(mEtEmail) && Validation.isFieldEmpty(mEtpassword)) {
                     if (Validation.isEmailValid(mEtEmail.getText().toString())) {
                         mEtEmail.setError("Invalid Email");
                     }

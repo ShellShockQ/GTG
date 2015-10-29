@@ -32,7 +32,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
     private String mArgs;
     private HashMap<Object, Object> mHashMap;
 
-    private List<HttpRequestListener> mListeners = new ArrayList<HttpRequestListener>();
+    private List<HttpRequestListener> mListeners = new ArrayList<>();
 
     public HttpRequest() {
         init(null, null, null);
@@ -67,7 +67,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
         //String url = String.format(java.util.Locale.ENGLISH,  "%s/api/%s?args=%s", mApiServerUrl, mMethod, mArgs);
         //return HttpsGet(url);
         String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", mApiServerUrl, mMethod);
-        if (mHashMap == null) mHashMap = new HashMap<Object, Object>();
+        if (mHashMap == null) mHashMap = new HashMap<>();
         if (mArgs != null) mHashMap.put("args", mArgs);
         return HttpPost(url, mHashMap);
     }
@@ -262,9 +262,9 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
                         Log.d(TAG, String.format(java.util.Locale.ENGLISH, "%s:%s", key, value));
 
                     if (key.indexOf("file") == -1) {
-                        sb.append("--" + boundary + "\r\n");
+                        sb.append("--").append(boundary).append("\r\n");
                         sb.append(String.format(java.util.Locale.ENGLISH, "Content-Disposition: form-data; name=\"%s\"\r\n\r\n", key));
-                        sb.append(value.toString() + "\r\n");
+                        sb.append(value.toString()).append("\r\n");
                     }
                 }
 

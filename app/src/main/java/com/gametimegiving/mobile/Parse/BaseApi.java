@@ -27,7 +27,7 @@ public class BaseApi implements HttpRequestListener {
 
     public BaseApi(BaseApplication application) {
         mApplication = application;
-        mListeners = new ArrayList<BaseApiListener>();
+        mListeners = new ArrayList<>();
         mImageManager = ImageManager.getInstance(mApplication.getApplicationContext());
         mImageManager.drain();
     }
@@ -37,7 +37,7 @@ public class BaseApi implements HttpRequestListener {
     }
 
     public synchronized void setEventListener(BaseApiListener listener) {
-        mListeners = new ArrayList<BaseApiListener>();
+        mListeners = new ArrayList<>();
         mListeners.add(listener);
     }
 
@@ -101,7 +101,7 @@ public class BaseApi implements HttpRequestListener {
     public void feedback(String description) {
         try {
 
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             if (mLastUserName != null)
                 list.add(String.format(java.util.Locale.ENGLISH, "\"username\":\"%s\"", mLastUserName));
             if (mLastFacebookId != null)
@@ -128,15 +128,12 @@ public class BaseApi implements HttpRequestListener {
         }
     }
 
-    public void userFile(byte[] data) {
-        userFile(data, null);
-    }
 
-    public void userFile(byte[] data, String user_file_type) {
+    public void userFile(byte[] data) {
         try {
-            ArrayList<String> list = new ArrayList<String>();
-            if (user_file_type != null)
-                list.add(String.format(java.util.Locale.ENGLISH, "\"user_file_type\":\"%s\"", user_file_type));
+            ArrayList<String> list = new ArrayList<>();
+            if (null != null)
+                list.add(String.format(java.util.Locale.ENGLISH, "\"user_file_type\":\"%s\"", (String) null));
 
             String json = String.format(java.util.Locale.ENGLISH, "{\"token\":\"%s\"}", mToken);
 
@@ -148,7 +145,7 @@ public class BaseApi implements HttpRequestListener {
             String args = URLEncoder.encode(json, "UTF-8");
             String method = "userfile";
 
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("userfile", data);
 
             HttpRequest request = new HttpRequest(method, args, map);
@@ -197,7 +194,7 @@ public class BaseApi implements HttpRequestListener {
             //lat = 29.7628;
             //lon = -95.3831;
 
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             list.add(String.format(java.util.Locale.ENGLISH, "\"dtm\":\"%d\"", dtm));
             list.add(String.format(java.util.Locale.ENGLISH, "\"page\":\"%d\"", page));
             list.add(String.format(java.util.Locale.ENGLISH, "\"type\":\"%d\"", type));
@@ -228,7 +225,7 @@ public class BaseApi implements HttpRequestListener {
     public void getLayout(int section_id) {
         try {
 
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("section_id", section_id);
             String args = null;
             String method = "layout";
@@ -243,7 +240,7 @@ public class BaseApi implements HttpRequestListener {
 
     public void getCategory(int layout_id) {
         try {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("layout_id", layout_id);
             String args = null;
             String method = "category";
@@ -262,7 +259,7 @@ public class BaseApi implements HttpRequestListener {
             //lat = 29.7628;
             //lon = -95.3831;
 
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             list.add(String.format(java.util.Locale.ENGLISH, "\"dtm\":\"%d\"", dtm));
             list.add(String.format(java.util.Locale.ENGLISH, "\"page\":\"%d\"", page));
             list.add(String.format(java.util.Locale.ENGLISH, "\"section_id\":\"%d\"", section_id));
@@ -293,12 +290,11 @@ public class BaseApi implements HttpRequestListener {
 
     public void getData(String filter, int type, int page) {
         try {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", type);
             map.put("page", page);
 
-            String json = filter;
-            String args = URLEncoder.encode(json, "UTF-8");
+            String args = URLEncoder.encode(filter, "UTF-8");
             String method = "data";
 
             HttpRequest request = new HttpRequest(method, args, map);
@@ -324,9 +320,9 @@ public class BaseApi implements HttpRequestListener {
         }
     }
 
-    public void getCharity(int page) {
+    public void getCharity() {
         try {
-            String json = String.format(java.util.Locale.ENGLISH, "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, page);
+            String json = String.format(java.util.Locale.ENGLISH, "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, 0);
 
             String args = URLEncoder.encode(json, "UTF-8");
             String method = "charity";
@@ -339,9 +335,9 @@ public class BaseApi implements HttpRequestListener {
         }
     }
 
-    public void getTeam(int page) {
+    public void getTeam() {
         try {
-            String json = String.format(java.util.Locale.ENGLISH, "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, page);
+            String json = String.format(java.util.Locale.ENGLISH, "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, 0);
 
             String args = URLEncoder.encode(json, "UTF-8");
             String method = "team";
@@ -354,16 +350,13 @@ public class BaseApi implements HttpRequestListener {
         }
     }
 
-    public void getGame(int page) {
-        getGame(0, page);
-    }
 
-    public void getGame(int game_id, int page) {
+    public void getGame(int page) {
         try {
 
-            ArrayList<String> list = new ArrayList<String>();
-            if (game_id != 0)
-                list.add(String.format(java.util.Locale.ENGLISH, "\"game_id\":\"%d\"", game_id));
+            ArrayList<String> list = new ArrayList<>();
+            if (0 != 0)
+                list.add(String.format(java.util.Locale.ENGLISH, "\"game_id\":\"%d\"", 0));
 
             String json = String.format(java.util.Locale.ENGLISH, "{\"token\":\"%s\",\"page\":\"%d\"}", mToken, page);
 

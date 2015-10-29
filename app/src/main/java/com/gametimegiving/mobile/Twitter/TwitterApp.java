@@ -64,7 +64,7 @@ public class TwitterApp implements Serializable {
         }
     };
 
-    public TwitterApp(Context context, String consumerKey, String secretKey) {
+    public TwitterApp(Context context, String consumerKey) {
         this.context = context;
 
         mTwitter = new TwitterFactory().getInstance();
@@ -73,8 +73,8 @@ public class TwitterApp implements Serializable {
 
         mProgressDlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        mConsumerKey = consumerKey;
-        mSecretKey = secretKey;
+        mConsumerKey = com.gametimegiving.mobile.Activity.LoginActivity.twitter_consumer_key;
+        mSecretKey = com.gametimegiving.mobile.Activity.LoginActivity.twitter_secret_key;
 
         mHttpOauthConsumer = new CommonsHttpOAuthConsumer(mConsumerKey, mSecretKey);
         mHttpOauthprovider = new DefaultOAuthProvider("https://api.twitter.com/oauth/request_token	",
@@ -102,7 +102,7 @@ public class TwitterApp implements Serializable {
     }
 
     public boolean hasAccessToken() {
-        return (mAccessToken == null) ? false : true;
+        return (mAccessToken != null);
     }
 
     public void resetAccessToken() {

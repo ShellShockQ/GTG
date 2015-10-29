@@ -30,7 +30,7 @@ public class HttpManager {
                 con.setRequestProperty("Cache-Control", "max-age=0");
                 con.setDoOutput(true);
                 OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
-                writer.write(p.getEncodedParams("json"));
+                writer.write(p.getEncodedParams());
                 writer.flush();
                 Log.d(TAG, String.format("The encoded parameters are %s", p.getEncodedParams()));
             }
@@ -39,8 +39,10 @@ public class HttpManager {
             String line;
             while ((line = reader.readLine()) != null) {
 
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
+            Log.d(TAG, String.format("The API response was are %s", sb.toString()));
+
             return sb.toString();
 
         } catch (Exception e) {
@@ -52,7 +54,7 @@ public class HttpManager {
                     reader.close();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return null;
+
                 }
             }
 
@@ -77,7 +79,7 @@ public class HttpManager {
             String line;
             while ((line = reader.readLine()) != null) {
 
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             return sb.toString();
 
@@ -96,9 +98,8 @@ public class HttpManager {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
+                } catch (Exception ignored) {
+
                 }
             }
 

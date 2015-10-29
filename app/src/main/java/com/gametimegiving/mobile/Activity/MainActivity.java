@@ -35,6 +35,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
+    public static String MyTeamIds;
     String[] arr_charty;
     String[] arr_team;
     List<Team> TeamList;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         if (!ProfileFragment.hasProfileUpdate)
             replaceActivityToFragmnet();
         else
@@ -74,11 +76,15 @@ public class MainActivity extends BaseActivity {
      */
     private void replaceActivityToFragmnet() {
         SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+        MyTeamIds = sharedpreferences.getString("myTeamIds", "");
+        Log.d(TAG, String.format("Shared Preferences are %s", sharedpreferences.getAll().toString()));
+//        SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.clear().commit();
+
         if (!sharedpreferences.getBoolean(Constant.ISPROFILESUBMITTED, false)) {
             mToolbarTitle.setText("Profile");
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-
             ft.add(R.id.ll_container, ProfileFragment.newInstance());
             ft.commit();
         } else {

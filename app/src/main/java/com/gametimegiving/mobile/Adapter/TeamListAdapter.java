@@ -21,11 +21,12 @@ public class TeamListAdapter extends BaseAdapter implements CompoundButton.OnChe
     private final static String TAG = "TeamList";
     public static boolean[] selectedItems;
     public static ArrayList<String> selectedTeams = new ArrayList<>();
+    public static ArrayList<Integer> selectedTeamsIds = new ArrayList<>();
     Context context;
     String[] objects;
     private List<Team> listOfTeams;
 
-    public TeamListAdapter(Context context, int resource, List<Team> objects) {
+    public TeamListAdapter(Context context, List<Team> objects) {
         this.context = context;
         this.listOfTeams = objects;
         if (selectedItems == null && listOfTeams != null) {
@@ -35,6 +36,7 @@ public class TeamListAdapter extends BaseAdapter implements CompoundButton.OnChe
         }
         if (null == selectedTeams)
             selectedTeams = new ArrayList<>();
+        selectedTeamsIds = new ArrayList<>();
     }
 
     @Override
@@ -96,9 +98,11 @@ public class TeamListAdapter extends BaseAdapter implements CompoundButton.OnChe
         selectedItems[position] = b;
         Team team = listOfTeams.get(position);
         String teamName = team.getTeamName();
+        Integer teamId = team.getTeamId();
         if (b) {
             if (selectedTeams.size() <= 4) {
                 selectedTeams.add(teamName);
+                selectedTeamsIds.add(teamId);
             } else {
                 selectedItems[position] = !b;
                 compoundButton.setChecked(!b);
@@ -106,6 +110,7 @@ public class TeamListAdapter extends BaseAdapter implements CompoundButton.OnChe
         } else {
             if (selectedTeams.contains(teamName))
                 selectedTeams.remove(teamName);
+            selectedTeamsIds.remove(teamId);
         }
 
     }

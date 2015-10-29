@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by T011Prakash on 8/21/2015.
- */
 public class Common {
     public List<String> listDataHeader;
     public HashMap<String, List<String>> listDataChild;
@@ -20,8 +17,8 @@ public class Common {
     * Add Items in navigation Drawer Expandable Listview
     * */
     public void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         // Adding child data
         listDataHeader.add("Game");
@@ -37,16 +34,16 @@ public class Common {
 
         // Adding child data
 
-        List<String> game = new ArrayList<String>();
-        List<String> profile = new ArrayList<String>();
-        List<String> personalstatus = new ArrayList<String>();
-        List<String> aboutus = new ArrayList<String>();
-        List<String> settings = new ArrayList<String>();
-        List<String> logout = new ArrayList<String>();
+        List<String> game = new ArrayList<>();
+        List<String> profile = new ArrayList<>();
+        List<String> personalstatus = new ArrayList<>();
+        List<String> aboutus = new ArrayList<>();
+        List<String> settings = new ArrayList<>();
+        List<String> logout = new ArrayList<>();
 
-        List<String> charity = new ArrayList<String>();
+        List<String> charity = new ArrayList<>();
 
-        List<String> teams = new ArrayList<String>();
+        List<String> teams = new ArrayList<>();
 
 
         listDataChild.put(listDataHeader.get(0), game);

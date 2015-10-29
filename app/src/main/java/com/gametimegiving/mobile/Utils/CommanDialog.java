@@ -8,25 +8,21 @@ import android.content.DialogInterface;
 import com.gametimegiving.mobile.R;
 
 
-/**
- * Created by Narendra on 7/29/2015.
- */
 public class CommanDialog {
     /**
      * Function to display simple Alert Dialog
      *
      * @param context - application context
      * @param title   - alert dialog title
-     * @param message - alert message
      */
-    public static void showAlertDialogForInternetConnection(Context context, String title, String message) {
+    public static void showAlertDialogForInternetConnection(Context context, String title) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
         // Setting Dialog Title
-        alertDialog.setTitle(title);
+        alertDialog.setTitle("No Internet Connection");
 
         // Setting Dialog Message
-        alertDialog.setMessage(message);
+        alertDialog.setMessage("You don't have internet connection.");
 
         // Setting alert dialog icon
         alertDialog.setIcon(R.drawable.fail);

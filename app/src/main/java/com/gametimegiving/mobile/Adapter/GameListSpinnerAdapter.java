@@ -61,8 +61,7 @@ public class GameListSpinnerAdapter extends ArrayAdapter<Game> {
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-        TextView label = new TextView(context);
+        return new TextView(context);
 
-        return label;
     }
 }

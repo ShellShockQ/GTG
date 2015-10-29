@@ -48,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
         mBtn_Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!Validation.isFieldEmpty(mEtName) && !Validation.isFieldEmpty(mEtEmail) && !Validation.isFieldEmpty(mEtPassword) && !Validation.isFieldEmpty(mEtConfirmPassword)) {
+                if (Validation.isFieldEmpty(mEtName) && Validation.isFieldEmpty(mEtEmail) && Validation.isFieldEmpty(mEtPassword) && Validation.isFieldEmpty(mEtConfirmPassword)) {
                     if (Validation.validateFirstName(mEtName)) {
                         Toast.makeText(getApplicationContext(), "name should start from alphabet and can't less than 2 characters", Toast.LENGTH_SHORT).show();
                     } else if (Validation.isEmailValid(mEtEmail.getText().toString())) {

@@ -26,7 +26,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="btn_signup">SIGN UP</string>
     <string name="browse_images">Browse Images</string>
-    <string name="empty"></string>
     <string name="btn_save">SAVE</string>
     <string name="btn_browse">Browse</string>
     <string name="btn_update">UPDATE</string>
@@ -46,5 +45,6 @@
     <string name="about_support"><Data><![CDATA[ <a href="http://www.gametimegiving.com/content/support">Support</a> ]]></Data></string>
     <string name="about_terms"><Data><![CDATA[ <a href="http://www.gametimegiving.com/content/terms">Terms of Service</a> ]]></Data></string>
     <string name="about_privacy"><Data><![CDATA[ <a href="http://www.gametimegiving.com/content/privacy">Privacy Policy</a> ]]></Data></string>
+    <string name="maximum_charity_limit_reached">Max Charity Limit Reached</string>
 
 </resources>

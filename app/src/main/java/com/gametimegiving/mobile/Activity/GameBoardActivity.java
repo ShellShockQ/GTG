@@ -9,10 +9,12 @@ package com.gametimegiving.mobile.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.LruCache;
@@ -37,6 +39,7 @@ import com.gametimegiving.mobile.Pledge;
 import com.gametimegiving.mobile.PledgeProvider;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Team;
+import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.CustomizeDialog;
 import com.gametimegiving.mobile.Utils.Utilities;
 
@@ -49,7 +52,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameBoardActivity extends AppCompatActivity implements View.OnClickListener {
-    private final static String TAG = "GameBoard";
+    private final static String TAG = "GAMEBOARD";
     private static final String LOGO_BASE_URL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_LOGO_BASE_URL);
     private final static int SUBMIT_PAYMENT_REQUEST_CODE = 100;
     final int MaxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
@@ -60,8 +63,10 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     public String ClientToken;
     public Payment payment;
     public String MyPledgeAmount;
+    public Boolean PreferredCharityNoticeShown;
+    public boolean bFirstTimeIn = true;
     String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
-    Utilities util = new Utilities();
+    Utilities utilities = new Utilities();
     private double mTeamPldgesValue = 0;
     private double mYourPldgesValue = 0;
     private double mLastPladgeValue = 0;
@@ -73,31 +78,46 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private Button mUndoLastPledge;
     private String mToken;
     private LruCache<Integer, Bitmap> imageMemCache;
+
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
-        if (getIntent().getExtras() != null) {
-            Bundle extras = getIntent().getExtras();
-            try {
-                ActiveGameID = Integer.parseInt(extras.getString("selectedgameid"));
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-            //ActiveGameID = getIntent().getExtras().getInt("selectedgameid");
-        }
-        player.setPlayer_id(2);
+        player.setPlayer_id();
         setContentView(R.layout.gameboard);
+
         View l = findViewById(R.id.pledgeButtons);
         View ppl = findViewById(R.id.personalpledgelayout);
         Button btn = (Button) findViewById(R.id.btnundolastpledge);
         Button btnPay = (Button) findViewById(R.id.paynow);
         tvPledges = (TextView) findViewById(R.id.pledges);
+        if (getIntent().getExtras() != null) {
+            try {
+                Bundle extras = getIntent().getExtras();
+                for (String key : extras.keySet()) {
+                    Object value = extras.get(key);
+                    Log.d(TAG, String.format("%s %s (%s)", key,
+                            value.toString(), value.getClass().getName()));
+                }
+                bFirstTimeIn = extras.getBoolean(Constant.ISFIRSTTIMEIN);
+                ActiveGameID = extras.getInt("selectedgameid");
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
 
+//            if(extras.getBoolean(Constant.ISFIRSTTIMEIN)){
+//                SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedpreferences.edit();
+//                editor.putBoolean(Constant.ISFIRSTTIMEIN, false);
+//                editor.commit();
+//                showdialog();
+//
+//            }
+        }
         Game game = new Game();
-        game.setGameStatus("NotStarted");
+        game.setGameStatus();
         //TODO:Determine Game Status based on the time
 
         /* ********************************************** */
@@ -137,7 +157,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                         }
                     });
                 } else {
-                    util.ShowMsg(this, "You have no pledges!");
+                    utilities.ShowMsg(this);
 
                 }
                 break;
@@ -145,9 +165,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         imageMemCache = new LruCache<>(cacheSize);
         //Set Period
-        String ag = util.ReadSharedPref("activegame", this);
-        //TODO:SetTeam logo photo
-        //TODO:Get up to date game data
+        Integer ag = utilities.ReadSharedPref("activegame", this);
+
 
         context = this;
 
@@ -160,7 +179,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         mUndoLastPledge.setEnabled(false);
 
         mTvOpponentTeam = (TextView) findViewById(R.id.tvopponentteam);
-        getGame(ActiveGameID, 0);
+        game.getCurrentGame(ActiveGameID);
+        //getGame(ActiveGameID);
+
 
         btn_$1 = (Button) findViewById(R.id.btn_$1);
         btn_$2 = (Button) findViewById(R.id.btn_$2);
@@ -169,12 +190,47 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         btn_$1.setOnClickListener(this);
         btn_$2.setOnClickListener(this);
         btn_$5.setOnClickListener(this);
-        showdialog();
-
-
+        if (bFirstTimeIn) {
+            showdialog();
+        }
 
     }
 
+    @NonNull
+    private void ShowBundle(Bundle extras) {
+        extras = getIntent().getExtras();
+        for (String key : extras.keySet()) {
+            Object value = extras.get(key);
+            Log.d(TAG, String.format("%s %s (%s)", key,
+                    value.toString(), value.getClass().getName()));
+        }
+
+    }
+
+    private boolean isSameActiveGameChanged() {
+        Integer lastActiveGame = utilities.ReadSharedPref(Constant.ACTIVEGAME, this);
+        Integer currActiveGame = ActiveGameID;
+        return lastActiveGame == currActiveGame;
+
+    }
+
+    private void showOrHidePreferredCharityNotice() {
+        SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+        if (sharedpreferences.getBoolean(Constant.ISFIRSTTIMEIN, true)) {
+            showdialog();
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putBoolean(Constant.ISFIRSTTIMEIN, false);
+            editor.commit();
+        }
+
+    }
+
+    private void showPreferredCharityNotice() {
+        SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean(Constant.ISFIRSTTIMEIN, false);
+        editor.commit();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SUBMIT_PAYMENT_REQUEST_CODE) {
@@ -236,7 +292,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         // mYourPldgesValue = mYourPldgesValue + value;
         player.setMyLastPledgeAmount(value);
         player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount() + value);
-        tvPledges.setText(util.FormatCurrency(player.getMyTotalPledgeAmount()));
+        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount()));
         //Insert Pledge data in SQLLite Database
         Pledge pledge = new Pledge();
         ContentValues values = new ContentValues();
@@ -244,7 +300,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         values.put(DBOpenHelper.PLEDGE_AMT, value);
         pledge.setUser(player.getPlayer_id());
         values.put(DBOpenHelper.USER_ID, player.getPlayer_id());
-        pledge.setPreferredCharity_id(1);//TODO:Get the preferred for this user
+        pledge.setPreferredCharity_id();
         pledge.setGame_id(game_id);
         values.put(DBOpenHelper.GAME_ID, game_id);
         pledge.setTeam_id(team_id);
@@ -263,12 +319,12 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         mUndoLastPledge.setEnabled(false);
         // mTeamPldgesValue = mTeamPldgesValue - mLastPladgeValue;
         player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount() - player.getMyLastPledgeAmount());
-        tvPledges.setText(util.FormatCurrency(player.getMyTotalPledgeAmount()));
+        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount()));
         //TODO:Remove personal pledge from server totals
         Pledge pledge = new Pledge();
         pledge.setAmount(player.getMyLastPledgeAmount() * -1);
         pledge.setUser(player.getPlayer_id());//TODO:Get the User ID
-        pledge.setPreferredCharity_id(1);//TODO:Get the preferred for this user
+        pledge.setPreferredCharity_id();
         pledge.setGame_id(game_id);
         pledge.setTeam_id(team_id);
         pledge.SubmitPledge();
@@ -330,14 +386,14 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 undoLastPledge(ActiveGameID, mUserTeamID);
                 break;
         }
-        getGame(ActiveGameID, 0);
+        getGame(ActiveGameID);
     }
 
     public void openDailogPledgesAdd(int pledge_value) {
         final CustomizeDialog pledgeDialog = new CustomizeDialog(context);
         pledgeDialog.setContentView(R.layout.dilogpledges);
         TextView tv_pledge_donation = (TextView) pledgeDialog.findViewById(R.id.tv_pledge_donation);
-        tv_pledge_donation.setText(util.FormatCurrency(pledge_value) + " Pledge");
+        tv_pledge_donation.setText(utilities.FormatCurrency(pledge_value) + " Pledge");
         pledgeDialog.show();
         pledgeDialog.setCancelable(false);
         final Timer t = new Timer();
@@ -347,7 +403,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
             }
         }, 4000);
-//  //      getGame(ActiveGameID, 0);
     }
 
     public void UpdateGameBoard(Game game) {
@@ -363,11 +418,11 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         tv_awayTeamScore.setText(Integer.toString(game.getAway_score()));
         mTvYourTeam.setText(game.getHome_LongName());
         mTvOpponentTeam.setText(game.getAway_LongName());
-        pledges.setText(String.format("%s", util.FormatCurrency(player.getMyTotalPledgeAmount())));
+        pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount())));
         TextView tv_GamePeriod = (TextView) findViewById(R.id.tv_GamePeriod);
         tv_GamePeriod.setText(String.format("%s in %s", game.getTimeLeft(), Integer.toString(game.getPeriod())));
-        tv_HomeTeamPledges.setText(util.FormatCurrency(game.getHometeam_pledge(), 0));
-        tv_AwayTeamPledges.setText(util.FormatCurrency(game.getVisitingteam_pledge(), 0));
+        tv_HomeTeamPledges.setText(utilities.FormatCurrency(game.getHometeam_pledge()));
+        tv_AwayTeamPledges.setText(utilities.FormatCurrency(game.getVisitingteam_pledge()));
         ImageView homeLogo = (ImageView) findViewById(R.id.hometeamlogo);
         ImageView awayLogo = (ImageView) findViewById(R.id.awayteamlogo);
         homeLogo.setImageBitmap(game.getHomeLogobitmap());
@@ -375,7 +430,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         //TODO:Increase the size of the images if possible
     }
 
-    public void getGame(int game_id, int page) {
+    public void getGame(int game_id) {
         try {
             String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", mApiServerUrl, "game");
             String method = "game";
@@ -384,7 +439,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             p.setMethod("POST");
             p.setUri(url);
             p.setParam("token", null);
-            p.setParam("page", Integer.toString(page));
+            p.setParam("page", Integer.toString(0));
             p.setParam("game_id", Integer.toString(game_id));
             GetMyGame task = new GetMyGame();
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
@@ -420,7 +475,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d(TAG, String.format("The response from the result is %s", result.toString()));
+            Log.d(TAG, String.format("The response from the result is %s", result));
         }
     }
 

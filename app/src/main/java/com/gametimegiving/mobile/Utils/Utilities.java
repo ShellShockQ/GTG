@@ -8,8 +8,8 @@ import android.widget.Toast;
 import java.text.NumberFormat;
 
 public class Utilities {
-    public void ShowMsg(Context ctx, String msg) {
-        Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show();
+    public void ShowMsg(Context ctx) {
+        Toast.makeText(ctx, "You have no pledges!", Toast.LENGTH_LONG).show();
     }
 
     public void NotYetImplemented(Context ctx) {
@@ -19,28 +19,37 @@ public class Utilities {
     public void WriteSharedPref(String key, String val, Activity activity) {
         SharedPreferences sharedPref = activity.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(key, val);
+        switch ("i") {
+            case "s":
+                editor.putString(Constant.ACTIVEGAME, val);
+                break;
+            case "b":
+                boolean bVal = false;
+                if (val == "true") {
+                    bVal = true;
+                }
+                editor.putBoolean(Constant.ACTIVEGAME, bVal);
+                break;
+            case "i":
+                Integer iVal = Integer.parseInt(val);
+                editor.putInt(Constant.ACTIVEGAME, iVal);
+                break;
+
+        }
+
         editor.commit();
     }
 
-    public String ReadSharedPref(String key, Activity activity) {
+    public String ReadSharedPref(String key, Activity activity, String type) {
         SharedPreferences sharedPref = activity.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
         return sharedPref.getString(key, "");
     }
 
-    public String FormatCurrency(double num, int precision) {
-        String value;
-        NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
-        value = defaultFormat.format(num);
-        if (value.endsWith(".00")) {
-            int centsIndex = value.lastIndexOf(".00");
-            if (centsIndex != -1) {
-                value = value.substring(0, centsIndex);
-            }
-        }
-        return value;
-
+    public Integer ReadSharedPref(String key, Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+        return sharedPref.getInt(key, 0);
     }
+
 
     public String FormatCurrency(double num) {
         String value;

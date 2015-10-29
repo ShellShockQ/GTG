@@ -1,6 +1,7 @@
 package com.gametimegiving.mobile.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import com.gametimegiving.mobile.Parse.CharityDetailJSONParser;
 import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.R;
+import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.CustomizeDialog;
 import com.gametimegiving.mobile.Utils.Utilities;
 
@@ -32,9 +34,10 @@ import java.util.List;
 
 public class CharityListAdapter extends BaseAdapter implements CompoundButton.OnCheckedChangeListener {
     private static final String LOGO_BASE_URL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_LOGO_BASE_URL);
-    private final static String TAG = "CharityList";
+    private final static String TAG = "CHARITYLISTADAPTER";
     public static boolean[] selectedItems;
     public static ArrayList<String> selectedCharity = new ArrayList<>();
+    public static ArrayList<Integer> selectedCharityIds = new ArrayList<>();
     public String[] CharityIdArray;
     public CustomizeDialog charitycustomizeDialog;
     String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
@@ -42,7 +45,8 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
     String[] objects;
     private List<Charity> listOfCharities;
     private Utilities util = new Utilities();
-    public CharityListAdapter(Context context, int resource, List<Charity> objects) {
+
+    public CharityListAdapter(Context context, List<Charity> objects) {
         this.context = context;
         this.listOfCharities = objects;
         if (selectedItems == null && null != objects) {
@@ -52,6 +56,7 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
         }
         if (selectedCharity == null) {
             selectedCharity = new ArrayList<>();
+            selectedCharityIds = new ArrayList<>();
         }
     }
 
@@ -85,20 +90,24 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
     }
 
     public View getCustomView(int position, View convertView, ViewGroup parent) {
-
+        SharedPreferences sharedPref = parent.getContext().getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+        String MyCharityIds = sharedPref.getString("myCharityIds", "");
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View row = inflater.inflate(R.layout.spinner_row, parent, false);
         final Charity charity = listOfCharities.get(position);
+        String CharityName = charity.getCharityName();
+        Integer CharityId = charity.getCharityId();
         TextView label = (TextView) row.findViewById(R.id.spinner_text);
         Button btnMore = (Button) row.findViewById(R.id.btn_more);
         Button btnSubmit = (Button) row.findViewById(R.id.btn_submit);
-
+        label.setText(CharityName);
+        btnMore.setTag(String.valueOf(CharityId));
         CheckBox chk = (CheckBox) row.findViewById(R.id.chk);
         chk.setChecked(selectedItems[position]);
+        //   chk.setChecked(MyCharityIds.contains(String.valueOf(CharityId)));
         chk.setTag(position);
         chk.setOnCheckedChangeListener(this);
-        label.setText(charity.getCharityName());
-        btnMore.setTag(String.valueOf(charity.getCharityId()));
+
 
         btnMore.setOnClickListener(new View.OnClickListener() {
 
@@ -135,6 +144,7 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
 
                             //                          selectedItems[Integer.parseInt(tag)] = true;
                             selectedCharity.add(charity.getCharityName());
+                            selectedCharityIds.add(charity.getCharityId());
 
                             //          selectedCharity.add(objects[Integer.parseInt(tag)]);
                             notifyDataSetChanged();
@@ -167,9 +177,11 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
         selectedItems[position] = b;
         Charity charity = listOfCharities.get(position);
         String charityName = charity.getCharityName();
+        Integer charityId = charity.getCharityId();
         if (b) {
             if (selectedCharity.size() <= 3) {
                 selectedCharity.add(charityName);
+                selectedCharityIds.add(charityId);
             } else {
                 selectedItems[position] = !b;
 
@@ -178,6 +190,11 @@ public class CharityListAdapter extends BaseAdapter implements CompoundButton.On
         } else {
             if (selectedCharity.contains(charityName)) {
                 selectedCharity.remove(charityName);
+                selectedCharityIds.remove(charityId);
+//                //remove this charity from the sharedpreference
+//                SharedPreferences sharedPref =context.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPref.edit();
+//                editor.putString("myCharityIds",selectedCharityIds.toString());
             }
 
         }

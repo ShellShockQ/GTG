@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gametimegiving.mobile.Activity.GameBoardActivity;
+import com.gametimegiving.mobile.Activity.MainActivity;
 import com.gametimegiving.mobile.Application.BaseApplication;
 import com.gametimegiving.mobile.Game;
 import com.gametimegiving.mobile.Parse.BaseApi;
@@ -24,23 +25,29 @@ import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.R;
+import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.Utilities;
 
 import java.util.List;
 
 public class SelectGameFragment extends BaseFragment implements View.OnClickListener {
-    private final static String TAG = "SelectGameFragment";
+    private final static String TAG = "SELECTGAMEFRAGMENT";
     public String[] gameIdArray;
+    public Utilities util;
     protected BaseApi mApi;
     List<Game> listOfGames;
     String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
     private Button mBtnSelect;
     private boolean isGameSelected = false;
     private String selctedgame;
-    private String selectedgameid;
+    private Integer selectedgameid;
     private Spinner mSelectGameSpinner;
     private ArrayAdapter<Game> adapter;
     private boolean spinnerFlag = true;
+
+    public SelectGameFragment() {
+        util = new Utilities();
+    }
 
     public static SelectGameFragment newInstance() {
         SelectGameFragment fragment = new SelectGameFragment();
@@ -56,11 +63,8 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         mBtnSelect = (Button) view.findViewById(R.id.btn_game_select);
         mSelectGameSpinner = (Spinner) view.findViewById(R.id.spinner1);
         mBtnSelect.setOnClickListener(this);
-        //TODO: Get games from preferences
         Player player = new Player();
-
-        GetGames(mApiServerUrl + "/api/game", 0, player);
-
+        GetGames(mApiServerUrl + "/api/game", player);
         return view;
     }
 
@@ -71,17 +75,20 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
 
                 if (isGameSelected) {
                     selctedgame = mSelectGameSpinner.getSelectedItem().toString();
-                    selectedgameid = gameIdArray[mSelectGameSpinner.getSelectedItemPosition()];
+                    selectedgameid = Integer.parseInt(gameIdArray[mSelectGameSpinner.getSelectedItemPosition()]);
                     Intent intent = new Intent(getActivity(), GameBoardActivity.class);
                     Bundle extras = new Bundle();
                     extras.putString("selectedgame", selctedgame);
-                    extras.putString("selectedgameid", selectedgameid);
+                    extras.putInt("selectedgameid", selectedgameid);
+                    Integer lastActiveGame = util.ReadSharedPref(Constant.ACTIVEGAME, getActivity());
+                    if (lastActiveGame.equals(selectedgameid)) {
+                        extras.putBoolean(Constant.ISFIRSTTIMEIN, false);
+                    } else {
+                        extras.putBoolean(Constant.ISFIRSTTIMEIN, true);
+                    }
+
                     intent.putExtras(extras);
-
-                    //TODO:Write active game id to sharepreferences
-
-                    Utilities util = new Utilities();
-                    util.WriteSharedPref("activegame", selctedgame, getActivity());
+                    util.WriteSharedPref(Constant.ACTIVEGAME, Integer.toString(selectedgameid), getActivity());
                     startActivity(intent);
                     getActivity().finish();
                 } else {
@@ -156,10 +163,11 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         });
     }
 
-    private void GetGames(String uri, int page, Player player) {
+    public void GetGames(String uri, Player player) {
         RequestPackage p = new RequestPackage();
-        p.setParam("page", Integer.toString(page));
-//        p.setParam("team_ids",player.getMyTeams().toString());
+        p.setParam("page", Integer.toString(0));
+        String MyTeams = MainActivity.MyTeamIds.replace("[", "").replace("]", "").replace(" ", "");
+        p.setParam("team_ids", MyTeams);
         p.setMethod("POST");
         p.setUri(uri);
         GetGamesAsynch task = new GetGamesAsynch();

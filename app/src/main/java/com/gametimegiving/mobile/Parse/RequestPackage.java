@@ -55,7 +55,7 @@ public class RequestPackage {
             if (sb.length() > 0) {
                 sb.append("&");
             }
-            sb.append(key + "=" + value);
+            sb.append(key).append("=").append(value);
 
         }
         return sb.toString();

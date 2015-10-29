@@ -10,9 +10,6 @@ import com.gametimegiving.mobile.Parse.RequestPackage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Detrick on 10/22/2015.
- */
 public class Payment {
     private final static String TAG = "PAYMENT";
     private final static int REQUEST_CODE = 100;
@@ -69,8 +66,7 @@ public class Payment {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d(TAG, result.toString());
-            return;
+            Log.d(TAG, result);
         }
     }
 }

@@ -119,7 +119,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
         mApi = mApp.Api;
         mApi.drain();
 
-        setDisplayHomeAsUpEnabled(true);
+        setDisplayHomeAsUpEnabled();
 
         mTitle = (TextView) findViewById(R.id.title);
         if (mTitle != null) mTitle.setText(mActivityName);
@@ -330,7 +330,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
         toast.show();
     }
 
-    public void setDisplayHomeAsUpEnabled(boolean value) {
+    public void setDisplayHomeAsUpEnabled() {
 
     }
 
@@ -527,7 +527,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
             editor.commit();
         }
         selectedDonationMethod = -1;
-        clearSharedPreferences();
+        //   clearSharedPreferences();
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();

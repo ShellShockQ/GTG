@@ -45,7 +45,7 @@ public class SplashActivity extends Activity {
             String version_value = String.format(java.util.Locale.ENGLISH, "Version %s", versionName);
             TextView tv_VersionOnSplashPage = (TextView) findViewById(R.id.versiontext);
             tv_VersionOnSplashPage.setText(version_value);
-        } catch (Exception exc) {
+        } catch (Exception ignored) {
         }
 
         new Handler().postDelayed(new Runnable() {

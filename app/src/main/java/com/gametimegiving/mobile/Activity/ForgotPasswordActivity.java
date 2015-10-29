@@ -49,7 +49,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
             case R.id.btnsend:
 
-                if (!Validation.isFieldEmpty(mEtEmail)) {
+                if (Validation.isFieldEmpty(mEtEmail)) {
                     if (!Validation.isEmailValid(mEtEmail.getText().toString())) {
                         Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                         startActivity(intent);

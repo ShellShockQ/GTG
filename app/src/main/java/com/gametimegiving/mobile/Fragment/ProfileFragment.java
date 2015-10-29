@@ -54,7 +54,9 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
@@ -161,8 +163,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mBtnSave = (Button) view.findViewById(R.id.btn_save);
 
         addListenerOnSpinnerItemSelection();
-        mApi.getCharity(0);
-        mApi.getTeam(0);
+        mApi.getCharity();
+        mApi.getTeam();
 
         mBtnSave.setOnClickListener(new View.OnClickListener() {
 
@@ -171,13 +173,14 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             * */
             @Override
             public void onClick(View v) {
-
-
+                Map<String, String> CharityIds = new HashMap<>();
                 if (CharityListAdapter.selectedCharity != null && CharityListAdapter.selectedCharity.size() > 0 &&
                         TeamListAdapter.selectedTeams != null && TeamListAdapter.selectedTeams.size() > 0 && isDonationSelect) {
                     SharedPreferences sharedpreferences = getActivity().getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("mycharities", CharityListAdapter.selectedCharity.toString());
+                    editor.putString("myCharityIds", CharityListAdapter.selectedCharityIds.toString());
+                    editor.putString("myTeamIds", TeamListAdapter.selectedTeamsIds.toString());
                     editor.putString("myteam", TeamListAdapter.selectedTeams.toString());
                     editor.putBoolean(Constant.ISPROFILESUBMITTED, true);
                     editor.commit();
@@ -309,7 +312,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-
 
             case R.id.btncharity_spinner:
                 GetCharities(mApiServerUrl + "/api/charity");
@@ -506,7 +508,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             //FlowerList = FlowerXMLParser.parseFeed(s);
 //            updateDisplay();
             ListView listView1 = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
-            TeamListAdapter teamListAdapter = new TeamListAdapter(getActivity(), R.layout.spinner_row, listOfTeams);
+            TeamListAdapter teamListAdapter = new TeamListAdapter(getActivity(), listOfTeams);
             listView1.setAdapter(teamListAdapter);
 
 
@@ -537,7 +539,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             //FlowerList = FlowerXMLParser.parseFeed(s);
 //            updateDisplay();
             ListView listView1 = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
-            CharityListAdapter charityListAdapter = new CharityListAdapter(getActivity(), R.layout.spinner_row, listOfCharities);
+            CharityListAdapter charityListAdapter = new CharityListAdapter(getActivity(), listOfCharities);
             listView1.setAdapter(charityListAdapter);
 
 

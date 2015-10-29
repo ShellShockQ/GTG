@@ -51,7 +51,7 @@ public class AboutUsFragment extends Fragment {
             PackageInfo pInfo = packageManager.getPackageInfo(packageName, 0);
             String versionName = pInfo.versionName;
             version_value = String.format(java.util.Locale.ENGLISH, "Version %s", versionName);
-        } catch (Exception exc) {
+        } catch (Exception ignored) {
         }
 
         version.setText(Html.fromHtml(version_value));

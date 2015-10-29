@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
-/**
- * Created by Detrick on 10/22/2015.
- */
 public class PledgeProvider extends ContentProvider {
     public static final int PLEDGES = 1;
     public static final int PLEDGE_ID = 2;

@@ -15,8 +15,8 @@ android {
         applicationId 'com.gametimegiving.mobile'
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 20
-        versionName '1.0.20 Alpha'
+        versionCode 22
+        versionName '1.0.22 Alpha'
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -50,4 +50,5 @@ dependencies {
     compile files('libs/cover.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile files('libs/nineoldandroids.jar')
+    compile project(':volley')
 }
