@@ -46,5 +46,7 @@
     <string name="about_terms"><Data><![CDATA[ <a href="http://www.gametimegiving.com/content/terms">Terms of Service</a> ]]></Data></string>
     <string name="about_privacy"><Data><![CDATA[ <a href="http://www.gametimegiving.com/content/privacy">Privacy Policy</a> ]]></Data></string>
     <string name="maximum_charity_limit_reached">Max Charity Limit Reached</string>
+    <string name="visitingteam">Visiting</string>
+    <string name="hometeam">Home</string>
 
 </resources>

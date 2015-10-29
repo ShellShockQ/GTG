@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpManager {
-    private static final String TAG = "HTTPManager";
+    private static final String TAG = "HTTPMANAGER";
 
     public static String getData(RequestPackage p) {
         BufferedReader reader = null;
@@ -32,8 +32,8 @@ public class HttpManager {
                 OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
                 writer.write(p.getEncodedParams());
                 writer.flush();
-                Log.d(TAG, String.format("The encoded parameters are %s", p.getEncodedParams()));
             }
+            Log.d(TAG, String.format("The encoded parameters are : %s", p.getEncodedParams()));
             StringBuilder sb = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String line;
@@ -41,7 +41,6 @@ public class HttpManager {
 
                 sb.append(line).append("\n");
             }
-            Log.d(TAG, String.format("The API response was are %s", sb.toString()));
 
             return sb.toString();
 

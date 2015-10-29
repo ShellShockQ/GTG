@@ -38,13 +38,13 @@
 
 
     =======================gameboard===================================
-    <dimen name="layout_360">270dp</dimen>
+    <dimen name="layout_360">300dp</dimen>
     <dimen name="layout_65">48.75dp</dimen>
     <dimen name="margin_35">26.25dp</dimen>
     <dimen name="hight_50">37.50dp</dimen>
     <dimen name="hight_40">30dp</dimen>
     <dimen name="hight_30">25dp</dimen>
-    <dimen name="margin_top20">10dp</dimen>
+    <dimen name="margin_top20">8dp</dimen>
     <dimen name="layout_340">280dp</dimen>
     <dimen name="width_330">280dp</dimen>
     <dimen name="hight_260">195dp</dimen>

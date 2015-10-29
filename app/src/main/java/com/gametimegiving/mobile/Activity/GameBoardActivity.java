@@ -9,12 +9,10 @@ package com.gametimegiving.mobile.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.LruCache;
@@ -96,11 +94,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         if (getIntent().getExtras() != null) {
             try {
                 Bundle extras = getIntent().getExtras();
-                for (String key : extras.keySet()) {
-                    Object value = extras.get(key);
-                    Log.d(TAG, String.format("%s %s (%s)", key,
-                            value.toString(), value.getClass().getName()));
-                }
                 bFirstTimeIn = extras.getBoolean(Constant.ISFIRSTTIMEIN);
                 ActiveGameID = extras.getInt("selectedgameid");
             } catch (NullPointerException e) {
@@ -179,8 +172,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         mUndoLastPledge.setEnabled(false);
 
         mTvOpponentTeam = (TextView) findViewById(R.id.tvopponentteam);
-        game.getCurrentGame(ActiveGameID);
-        //getGame(ActiveGameID);
+        //game.getCurrentGame(ActiveGameID);
+        getGame(ActiveGameID);
 
 
         btn_$1 = (Button) findViewById(R.id.btn_$1);
@@ -196,41 +189,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    @NonNull
-    private void ShowBundle(Bundle extras) {
-        extras = getIntent().getExtras();
-        for (String key : extras.keySet()) {
-            Object value = extras.get(key);
-            Log.d(TAG, String.format("%s %s (%s)", key,
-                    value.toString(), value.getClass().getName()));
-        }
-
-    }
-
-    private boolean isSameActiveGameChanged() {
-        Integer lastActiveGame = utilities.ReadSharedPref(Constant.ACTIVEGAME, this);
-        Integer currActiveGame = ActiveGameID;
-        return lastActiveGame == currActiveGame;
-
-    }
-
-    private void showOrHidePreferredCharityNotice() {
-        SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
-        if (sharedpreferences.getBoolean(Constant.ISFIRSTTIMEIN, true)) {
-            showdialog();
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putBoolean(Constant.ISFIRSTTIMEIN, false);
-            editor.commit();
-        }
-
-    }
-
-    private void showPreferredCharityNotice() {
-        SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putBoolean(Constant.ISFIRSTTIMEIN, false);
-        editor.commit();
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SUBMIT_PAYMENT_REQUEST_CODE) {
@@ -434,7 +392,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         try {
             String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", mApiServerUrl, "game");
             String method = "game";
-
             RequestPackage p = new RequestPackage();
             p.setMethod("POST");
             p.setUri(url);
@@ -475,7 +432,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d(TAG, String.format("The response from the result is %s", result));
         }
     }
 
@@ -489,7 +445,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         protected void onPostExecute(String result) {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             try {
                 jsonObject = new JSONObject(result);
                 ClientToken = jsonObject.getString("token");
