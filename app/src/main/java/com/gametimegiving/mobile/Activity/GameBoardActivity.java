@@ -23,6 +23,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.braintreepayments.api.dropin.BraintreePaymentActivity;
 import com.braintreepayments.api.dropin.Customization;
 import com.gametimegiving.mobile.Application.BaseApplication;
@@ -46,6 +52,8 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -100,14 +108,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 e.printStackTrace();
             }
 
-//            if(extras.getBoolean(Constant.ISFIRSTTIMEIN)){
-//                SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedpreferences.edit();
-//                editor.putBoolean(Constant.ISFIRSTTIMEIN, false);
-//                editor.commit();
-//                showdialog();
-//
-//            }
         }
         Game game = new Game();
         game.setGameStatus();
@@ -172,8 +172,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         mUndoLastPledge.setEnabled(false);
 
         mTvOpponentTeam = (TextView) findViewById(R.id.tvopponentteam);
-        //game.getCurrentGame(ActiveGameID);
-        getGame(ActiveGameID);
+        getCurrentGame(ActiveGameID);
+        //getGame(ActiveGameID);
 
 
         btn_$1 = (Button) findViewById(R.id.btn_$1);
@@ -217,6 +217,66 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         p.setUri(String.format("%s/api/%s", mApiServerUrl, method));
         SendNonceTask task = new SendNonceTask();
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+
+    }
+
+    public void getCurrentGame(Integer gameId) {
+
+        final RequestPackage p = new RequestPackage();
+        try {
+            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
+            String method = "game";
+            p.setMethod("POST");
+            p.setUri(url);
+            p.setParam("token", null);
+            p.setParam("page", Integer.toString(0));
+            p.setParam("game_id", Integer.toString(gameId));
+            String args = p.getEncodedParams();
+            StringRequest request = new StringRequest(Request.Method.POST,
+                    p.getUri(),
+                    new Response.Listener<String>() {
+
+                        @Override
+                        public void onResponse(String response) {
+                            Game mGame = MyGameJSONParser.parseFeed(response);
+                            mGame.setUserteam_id(mGame.getHome_Id());
+                            mUserTeamID = mGame.getUserteam_id();
+                            UpdateGameBoard(mGame);
+
+                        }
+                    },
+
+                    new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d(TAG, String.format("The Error from volley response was %s", error.toString()));
+
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("args", p.getEncodedParams().replace("args=", ""));
+                    return params;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json; charset=utf-8");
+                    return headers;
+                }
+
+
+            };
+            BaseApplication.getInstance().addToRequestQueue(request);
+
+            Log.d(TAG, String.format("The volley request was:%s", request.toString()));
+        } catch (Exception exc) {
+            Log.e(TAG, exc.toString());
+        }
+
 
     }
     /*
@@ -286,6 +346,25 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         pledge.setGame_id(game_id);
         pledge.setTeam_id(team_id);
         pledge.SubmitPledge();
+
+    }
+
+    public void SetTeamLogo(String sTeamLogoUrl, final ImageView mImageView) {
+        ImageRequest request = new ImageRequest(sTeamLogoUrl,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        mImageView.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        mImageView.setImageResource(R.drawable.fail);
+                    }
+                });
+
+        BaseApplication.getInstance().addToRequestQueue(request);
+
 
     }
 
@@ -363,29 +442,29 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         }, 4000);
     }
 
-    public void UpdateGameBoard(Game game) {
+    public void UpdateGameBoard(Game mGame) {
         Team homeTeam = null;
         Team awayTeam = null;
-
         TextView tv_homeTeamScore = (TextView) findViewById(R.id.tv_HomeTeamScore);
         TextView tv_awayTeamScore = (TextView) findViewById(R.id.tv_AwayTeamScore);
         TextView pledges = (TextView) findViewById(R.id.pledges);
         TextView tv_HomeTeamPledges = (TextView) findViewById(R.id.tv_HomeTeamPledges);
         TextView tv_AwayTeamPledges = (TextView) findViewById(R.id.tv_AwayTeamPledges);
-        tv_homeTeamScore.setText(Integer.toString(game.getHome_score()));
-        tv_awayTeamScore.setText(Integer.toString(game.getAway_score()));
-        mTvYourTeam.setText(game.getHome_LongName());
-        mTvOpponentTeam.setText(game.getAway_LongName());
+        tv_homeTeamScore.setText(Integer.toString(mGame.getHome_score()));
+        tv_awayTeamScore.setText(Integer.toString(mGame.getAway_score()));
+        mTvYourTeam.setText(mGame.getHome_LongName());
+        mTvOpponentTeam.setText(mGame.getAway_LongName());
         pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount())));
         TextView tv_GamePeriod = (TextView) findViewById(R.id.tv_GamePeriod);
-        tv_GamePeriod.setText(String.format("%s in %s", game.getTimeLeft(), Integer.toString(game.getPeriod())));
-        tv_HomeTeamPledges.setText(utilities.FormatCurrency(game.getHometeam_pledge()));
-        tv_AwayTeamPledges.setText(utilities.FormatCurrency(game.getVisitingteam_pledge()));
-        ImageView homeLogo = (ImageView) findViewById(R.id.hometeamlogo);
-        ImageView awayLogo = (ImageView) findViewById(R.id.awayteamlogo);
-        homeLogo.setImageBitmap(game.getHomeLogobitmap());
-        awayLogo.setImageBitmap(game.getAwayLogobitmap());
-        //TODO:Increase the size of the images if possible
+        tv_GamePeriod.setText(String.format("%s in %s", mGame.getTimeLeft(), Integer.toString(mGame.getPeriod())));
+        tv_HomeTeamPledges.setText(utilities.FormatCurrency(mGame.getHometeam_pledge()));
+        tv_AwayTeamPledges.setText(utilities.FormatCurrency(mGame.getVisitingteam_pledge()));
+        String homelogourl = String.format("%s%s.png", LOGO_BASE_URL, mGame.getHomeLogo());
+        String awaylogourl = String.format("%s%s.png", LOGO_BASE_URL, mGame.getAwayLogo());
+        ImageView mHomeLogo = (ImageView) findViewById(R.id.hometeamlogo);
+        ImageView mAwayLogo = (ImageView) findViewById(R.id.awayteamlogo);
+        SetTeamLogo(homelogourl, mHomeLogo);
+        SetTeamLogo(awaylogourl, mAwayLogo);
     }
 
     public void getGame(int game_id) {

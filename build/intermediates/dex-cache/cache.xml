@@ -2,11 +2,25 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\exploded-aar\GameTimeGiving\volley\unspecified\jars\classes.jar"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.braintreepayments.api\braintree-api\1.7.4\1654d2dc2f1940553f360231f7826ccc4839b9ad\braintree-api-1.7.4.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="c139549c3dc37cecabe8a4312a91731dd4f52fd9">
-        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes-e5c558ac44a3988071984a78b3717f162a6281a5.jar" />
+        sha1="1654d2dc2f1940553f360231f7826ccc4839b9ad">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\braintree-api-1.7.4-0541a26e7e8b9eb5b216db5229bb5254a50f3df2.jar" />
+    </item>
+    <item
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\exploded-aar\com.braintreepayments.api\braintree\1.7.4\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="aa925825eadb1a58eb76f6d0c3b218b4e186832e">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes-f85f216c3880216e6782489e8fd50abdee7f50cf.jar" />
+    </item>
+    <item
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.braintreepayments.api\data\1.7.4\a198d08c5878225d3b3e295de49335cfc51232f5\data-1.7.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a198d08c5878225d3b3e295de49335cfc51232f5">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\data-1.7.4-af1a6ac0c8518a450094d71bde4f90c07b6af834.jar" />
     </item>
 
 </items>

@@ -11,10 +11,14 @@ import android.content.pm.Signature;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.gametimegiving.mobile.LruBitmapCache;
 import com.gametimegiving.mobile.Parse.BaseApi;
 import com.gametimegiving.mobile.Utils.Log;
 import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -47,10 +51,11 @@ public class BaseApplication extends Application {
     public int AndroidApiVersion;
     public boolean Debuggable;
     public SQLiteDatabase db;
-    private RequestQueue mRequestQueue;
     private boolean mCamera;
     private ApplicationInfo mApplicationInfo;
     private DisplayMetrics mDisplayMetrics;
+    private RequestQueue mRequestQueue;
+    private ImageLoader mImageLoader;
 
     public static BaseApplication getInstance() {
         return mBaseApplication;
@@ -180,6 +185,30 @@ public class BaseApplication extends Application {
 
 
     public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
         return mRequestQueue;
+    }
+
+    public <T> void addToRequestQueue(Request<T> req, String tag) {
+        // set the default tag if tag is empty
+        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
+        getRequestQueue().add(req);
+    }
+
+    public <T> void addToRequestQueue(Request<T> req) {
+        req.setTag(TAG);
+        getRequestQueue().add(req);
+    }
+
+    public ImageLoader getImageLoader() {
+        getRequestQueue();
+        if (mImageLoader == null) {
+            mImageLoader = new ImageLoader(this.mRequestQueue,
+                    new LruBitmapCache());
+        }
+        return this.mImageLoader;
     }
 }
