@@ -318,6 +318,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         //Write the new total to Shared Preferences
         //Insert Pledge data in SQLLite Database
         Pledge pledge = new Pledge(this);
+
 //        ContentValues values = new ContentValues();
         pledge.setAmount(value);
   //      values.put(DBOpenHelper.PLEDGE_AMT, value);
