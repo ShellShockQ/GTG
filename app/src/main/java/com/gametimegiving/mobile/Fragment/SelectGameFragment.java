@@ -36,7 +36,6 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
     public Utilities util;
     protected BaseApi mApi;
     List<Game> listOfGames;
-    String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
     private Button mBtnSelect;
     private boolean isGameSelected = false;
     private String selctedgame;
@@ -64,7 +63,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         mSelectGameSpinner = (Spinner) view.findViewById(R.id.spinner1);
         mBtnSelect.setOnClickListener(this);
         Player player = new Player();
-        GetGames(mApiServerUrl + "/api/game", player);
+        GetGames(Constant.APISERVERURL + "/api/game", player);
         return view;
     }
 
@@ -88,7 +87,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
                     }
 
                     intent.putExtras(extras);
-                    util.WriteSharedPref(Constant.ACTIVEGAME, Integer.toString(selectedgameid), getActivity());
+                    util.WriteSharedPref(Constant.ACTIVEGAME, Integer.toString(selectedgameid), getActivity(), "i");
                     startActivity(intent);
                     getActivity().finish();
                 } else {

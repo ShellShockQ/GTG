@@ -28,6 +28,7 @@ public class Game {
     private Bitmap homeLogobitmap;
     private Bitmap awayLogobitmap;
 
+
     public int getHometeam_pledge() {
         return hometeam_pledge;
     }
@@ -48,8 +49,8 @@ public class Game {
         return GameStatus;
     }
 
-    public void setGameStatus() {
-        GameStatus = "NotStarted";
+    public void setGameStatus(String gameStatus) {
+        GameStatus = gameStatus;
     }
 
     public int getPersonalPledgeAmt() {

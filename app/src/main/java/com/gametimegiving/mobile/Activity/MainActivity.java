@@ -34,7 +34,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MAINACTIVITY";
     public static String MyTeamIds;
     String[] arr_charty;
     String[] arr_team;
@@ -77,9 +77,9 @@ public class MainActivity extends BaseActivity {
     private void replaceActivityToFragmnet() {
         SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
         MyTeamIds = sharedpreferences.getString("myTeamIds", "");
-        Log.d(TAG, String.format("Shared Preferences are %s", sharedpreferences.getAll().toString()));
-//        SharedPreferences.Editor editor = sharedpreferences.edit();
-//        editor.clear().commit();
+//        Log.d(TAG, String.format("Shared Preferences are %s", sharedpreferences.getAll().toString()));
+//              SharedPreferences.Editor editor = sharedpreferences.edit();
+//              editor.clear().commit();
 
         if (!sharedpreferences.getBoolean(Constant.ISPROFILESUBMITTED, false)) {
             mToolbarTitle.setText("Profile");

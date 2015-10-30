@@ -16,23 +16,23 @@ public class Utilities {
         Toast.makeText(ctx, "Not Yet Implemented", Toast.LENGTH_LONG).show();
     }
 
-    public void WriteSharedPref(String key, String val, Activity activity) {
+    public void WriteSharedPref(String key, String val, Activity activity, String type) {
         SharedPreferences sharedPref = activity.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        switch ("i") {
+        switch (type) {
             case "s":
-                editor.putString(Constant.ACTIVEGAME, val);
+                editor.putString(key, val);
                 break;
             case "b":
                 boolean bVal = false;
                 if (val == "true") {
                     bVal = true;
                 }
-                editor.putBoolean(Constant.ACTIVEGAME, bVal);
+                editor.putBoolean(key, bVal);
                 break;
             case "i":
                 Integer iVal = Integer.parseInt(val);
-                editor.putInt(Constant.ACTIVEGAME, iVal);
+                editor.putInt(key, iVal);
                 break;
 
         }
@@ -56,5 +56,15 @@ public class Utilities {
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
         return defaultFormat.format(num);
 
+    }
+
+    public int RemoveCurrency(String dollars) {
+        return Integer.parseInt(dollars.replace("$", "").replace(".00", ""));
+    }
+
+    public void ClearSharedPrefs(Activity activity) {
+        final SharedPreferences sharedpreferences = activity.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear().commit();
     }
 }

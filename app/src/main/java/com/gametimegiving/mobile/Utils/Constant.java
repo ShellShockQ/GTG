@@ -16,5 +16,11 @@ public class Constant {
     public static final String ISFIRSTTIMEIN = "isfirsttimein";
     public static final String ACTIVEGAME = "activegame";
     public static final String LASTACTIVEGAME = "lastactivegame";
+    public static final String LASTPLEDGEDAMOUNT = "lastpledgedamount";
+    public static final String MYTOTALPLEDGEDAMOUNT = "mytotalpledgedamount";
+    public static final String MYTEAMTOTALPLEDGEDAMOUNT = "myteamtotalpledgedamount";
+    public static final String THEIRTEAMTOTALPLEDGEDAMOUNT = "theirteamtotalpledgedamount";
+    public static final String GAMEDATAREFRESHED = "gamedatarefreshed";
+
     public static final String APISERVERURL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
 }
