@@ -12,7 +12,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.View;
@@ -60,6 +62,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private final static int SUBMIT_PAYMENT_REQUEST_CODE = 100;
     final int MaxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
     final int cacheSize = MaxMemory / 8;
+    final Handler handler = new Handler();
     private final Player player = new Player();
     public Integer ActiveGameID;
     public Integer mUserTeamID;
@@ -68,8 +71,11 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     public String MyPledgeAmount;
     public Boolean PreferredCharityNoticeShown;
     public boolean bFirstTimeIn = true;
+    public Game mGame = new Game();
     Utilities utilities = new Utilities();
     TextView tvMyTeamPledgeTotals;
+    Timer timer;
+    TimerTask timerTask;
     private Integer mMyTeamsPledgeTotals = 0;
     private Integer mTheirTeamsPledgeTotals = 0;
     private Integer mMyPledgeTotals = 0;
@@ -82,6 +88,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private Button mUndoLastPledge;
     private String mToken;
     private LruCache<Integer, Bitmap> imageMemCache;
+    private Button btn;
+    private Button btnPay;
 
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -91,11 +99,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         player.setPlayer_id();
         setContentView(R.layout.gameboard);
+        startTimer();
 
-        View l = findViewById(R.id.pledgeButtons);
-        View ppl = findViewById(R.id.personalpledgelayout);
-        Button btn = (Button) findViewById(R.id.btnundolastpledge);
-        Button btnPay = (Button) findViewById(R.id.paynow);
+
         tvPledges = (TextView) findViewById(R.id.pledges);
         if (getIntent().getExtras() != null) {
             try {
@@ -107,24 +113,63 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             }
 
         }
-        Game game = new Game();
-        game.setGameStatus("InProgress");
+        getCurrentGame(ActiveGameID);
+
         //TODO:Determine Game Status based on the time
 
         /* ********************************************** */
 
-        switch (game.getGameStatus()) {
-            case "NotStarted":
+
+        imageMemCache = new LruCache<>(cacheSize);
+        //Set Period
+        Integer ag = utilities.ReadSharedPref("activegame", this);
+
+
+        context = this;
+
+        mTvYourTeam = (TextView) findViewById(R.id.tvyourteam);
+
+        mUndoLastPledge = (Button) findViewById(R.id.btnundolastpledge);
+
+        mUndoLastPledge.setOnClickListener(this);
+
+        mUndoLastPledge.setEnabled(false);
+
+        mTvOpponentTeam = (TextView) findViewById(R.id.tvopponentteam);
+
+        //getGame(ActiveGameID);
+
+
+        btn_$1 = (Button) findViewById(R.id.btn_$1);
+        btn_$2 = (Button) findViewById(R.id.btn_$2);
+        btn_$5 = (Button) findViewById(R.id.btn_$5);
+
+        btn_$1.setOnClickListener(this);
+        btn_$2.setOnClickListener(this);
+        btn_$5.setOnClickListener(this);
+        if (bFirstTimeIn) {
+            showdialog();
+        }
+
+    }
+
+    private void SetGameBoard(Game mGame) {
+        View l = findViewById(R.id.pledgeButtons);
+        View ppl = findViewById(R.id.personalpledgelayout);
+        Button btn = (Button) findViewById(R.id.btnundolastpledge);
+        Button btnPay = (Button) findViewById(R.id.paynow);
+        switch (mGame.getGameStatus()) {
+            case Constant.GAMENOTSTARTED:
                 TurnOffPledgeMechanisms(l, ppl, btn, btnPay);
-                game.ClearBoard();
+                mGame.ClearBoard();
                 break;
-            case "InProgress":
+            case Constant.GAMEINPROGRESS:
                 l.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.VISIBLE);
                 btnPay.setVisibility(View.GONE);
 
                 break;
-            case "GameOver":
+            case Constant.GAMEOVER:
                 GenerateClientToken();
                 if (tvPledges.getText() != "$0.00") {
                     MyPledgeAmount = tvPledges.getText().toString();
@@ -148,43 +193,37 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                         }
                     });
                 } else {
-                    utilities.ShowMsg(this);
+                    utilities.ShowMsg("You have no pledges", this);
 
                 }
                 break;
         }
+    }
 
-        imageMemCache = new LruCache<>(cacheSize);
-        //Set Period
-        Integer ag = utilities.ReadSharedPref("activegame", this);
+    private void startTimer() {
+        //set a new Timer
+        timer = new Timer();
+        //initialize the TimerTask's job
+        RefreshGame();
 
+        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
+        timer.schedule(timerTask, 5000, 10000); //
 
-        context = this;
+    }
 
-        mTvYourTeam = (TextView) findViewById(R.id.tvyourteam);
+    public void RefreshGame() {
 
-        mUndoLastPledge = (Button) findViewById(R.id.btnundolastpledge);
+        timerTask = new TimerTask() {
+            public void run() {
 
-        mUndoLastPledge.setOnClickListener(this);
-
-        mUndoLastPledge.setEnabled(false);
-
-        mTvOpponentTeam = (TextView) findViewById(R.id.tvopponentteam);
-        getCurrentGame(ActiveGameID);
-        //getGame(ActiveGameID);
-
-
-        btn_$1 = (Button) findViewById(R.id.btn_$1);
-        btn_$2 = (Button) findViewById(R.id.btn_$2);
-        btn_$5 = (Button) findViewById(R.id.btn_$5);
-
-        btn_$1.setOnClickListener(this);
-        btn_$2.setOnClickListener(this);
-        btn_$5.setOnClickListener(this);
-        if (bFirstTimeIn) {
-            showdialog();
-        }
-
+                //use a handler to run a toast that shows the current timestamp
+                handler.post(new Runnable() {
+                    public void run() {
+                        getCurrentGame(ActiveGameID);
+                    }
+                });
+            }
+        };
     }
 
     @Override
@@ -232,10 +271,11 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             StringRequest request = new StringRequest(Request.Method.POST,
                     p.getUri(),
                     new Response.Listener<String>() {
-
                         @Override
+
                         public void onResponse(String response) {
-                            Game mGame = MyGameJSONParser.parseFeed(response);
+                            mGame = MyGameJSONParser.parseFeed(response);
+                            SetGameBoard(mGame);
                             UpdateGameBoard(mGame);
                             mGame.setUserteam_id(mGame.getHome_Id());
                             mUserTeamID = mGame.getUserteam_id();
@@ -306,12 +346,12 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         tvMyTeamPledgeTotals = (TextView)findViewById(R.id.tv_HomeTeamPledges);
         player.setMyLastPledgeAmount(value);
         utilities.WriteSharedPref(Constant.GAMEDATAREFRESHED, "false", this, "b");
-        utilities.WriteSharedPref(Constant.LASTPLEDGEDAMOUNT, Integer.toString(player.getMyTotalPledgeAmount()), this, "i");
+        utilities.WriteSharedPref(Constant.LASTPLEDGEDAMOUNT, Integer.toString(player.getMyTotalPledgeAmount(this)), this, "i");
 
-        player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount() + value);
-        mMyPledgeTotals=player.getMyTotalPledgeAmount();
-        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount()));
-        utilities.WriteSharedPref(Constant.MYTOTALPLEDGEDAMOUNT, Integer.toString(player.getMyTotalPledgeAmount()), this, "i");
+        player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount(this) + value);
+        mMyPledgeTotals = player.getMyTotalPledgeAmount(this);
+        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount(this)));
+        utilities.WriteSharedPref(Constant.MYTOTALPLEDGEDAMOUNT, Integer.toString(player.getMyTotalPledgeAmount(this)), this, "i");
         mMyTeamsPledgeTotals= utilities.RemoveCurrency(tvMyTeamPledgeTotals.getText().toString())+value;
         tvMyTeamPledgeTotals.setText(utilities.FormatCurrency(mMyTeamsPledgeTotals));
         utilities.WriteSharedPref(Constant.MYTEAMTOTALPLEDGEDAMOUNT,Integer.toString(mMyTeamsPledgeTotals),this,"i");
@@ -339,8 +379,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     * */
     private void undoLastPledge(int game_id, int team_id) {
         mUndoLastPledge.setEnabled(false);
-        player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount() - player.getMyLastPledgeAmount());
-        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount()));
+        player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount(this) - player.getMyLastPledgeAmount());
+        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount(this)));
         //TODO:Remove personal pledge from server totals
         Pledge pledge = new Pledge(this);
         pledge.setAmount(player.getMyLastPledgeAmount() * -1);
@@ -424,6 +464,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btnundolastpledge:
                 undoLastPledge(ActiveGameID, mUserTeamID);
+                openDailogPledgesAdd(mMyLastPledge * -1);
                 break;
         }
         //getGame(ActiveGameID);
@@ -431,10 +472,17 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void openDailogPledgesAdd(int pledge_value) {
+        String sConfirmation;
         final CustomizeDialog pledgeDialog = new CustomizeDialog(context);
         pledgeDialog.setContentView(R.layout.dilogpledges);
         TextView tv_pledge_donation = (TextView) pledgeDialog.findViewById(R.id.tv_pledge_donation);
-        tv_pledge_donation.setText(utilities.FormatCurrency(pledge_value) + " Pledge");
+        if (pledge_value < 0) {
+            sConfirmation = String.format("Your last pledge of <br /><b>%s</b><br /> has been undone", utilities.FormatCurrency(pledge_value).replace("-", ""));
+
+        } else {
+            sConfirmation = String.format("Your pledge of <br /><b>%s</b><br /> is confirmed", utilities.FormatCurrency(pledge_value));
+        }
+        tv_pledge_donation.setText(Html.fromHtml(sConfirmation));
         pledgeDialog.show();
         pledgeDialog.setCancelable(false);
         final Timer t = new Timer();
@@ -458,7 +506,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         tv_awayTeamScore.setText(Integer.toString(mGame.getAway_score()));
         mTvYourTeam.setText(mGame.getHome_LongName());
         mTvOpponentTeam.setText(mGame.getAway_LongName());
-        pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount())));
+        pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount(this))));
         TextView tv_GamePeriod = (TextView) findViewById(R.id.tv_GamePeriod);
         tv_GamePeriod.setText(String.format("%s in %s", mGame.getTimeLeft(), Integer.toString(mGame.getPeriod())));
         tvMyTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getHometeam_pledge()));

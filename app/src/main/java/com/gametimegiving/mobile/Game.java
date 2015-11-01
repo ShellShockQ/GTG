@@ -28,7 +28,6 @@ public class Game {
     private Bitmap homeLogobitmap;
     private Bitmap awayLogobitmap;
 
-
     public int getHometeam_pledge() {
         return hometeam_pledge;
     }

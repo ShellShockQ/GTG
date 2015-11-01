@@ -21,6 +21,9 @@ public class Constant {
     public static final String MYTEAMTOTALPLEDGEDAMOUNT = "myteamtotalpledgedamount";
     public static final String THEIRTEAMTOTALPLEDGEDAMOUNT = "theirteamtotalpledgedamount";
     public static final String GAMEDATAREFRESHED = "gamedatarefreshed";
+    public static final String GAMENOTSTARTED = "notStarted";
+    public static final String GAMEINPROGRESS = "inprogress";
+    public static final String GAMEOVER = "gameover";
 
     public static final String APISERVERURL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
 }

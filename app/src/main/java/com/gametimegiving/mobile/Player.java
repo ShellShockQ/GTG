@@ -1,5 +1,6 @@
 package com.gametimegiving.mobile;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.android.volley.Request;
@@ -9,12 +10,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gametimegiving.mobile.Application.BaseApplication;
+import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.Log;
+import com.gametimegiving.mobile.Utils.Utilities;
 
-public class Player {
+public class Player extends BaseApplication {
     private static final String mApiServerUrl = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
 
     private static final String TAG = "Player";
+    public Activity mActivity;
+    public Utilities utilities = new Utilities();
     private int player_id;
     private int myteam_id;
     private int myTotalPledgeAmount;
@@ -58,8 +63,13 @@ public class Player {
         this.myteam_id = myteam_id;
     }
 
-    public int getMyTotalPledgeAmount() {
-        return myTotalPledgeAmount;
+    public int getMyTotalPledgeAmount(Activity activity) {
+        if (myTotalPledgeAmount == 0) {
+            return utilities.ReadSharedPref(Constant.MYTOTALPLEDGEDAMOUNT, activity);
+        } else {
+            return myTotalPledgeAmount;
+        }
+
     }
 
     public void setMyTotalPledgeAmount(int myTotalPledgeAmount) {

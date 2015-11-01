@@ -15,8 +15,8 @@ android {
         applicationId 'com.gametimegiving.mobile'
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 23
-        versionName '1.0.23 Alpha'
+        versionCode 24
+        versionName '1.0.24 Alpha'
         signingConfig signingConfigs.config
     }
     buildTypes {

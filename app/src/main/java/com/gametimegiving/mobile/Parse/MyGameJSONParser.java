@@ -1,8 +1,14 @@
 package com.gametimegiving.mobile.Parse;
 
 import com.gametimegiving.mobile.Game;
+import com.gametimegiving.mobile.Utils.Constant;
 
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MyGameJSONParser {
     public static Game parseFeed(String content) {
@@ -10,7 +16,7 @@ public class MyGameJSONParser {
             JSONObject jsnobject = new JSONObject(content);
             org.json.JSONArray jsonArray = jsnobject.getJSONArray("items");
             Game game = new Game();
-            for (int i = 0; i < jsonArray.length(); i++) {
+            int i = 0;
                 JSONObject obj = jsonArray.getJSONObject(i);
                 game.setGameId(obj.getInt("game_id"));
                 game.setHome_LongName(obj.getString("home_long"));
@@ -25,8 +31,19 @@ public class MyGameJSONParser {
                 game.setAwayLogo(obj.getString("away_photo"));
                 game.setHome_Id(obj.getInt("home_id"));
                 game.setAway_Id(obj.getInt("away_id"));
+            game.setStarttime(obj.getString("start_dtm"));
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date dStartTime = formatter.parse(game.getStarttime());
+                Calendar calendar = Calendar.getInstance();
+                if (dStartTime.before(calendar.getTime())) {
+                    game.setGameStatus(Constant.GAMENOTSTARTED);
+                } else {
+                    game.setGameStatus(Constant.GAMEINPROGRESS);
+                }
 
-
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
             return game;

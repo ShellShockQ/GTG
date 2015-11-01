@@ -8,8 +8,8 @@ import android.widget.Toast;
 import java.text.NumberFormat;
 
 public class Utilities {
-    public void ShowMsg(Context ctx) {
-        Toast.makeText(ctx, "You have no pledges!", Toast.LENGTH_LONG).show();
+    public void ShowMsg(String message, Context ctx) {
+        Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
     }
 
     public void NotYetImplemented(Context ctx) {
