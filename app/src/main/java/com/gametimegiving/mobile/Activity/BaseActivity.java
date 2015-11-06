@@ -134,6 +134,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
         builder.setPositiveButton("Ok", null);
         mAlert = builder.create();
 
+
     }
 
     @Override
