@@ -70,19 +70,8 @@ public class SplashActivity extends Activity {
 
                         // Close the main Activity
                         finish();
-                        return;
                     }
-                    if (sharedpreferences.getBoolean(Constant.ISLOGIN, false)) {
-                        Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-                        SplashActivity.this.startActivity(mainIntent);
-                        SplashActivity.this.finish();
 
-                    } else {
-                     /* Create an Intent that will start the Login-Activity. */
-                        Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class);
-                        SplashActivity.this.startActivity(mainIntent);
-                        SplashActivity.this.finish();
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

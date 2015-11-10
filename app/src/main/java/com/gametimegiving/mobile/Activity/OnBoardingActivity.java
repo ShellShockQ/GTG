@@ -13,6 +13,7 @@ import com.gametimegiving.mobile.Fragment.OnBoardingFragment1;
 import com.gametimegiving.mobile.Fragment.OnBoardingFragment3;
 import com.gametimegiving.mobile.Fragment.OnboardingFragment2;
 import com.gametimegiving.mobile.R;
+import com.gametimegiving.mobile.Utils.Constant;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
@@ -96,13 +97,17 @@ public class OnBoardingActivity extends FragmentActivity {
         // Set onboarding_complete to true
         preferences.edit()
                 .putBoolean("onboarding_complete", true).apply();
+        Boolean LoggedInAlready = preferences.getBoolean(Constant.ISLOGIN, false);
+        if (LoggedInAlready) {
+            Intent mainIntent = new Intent(OnBoardingActivity.this, MainActivity.class);
+            OnBoardingActivity.this.startActivity(mainIntent);
+            OnBoardingActivity.this.finish();
+        } else {
+            Intent mainIntent = new Intent(OnBoardingActivity.this, LoginActivity.class);
+            OnBoardingActivity.this.startActivity(mainIntent);
+            OnBoardingActivity.this.finish();
+        }
 
-        // Launch the main Activity, called MainActivity
-        Intent main = new Intent(this, MainActivity.class);
-        startActivity(main);
-
-        // Close the OnboardingActivity
-        finish();
 
     }
 }

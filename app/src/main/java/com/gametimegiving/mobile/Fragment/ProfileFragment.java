@@ -131,7 +131,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         final String profileName = sharedpreferences.getString(Constant.PROFILENAME, null);
         mProfileUrl = sharedpreferences.getString(Constant.PROFILEURL, null);
         mProfileId = sharedpreferences.getString(Constant.PROFILEID, null);
-        isLogInFrom = sharedpreferences.getString(Constant.ISLOGINFROM, null);
+        isLogInFrom = sharedpreferences.getString(Constant.ISLOGINFROM, "");
         isDrawerLocked = sharedpreferences.getBoolean(Constant.ISPROFILESUBMITTED, false);
         mProfilepictureView = (RoundedImageView) view.findViewById(R.id.profilePicture);
 
@@ -145,21 +145,21 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
         mImgEdit = (ImageView) view.findViewById(R.id.editimage);
 
-        if (isLogInFrom.equals("facebook") || isLogInFrom.equals("twitter"))
+        if (isLogInFrom.equals("facebook") || isLogInFrom.equals("twitter")) {
             mImgEdit.setEnabled(false);
 
-        mImgEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hasProfileUpdate = true;
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            mImgEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hasProfileUpdate = true;
+                    Intent i = new Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
-            }
-        });
-
+                    startActivityForResult(i, RESULT_LOAD_IMAGE);
+                }
+            });
+        }
         mBtnSave = (Button) view.findViewById(R.id.btn_save);
 
         addListenerOnSpinnerItemSelection();
@@ -400,14 +400,18 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
             Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
-            cursor.moveToFirst();
+
+            if (cursor != null) {
+                cursor.moveToFirst();
+
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
+                BaseActivity.bitmap = BitmapFactory.decodeFile(picturePath);
+                mProfilepictureView.setImageBitmap(BaseActivity.bitmap);
 
-            BaseActivity.bitmap = BitmapFactory.decodeFile(picturePath);
-            mProfilepictureView.setImageBitmap(BaseActivity.bitmap);
+            }
 
         }
     }
