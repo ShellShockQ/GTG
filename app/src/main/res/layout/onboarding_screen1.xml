@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/onboardingbackground1"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="16dp">
@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Support!"
+        android:text="Follow!"
+        android:textColor="@color/white_color"
         android:textSize="40sp" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/benefit1"
+        android:textColor="@color/white_color"
         android:textSize="20sp" />
 
 </LinearLayout>

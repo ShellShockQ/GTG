@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/onboardingbackground3"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="16dp">
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Change the World!"
+        android:textColor="@color/black_color"
         android:textSize="40sp" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/benefit3"
+        android:textColor="@color/black_color"
         android:textSize="20sp" />
 
 </LinearLayout>
