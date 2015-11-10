@@ -8,12 +8,12 @@
     android:padding="16dp">
 
     <TextView
+        style="@style/OnBoardingHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Change the World!"
-        android:textColor="@color/black_color"
-        android:textSize="40sp" />
+        android:textColor="@color/black_color" />
 
     <TextView
         android:layout_width="wrap_content"
