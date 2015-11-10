@@ -48,5 +48,12 @@
     <string name="maximum_charity_limit_reached">Max Charity Limit Reached</string>
     <string name="visitingteam">Visiting</string>
     <string name="hometeam">Home</string>
+    <string name="title_activity_onboard">onboard</string>
+    <string name="benefitone">This is the Primary Benefit</string>
+    <string name="benefittwo">This is the second benefit</string>
+    <string name="benefitthree">This is the 3rd benefit</string>
+    <string name="benefit3"><ul><li>Turn your pledge into a donation</li>\n<li>See which teams fans gave the most!</li></ul></string>
+    <string name="benefit2"><li>Get notified when your teams are playing</li>\n<li>Compete against the other team\'s fans in a "Giving Competition"</li></string>
+    <string name="benefit1"><li>Follow your favorite Sports teams</li>\n <li>Follow your favorite charities</li></string>
 
 </resources>

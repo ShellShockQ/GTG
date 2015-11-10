@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     signingConfigs {
@@ -14,10 +13,10 @@ android {
     buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId 'com.gametimegiving.mobile'
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
-        versionCode 24
-        versionName '1.0.24 Alpha'
+        versionCode 25
+        versionName '1.0.25 Alpha'
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -33,12 +32,15 @@ android {
     productFlavors {
     }
 }
+repositories {
+    maven { url "https://jitpack.io" }
+}
 
 dependencies {
-    compile 'com.google.android.gms:play-services:8.1.0'
+    compile 'com.github.vajro:MaterialDesignLibrary:1.6'
+    compile 'com.ogaclejapan.smarttablayout:library:1.2.1@aar'
     compile 'com.android.support:design:22.2.0'
     compile 'com.braintreepayments.api:braintree:1.+'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
@@ -47,10 +49,10 @@ dependencies {
     compile files('libs/signpost-jetty6-1.2.1.1.jar')
     compile files('libs/twitter4j-core-4.0.4.jar')
     compile files('libs/universal-image-loader-1.9.0.jar')
+    compile files('libs/libGoogleAnalyticsServices.jar')
     compile files('libs/prime.jar')
     compile files('libs/ziesemer.jar')
     compile files('libs/cover.jar')
-    compile files('libs/libGoogleAnalyticsServices.jar')
-    compile files('libs/nineoldandroids.jar')
     compile project(':volley')
+
 }

@@ -24,6 +24,6 @@ public class Constant {
     public static final String GAMENOTSTARTED = "notStarted";
     public static final String GAMEINPROGRESS = "inprogress";
     public static final String GAMEOVER = "gameover";
-
+    public static final String NEEDSONBOARDING = "needsonboarding";
     public static final String APISERVERURL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_API_SERVER_URL);
 }
