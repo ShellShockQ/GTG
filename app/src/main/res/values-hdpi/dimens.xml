@@ -6,7 +6,7 @@
     =============loginpage===============
     <dimen name="margin_left">30dp</dimen>
     <dimen name="margin_right">30dp</dimen>
-    <dimen name="margin_top">20dp</dimen>
+    <dimen name="margin_top">30dp</dimen>
 
     <dimen name="margin_10">7.50dp</dimen>
     <dimen name="margin_15">11.25dp</dimen>

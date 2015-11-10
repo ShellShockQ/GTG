@@ -36,13 +36,11 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Twitter.TwitterApp;
 import com.gametimegiving.mobile.Utils.CommanDialog;
 import com.gametimegiving.mobile.Utils.ConnectionDetector;
 import com.gametimegiving.mobile.Utils.Constant;
-import com.gametimegiving.mobile.Utils.Validation;
 
 import org.json.JSONObject;
 
@@ -131,18 +129,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
-        mEtEmail = (EditText) findViewById(R.id.etmail);
-        mEtPassword = (EditText) findViewById(R.id.etpassword);
-        mBtnSignIn = (Button) findViewById(R.id.btn_signin);
+//        EtEmail = (EditText) findViewById(R.id.etmail);
+//        mEtPassword = (EditText) findViewById(R.id.etpassword);
+//        mBtnSignIn = (Button) findViewById(R.id.btn_signin);
         sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
-        mBtnSignIn.setOnClickListener(this);
+//        mBtnSignIn.setOnClickListener(this);
+//
+//
+//        mTvForgotPassword = (TextView) findViewById(R.id.tvforgatpassword);
+//        mTvForgotPassword.setOnClickListener(this);
 
-
-        mTvForgotPassword = (TextView) findViewById(R.id.tvforgatpassword);
-        mTvForgotPassword.setOnClickListener(this);
-
-        TextView tvSignup = (TextView) findViewById(R.id.tvsignup);
-        tvSignup.setOnClickListener(this);
+//        TextView tvSignup = (TextView) findViewById(R.id.tvsignup);
+//        tvSignup.setOnClickListener(this);
 
         facebookLogin();
     }
@@ -278,37 +276,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tvsignup:
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.tvforgatpassword:
-                Intent intent1 = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent1);
-                break;
-            case R.id.btn_signin:
-                if (Validation.isFieldEmpty(mEtEmail) && Validation.isFieldEmpty(mEtPassword)) {
-                    if (!Validation.isEmailValid(mEtEmail.getText().toString())) {
-                        Player player = new Player();
-                        if (Player.isRegisteredPlayer(mEtEmail.getText().toString(),
-                                mEtPassword.getText().toString(), LoginActivity.this)) {
-                            Intent intent3 = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent3);
-                            finish();
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Not Registered", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        mEtEmail.setError("Invalid E_mail");
-                        Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Field can't be empty", Toast.LENGTH_SHORT).show();
-                }
-                sharedPreferences();
-                break;
+//            case R.id.tvsignup:
+//                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+//                startActivity(intent);
+//                finish();
+//                break;
+//            case R.id.tvforgatpassword:
+//                Intent intent1 = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+//                startActivity(intent1);
+//                break;
+//            case R.id.btn_signin:
+//                if (Validation.isFieldEmpty(mEtEmail) && Validation.isFieldEmpty(mEtPassword)) {
+//                    if (!Validation.isEmailValid(mEtEmail.getText().toString())) {
+//                        Player player = new Player();
+//                        if (Player.isRegisteredPlayer(mEtEmail.getText().toString(),
+//                                mEtPassword.getText().toString(), LoginActivity.this)) {
+//                            Intent intent3 = new Intent(LoginActivity.this, MainActivity.class);
+//                            startActivity(intent3);
+//                            finish();
+//
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "Not Registered", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        mEtEmail.setError("Invalid E_mail");
+//                        Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Field can't be empty", Toast.LENGTH_SHORT).show();
+//                }
+//                sharedPreferences();
+//                break;
             case R.id.twt:
                 onTwitterClick();
 
