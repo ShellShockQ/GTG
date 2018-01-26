@@ -56,5 +56,7 @@
     <string name="benefit2"><li>Get notified when your teams are playing</li>\n<li>Compete against the other team\'s fans in a <b>Giving Competition</b></li></string>
     <string name="benefit1"><li>Your favorite Sports teams</li>\n<li>Your favorite charities</li></string>
     <string name="onboardingscreen2headertext">Compete!</string>
+    <string name="InValidProfileErrorMessage">Please Select Charity and Team</string>
+    <string name="gtglogo">GTGLogo</string>
 
 </resources>

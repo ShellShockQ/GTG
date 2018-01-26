@@ -2,25 +2,643 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.braintreepayments.api\braintree-api\1.7.4\1654d2dc2f1940553f360231f7826ccc4839b9ad\braintree-api-1.7.4.jar"
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\31bf9d7ff36dd94e443ae12c0609df11f59d7a6a\output\jars\classes.jar"
         jumboMode="false"
-        revision="22.0.1"
-        sha1="1654d2dc2f1940553f360231f7826ccc4839b9ad">
-        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\braintree-api-1.7.4-0541a26e7e8b9eb5b216db5229bb5254a50f3df2.jar" />
+        optimize="true"
+        revision="26.0.0"
+        sha1="0f254ec13d6671680482d2218f01ecf14dfa93e6">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_e255ea1eca6ffd2afbf05cd480b06c4f1bb33112.jar" />
     </item>
     <item
-        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\exploded-aar\com.braintreepayments.api\braintree\1.7.4\jars\classes.jar"
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\ziesemer.jar"
         jumboMode="false"
-        revision="22.0.1"
-        sha1="aa925825eadb1a58eb76f6d0c3b218b4e186832e">
-        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes-f85f216c3880216e6782489e8fd50abdee7f50cf.jar" />
+        optimize="true"
+        revision="25.0.0"
+        sha1="843f7e82e443497e9a064f8a835d0922785a2809">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\ziesemer_1bacd8a496321e46f3dd19969b1e83c604343dc8.jar" />
     </item>
     <item
-        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.braintreepayments.api\data\1.7.4\a198d08c5878225d3b3e295de49335cfc51232f5\data-1.7.4.jar"
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\volley\build\intermediates\bundles\default\classes.jar"
         jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="fef22323a861757941bef887fdaee59ed0a9b7da">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_690bebac5c9ee15af6f43013de64bf21e56c7cb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\7230da63fef86076a69a1cc91628f7861d52d509\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="796f9229948e907471c5595fbe94655ccf03ff73">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_49e3e7a1ecf5366fe50fce7d26838ad631866027.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\376bb64c2ed668cea9140b2a3d24f544d6e85a04\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="575dcd40a427c3d3763a5eb8c0dd008dfaaddf7f">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_8f831b10b7f49264b222cb52898f4b67c445d0c0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\libGoogleAnalyticsServices.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="e887c6c9b31b39a39b0eaba981448b78902ea813">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\libGoogleAnalyticsServices_49405f693f19f1ed3228ed97294b6659ed983206.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-integration\1.3\5de0c73fef18917cd85d0ab70bb23818685e4dfd\hamcrest-integration-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="5de0c73fef18917cd85d0ab70bb23818685e4dfd">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\hamcrest-integration-1.3_d861b8b66907c59bab0b28a45d096a85030395e1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\90a7917f2138e8ccf4b273cdba44696611c66532\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6d65140c837f37580ee758c4f86906314580708f">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_a9a4ac801a0952df5bd9576d3b45b36950a14d20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\abc02712bf7c22b75d207aef01a7c80fa695df13\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="224f05c469ffca564b50261613522c5e84215381">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_0115ccd0516ae6330c5616cf48aac424527b893f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.4\129874135e6081269ace2312092031558865de12\bolts-android-1.1.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.4_e62e9415d1dc46bec95d82338ca6a4824bcf7c82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-core-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
         revision="22.0.1"
-        sha1="a198d08c5878225d3b3e295de49335cfc51232f5">
-        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\data-1.7.4-af1a6ac0c8518a450094d71bde4f90c07b6af834.jar" />
+        sha1="47d92007ca13efd47efad1af94d842ecb5066310">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-core-1.2.1.1_044a2f1b9f89796260b027227b0fece4ada8914f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-commonshttp4-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="1e6380adcb5808bfe13a934a2f35bfeed1adbc49">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-commonshttp4-1.2.1.1_997badec7960563af732aeb4542f7fd1ef8a3721.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\twitter4j-core-4.0.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="1f3c896c7b2f20c51103078ccf0bc2ea97ac012a">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\twitter4j-core-4.0.4_c7e186e57d633474bb83efa2214e829ecdf43be2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-jetty6-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="278d98035ed45da35eaeac7ebd22d5fc19374187">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-jetty6-1.2.1.1_3849cbb1552bdbf4bbb147e1f91c33821cbe0124.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\18976a0d06b75477f723065af08623bb241a8bd6\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b083f9ed76344c2f2b227c56d597f6d08d3fefc8">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_698b8c3211acdafcf57ca059025419b2b5b3b706.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-core-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="47d92007ca13efd47efad1af94d842ecb5066310">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-core-1.2.1.1_044a2f1b9f89796260b027227b0fece4ada8914f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\prime.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="5577c11ef3186fa89e279eb15c2dbc5f6d8270ff">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\prime_2c9cdb49389d47e7fc273db0a977291cab0d4dea.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\ac0c16d8bf3f620b1ac658d26f2bd3ce58f6f3cb\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="7e11799d8a26bfa5d48acafe012ee5545b9bf468">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_9577b81bb64122a6f26125f29046511f134055d3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\7af2974c5d992ff625e4da6865ddc2d2f173ad2d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="aa2838c6c309d3913240cdcb03014fb21f806824">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_6f9fc9b4c2a300b4ea989a4c6df5c7afe410c3d0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\twitter4j-core-4.0.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="1f3c896c7b2f20c51103078ccf0bc2ea97ac012a">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\twitter4j-core-4.0.4_c7e186e57d633474bb83efa2214e829ecdf43be2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\bcaa61437aaca418d0903973c74ceaf130c97d58\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="905f3e63973d47fedf2d945fa31d8c0f0c98816e">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_e170ec4bccaa57d46d305cf1fcb3ce24964053ea.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\javax.annotation\javax.annotation-api\1.2\479c1e06db31c432330183f5cae684163f186146\javax.annotation-api-1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="479c1e06db31c432330183f5cae684163f186146">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\javax.annotation-api-1.2_8f4810aa7c20dc177891b63e90ca2a43e34c9a5e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\universal-image-loader-1.9.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="f667a2f4f27542fe11a6781f5f7ac572d27afcec">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.0_fad0bfd0224d967c039820615a1bb007ab2effcd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\c69455f488408b32b3086f95bf8121906ff27d4f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="a890ee8445927649d9ed50f625a315d8758688be">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_06397bb0d0616f08282cb51bd630365a59c10f55.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-core\1.3\42a25dc3219429f0e5d060061f71acb49bf010a0\hamcrest-core-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="42a25dc3219429f0e5d060061f71acb49bf010a0">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\hamcrest-core-1.3_62424806d1ad46c1f51ff38f6cbe86454c153987.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\c2d9e6619ffec8e4cabc043564cea82b536152bb\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="a8655e6077da9526c0c94bf063f1275430ce8574">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_a5f94273667985cf9c8e3e2a46179ac9cccd0946.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-jetty6-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="278d98035ed45da35eaeac7ebd22d5fc19374187">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-jetty6-1.2.1.1_3849cbb1552bdbf4bbb147e1f91c33821cbe0124.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\cover.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="a3136623a81dc6e6460ca6a5c87d781f933548cd">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\cover_8acca10981e7f97fb4682cb461abfc53ff3e91e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\16d4c11499b06f4e9fc13929462084804903ecd2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="b102f892442929c3457de1ef6a94f5dda3dd8864">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_87dabf5a498fad526fc4f01f11f7351f0c5d1bb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\0f1536605431881d3934367a0532b833e4394af5\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="8602ab07133e6ee182726fa27588420dba9d6d55">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_b5efeadb744b92817e2f8d7506ee4ba3488b45bc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-commonshttp4-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1e6380adcb5808bfe13a934a2f35bfeed1adbc49">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-commonshttp4-1.2.1.1_997badec7960563af732aeb4542f7fd1ef8a3721.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\library-2.4.0_ab8d687ed8e4b1fe7ddb641953ad31df2f682c3f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\universal-image-loader-1.9.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="f667a2f4f27542fe11a6781f5f7ac572d27afcec">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.0_fad0bfd0224d967c039820615a1bb007ab2effcd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\0c9d1f79afb900916526c3a198978ee889d060a7\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_5d326ce97ea01b1a26265d628e2ec53cf8e6cb4e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\ziesemer.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="843f7e82e443497e9a064f8a835d0922785a2809">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\ziesemer_1bacd8a496321e46f3dd19969b1e83c604343dc8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\8dd7b25d4d38ccacf98b5e44706a4160d528fcfc\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_3ba953e10dc139a89ffa34cf11063f59c9ba7cb4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.paypal.android.sdk\data-collector\2.7.0\ee65292d98c09732c158d659951681ac0e19b6f\data-collector-2.7.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="0ee65292d98c09732c158d659951681ac0e19b6f">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\data-collector-2.7.0_79a1ac04467cfef8aa4f3f6334b7ab783fc02780.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\dd20dc868a09596ad90146928f0f2f83b762b23d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="f7b86f1beb2b3625c6a1a5da6b5fc5294b64aea9">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_5317aa1d53429904bb26cf5b536e9da37fede0fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\c029cb8806edadb324dd43df6c286627811f7fdf\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="2520dd452fb1f487eba29ccd2d44358f0b8da788">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_dfc1f9a23adad7a9913a4cefa784876428b61176.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\2.0.1\516c03b21d50a644d538de0f0369c620989cd8f0\jsr305-2.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="516c03b21d50a644d538de0f0369c620989cd8f0">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\jsr305-2.0.1_1699a8e4804a31ec5b3c0be1cf0d23e38050e765.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\dc0012b5101e21400cca673ce1d572a597f1d071\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="1a94a06ec585c9423a3c03bde1f7bf9268f83d66">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_d6799368f483cef5a8d3e5f87c1531d975ecee07.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\volley\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fef22323a861757941bef887fdaee59ed0a9b7da">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_690bebac5c9ee15af6f43013de64bf21e56c7cb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\prime.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="5577c11ef3186fa89e279eb15c2dbc5f6d8270ff">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\prime_2c9cdb49389d47e7fc273db0a977291cab0d4dea.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\002dbae85638ebc04639f41eb0f8daa075bf0988\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="d115b0e9e1501135fe91254ba884fcbd83d374c0">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_7d6415c16a2bef454f237d227a2b9678eaa6cc82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.squareup\javawriter\2.1.1\67ff45d9ae02e583d0f9b3432a5ebbe05c30c966\javawriter-2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="67ff45d9ae02e583d0f9b3432a5ebbe05c30c966">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\javawriter-2.1.1_ba4f0898814d3e59b8b0a45a0bd16c16c39fa851.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-library\1.3\4785a3c21320980282f9f33d0d1264a69040538f\hamcrest-library-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="4785a3c21320980282f9f33d0d1264a69040538f">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\hamcrest-library-1.3_d1b2af646dd80162f728e3279d32b77ffec9837a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\ziesemer.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="843f7e82e443497e9a064f8a835d0922785a2809">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\ziesemer_1bacd8a496321e46f3dd19969b1e83c604343dc8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\26.0.0\db09a97f4f0db8892c1a0111a4b966f97920d082\support-annotations-26.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="db09a97f4f0db8892c1a0111a4b966f97920d082">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\support-annotations-26.0.0_f37db78c613ebb52e4a325934680f69039fb37c1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\97bbaf41752611ace7097ea8a6781b1e7c07c9ab\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="cbb26a4f659b17abc1f75ff735a607aa299697ac">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_8981811001248326877c5fbe9e54c241f892757e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\libGoogleAnalyticsServices.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e887c6c9b31b39a39b0eaba981448b78902ea813">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\libGoogleAnalyticsServices_49405f693f19f1ed3228ed97294b6659ed983206.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_4115e3ef1048f1139525e5e42792af26e4214607.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\cover.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="a3136623a81dc6e6460ca6a5c87d781f933548cd">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\cover_8acca10981e7f97fb4682cb461abfc53ff3e91e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\90a7917f2138e8ccf4b273cdba44696611c66532\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="6d65140c837f37580ee758c4f86906314580708f">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_a9a4ac801a0952df5bd9576d3b45b36950a14d20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.4\129874135e6081269ace2312092031558865de12\bolts-android-1.1.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.4_e62e9415d1dc46bec95d82338ca6a4824bcf7c82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\javax.inject-1_36879b2401ef980f30cdaa3036b7250cde2e36eb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\31bf9d7ff36dd94e443ae12c0609df11f59d7a6a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0f254ec13d6671680482d2218f01ecf14dfa93e6">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_e255ea1eca6ffd2afbf05cd480b06c4f1bb33112.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\18976a0d06b75477f723065af08623bb241a8bd6\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="b083f9ed76344c2f2b227c56d597f6d08d3fefc8">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_698b8c3211acdafcf57ca059025419b2b5b3b706.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\junit\junit\4.12\2973d150c0dc1fefe998f834810d68f278ea58ec\junit-4.12.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="2973d150c0dc1fefe998f834810d68f278ea58ec">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\junit-4.12_6fcdd57aed1bda1475bd3aba867bb2622a6aefac.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\8b40985465fcd520c1ed593f8857d445c57fba86\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="20fda127d270e011534b65bcafc8e05fd3663296">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_ef2db2aa2f2064dcb029e36aaccdd7d32c628b94.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\libGoogleAnalyticsServices.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="e887c6c9b31b39a39b0eaba981448b78902ea813">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\libGoogleAnalyticsServices_49405f693f19f1ed3228ed97294b6659ed983206.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-core-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="47d92007ca13efd47efad1af94d842ecb5066310">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-core-1.2.1.1_044a2f1b9f89796260b027227b0fece4ada8914f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-commonshttp4-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="1e6380adcb5808bfe13a934a2f35bfeed1adbc49">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-commonshttp4-1.2.1.1_997badec7960563af732aeb4542f7fd1ef8a3721.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\library-2.4.0_ab8d687ed8e4b1fe7ddb641953ad31df2f682c3f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\signpost-jetty6-1.2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="278d98035ed45da35eaeac7ebd22d5fc19374187">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\signpost-jetty6-1.2.1.1_3849cbb1552bdbf4bbb147e1f91c33821cbe0124.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.4\129874135e6081269ace2312092031558865de12\bolts-android-1.1.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.1"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.4_e62e9415d1dc46bec95d82338ca6a4824bcf7c82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\cover.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a3136623a81dc6e6460ca6a5c87d781f933548cd">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\cover_8acca10981e7f97fb4682cb461abfc53ff3e91e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\universal-image-loader-1.9.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f667a2f4f27542fe11a6781f5f7ac572d27afcec">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.0_fad0bfd0224d967c039820615a1bb007ab2effcd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.android\build-cache\63ecc57bb06a10858bca38896fb0bcb19cd628fd\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="db0171d21d064bab7ad72685f3c7df40544b03a8">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\classes_1bb2c5cf7a2324ed44581bab7b80c49886b39011.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\twitter4j-core-4.0.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1f3c896c7b2f20c51103078ccf0bc2ea97ac012a">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\twitter4j-core-4.0.4_c7e186e57d633474bb83efa2214e829ecdf43be2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\library-2.4.0_ab8d687ed8e4b1fe7ddb641953ad31df2f682c3f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\libs\prime.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5577c11ef3186fa89e279eb15c2dbc5f6d8270ff">
+        <dex dex="C:\Users\Detrick\AndroidStudioProjects\GameTimeGiving\app\build\intermediates\pre-dexed\debug\prime_2c9cdb49389d47e7fc273db0a977291cab0d4dea.jar" />
     </item>
 
 </items>

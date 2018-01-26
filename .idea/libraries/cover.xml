@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="cover">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/cover.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

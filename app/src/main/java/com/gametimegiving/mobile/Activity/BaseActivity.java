@@ -59,7 +59,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 
 public class BaseActivity extends AppCompatActivity implements BaseApiListener {
-
+    private final String TAG = getClass().getSimpleName();
     public static TextView mToolbarTitle;
     public static ActionBarDrawerToggle mDrawerToggle;
     public static int selectedDonationMethod = -1;
@@ -71,7 +71,6 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
     protected AlertDialog mAlert;
     protected TextView mTitle;
     protected Toolbar mToolbar;
-    private String TAG = "BaseActivity";
     private String mActivityName;
     //variable for naviagtion drawer
     private DrawerLayout mDrawerLayout;
@@ -110,17 +109,11 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
         mActivity = this;
         mActivityName = mActivity.getClass().getName();
         mActivityName = mActivityName.substring(mActivityName.lastIndexOf(".") + 1);
-        TAG = mActivityName;
 
-        if (bundle == null) Log.d(TAG, "onCreate");
-        else Log.d(TAG, "onCreate:bundle");
-
-
+        if (bundle != null)
         mApi = mApp.Api;
-        mApi.drain();
-
+       // mApi.drain();
         setDisplayHomeAsUpEnabled();
-
         mTitle = (TextView) findViewById(R.id.title);
         if (mTitle != null) mTitle.setText(mActivityName);
 
@@ -133,8 +126,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setPositiveButton("Ok", null);
         mAlert = builder.create();
-
-
+        Log.d(TAG, "onCreate");
     }
 
     @Override
@@ -157,6 +149,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
                 result = super.onOptionsItemSelected(item);
                 break;
         }
+       Log.d(TAG, "onOptionsItemSelected");
         return result;
     }
 
@@ -184,7 +177,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
-        mApi.setEventListener(this);
+//        mApi.setEventListener(this);
 
     }
 
@@ -192,7 +185,9 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
-        mApi.removeEventListener(this);
+        if(mApi != null) {
+            mApi.removeEventListener(this);
+        }
     }
 
     @Override
@@ -507,7 +502,7 @@ public class BaseActivity extends AppCompatActivity implements BaseApiListener {
    * LogOut From Twitter Facebok and other
    *
    * */
-    private void UserLogout() {
+    public void UserLogout() {
         SharedPreferences sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
         String isLoginFrom = sharedpreferences.getString(Constant.ISLOGINFROM, null);
         if (isLoginFrom.equals("facebook")) {

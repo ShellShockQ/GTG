@@ -30,8 +30,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.braintreepayments.api.dropin.BraintreePaymentActivity;
-import com.braintreepayments.api.dropin.Customization;
 import com.gametimegiving.mobile.Application.BaseApplication;
 import com.gametimegiving.mobile.Game;
 import com.gametimegiving.mobile.Parse.HttpManager;
@@ -57,7 +55,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameBoardActivity extends AppCompatActivity implements View.OnClickListener {
-    private final static String TAG = "GAMEBOARD";
+    private final String TAG = getClass().getSimpleName();
     private static final String LOGO_BASE_URL = BaseApplication.getInstance().getMetaData(BaseApplication.META_DATA_LOGO_BASE_URL);
     private final static int SUBMIT_PAYMENT_REQUEST_CODE = 100;
     final int MaxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
@@ -81,7 +79,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private Integer mMyPledgeTotals = 0;
     private Integer mMyLastPledge = 0;
     private TextView tvPledges, tv_$15;
-    private Button btn_$1, btn_$2, btn_$5;
+    private Button btn_$1;
+    private Button btn_$2;
+    private Button btn_$5;
     private Context context;
     private String[] arr = null;
     private TextView mTvYourTeam, mTvOpponentTeam;
@@ -100,8 +100,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         player.setPlayer_id();
         setContentView(R.layout.gameboard);
         startTimer();
-
-
         tvPledges = (TextView) findViewById(R.id.pledges);
         if (getIntent().getExtras() != null) {
             try {
@@ -113,6 +111,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             }
 
         }
+
         getCurrentGame(ActiveGameID);
 
         //TODO:Determine Game Status based on the time
@@ -127,32 +126,45 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         context = this;
 
-        mTvYourTeam = (TextView) findViewById(R.id.tvyourteam);
-
-        mUndoLastPledge = (Button) findViewById(R.id.btnundolastpledge);
-
+        mTvYourTeam = (TextView)findViewById(R.id.tvyourteam);
+        mUndoLastPledge = (Button)findViewById(R.id.btnundolastpledge);
         mUndoLastPledge.setOnClickListener(this);
-
         mUndoLastPledge.setEnabled(false);
 
-        mTvOpponentTeam = (TextView) findViewById(R.id.tvopponentteam);
+        mTvOpponentTeam = (TextView)findViewById(R.id.tvopponentteam);
 
         //getGame(ActiveGameID);
 
 
-        btn_$1 = (Button) findViewById(R.id.btn_$1);
-        btn_$2 = (Button) findViewById(R.id.btn_$2);
-        btn_$5 = (Button) findViewById(R.id.btn_$5);
+       // btn_$1 = (Button)findViewById(R.id.btn_$1);
+       // btn_$2 = (Button)findViewById(R.id.btn_$2);
+       // btn_$5 = (Button)findViewById(R.id.btn_$5);
 
-        btn_$1.setOnClickListener(this);
-        btn_$2.setOnClickListener(this);
-        btn_$5.setOnClickListener(this);
+       // btn_$1.setOnClickListener(this);
+       // btn_$2.setOnClickListener(this);
+       // btn_$5.setOnClickListener(this);
         if (bFirstTimeIn) {
             showdialog();
         }
 
     }
-
+    public void SetUpDemo(){
+        mGame.setAway_score(14);
+        mGame.setHome_score(21);
+        mGame.setPeriod(3);
+        mGame.setTimeLeft("7:56");
+        mGame.setVisitingteam_pledge(23);
+        if(mGame.getHometeam_pledge() ==0) {
+            utilities.WriteSharedPref(Constant.LASTPLEDGEDAMOUNT, "0", this, "i");
+            utilities.WriteSharedPref(Constant.MYTOTALPLEDGEDAMOUNT, "0", this, "i");
+            mGame.setHometeam_pledge(18);
+        }
+        if(mGame.getHometeam_pledge()>mGame.getVisitingteam_pledge()){
+            mGame.setGameStatus(Constant.GAMEOVER);
+            mGame.setPeriod(4);
+            mGame.setTimeLeft("0:00");
+        }
+    }
     private void SetGameBoard(Game mGame) {
         View l = findViewById(R.id.pledgeButtons);
         View ppl = findViewById(R.id.personalpledgelayout);
@@ -179,16 +191,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                     btnPay.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Customization customization = new Customization.CustomizationBuilder()
-                                    .primaryDescription("My Pledge  ")
-                                    .amount(MyPledgeAmount)
-                                    .submitButtonText("Donate Now")
-                                    .build();
-                            Intent intent = new Intent(context, BraintreePaymentActivity.class)
-                                    .putExtra(BraintreePaymentActivity.EXTRA_CLIENT_TOKEN,
-                                            ClientToken);
-                            intent.putExtra(BraintreePaymentActivity.EXTRA_CUSTOMIZATION, customization);
-                            startActivityForResult(intent, SUBMIT_PAYMENT_REQUEST_CODE);
+
+                     MakeBrainTreePayment();
 
                         }
                     });
@@ -198,6 +202,19 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
         }
+    }
+
+    private void MakeBrainTreePayment() {
+//        Customization customization = new Customization.CustomizationBuilder()
+//                .primaryDescription("My Pledge  ")
+//                .amount(MyPledgeAmount)
+//                .submitButtonText("Donate Now")
+//                .build();
+//        Intent intent = new Intent(context, BraintreePaymentActivity.class)
+//                .putExtra(BraintreePaymentActivity.EXTRA_CLIENT_TOKEN,
+//                        ClientToken);
+//        intent.putExtra(BraintreePaymentActivity.EXTRA_CUSTOMIZATION, customization);
+//        startActivityForResult(intent, SUBMIT_PAYMENT_REQUEST_CODE);
     }
 
     private void startTimer() {
@@ -227,16 +244,19 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SUBMIT_PAYMENT_REQUEST_CODE) {
-            if (resultCode == BraintreePaymentActivity.RESULT_OK) {
-                String nonce = data.getStringExtra(
-                        BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE
-                );
+    protected void onActivityResult(int requestCode,
+                                    int resultCode, Intent data) {
+//TODO:Add the Braintree functionality back into the project
+//        if (requestCode == SUBMIT_PAYMENT_REQUEST_CODE) {
+//            if (resultCode == BraintreePaymentActivity.RESULT_OK) {
+//                String nonce = data.getStringExtra(
+//                        BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE
+//                );
 
-                SendNonceToBraintree(nonce, MyPledgeAmount);
-            }
-        }
+
+ //               SendNonceToBraintree(nonce, MyPledgeAmount);
+ //           }
+  //      }
     }
     private void TurnOffPledgeMechanisms(View l, View ppl, Button btn, Button btnPay) {
         ppl.setVisibility(View.GONE);
@@ -275,6 +295,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
                         public void onResponse(String response) {
                             mGame = MyGameJSONParser.parseFeed(response);
+                            SetUpDemo();
                             SetGameBoard(mGame);
                             UpdateGameBoard(mGame);
                             mGame.setUserteam_id(mGame.getHome_Id());
@@ -450,7 +471,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_$1:
+           /* case R.id.btn_$1:
                 addPledges(1, ActiveGameID, mUserTeamID);
                 openDailogPledgesAdd(1);
                 break;
@@ -462,6 +483,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 addPledges(5, ActiveGameID, mUserTeamID);
                 openDailogPledgesAdd(5);
                 break;
+            */
             case R.id.btnundolastpledge:
                 undoLastPledge(ActiveGameID, mUserTeamID);
                 openDailogPledgesAdd(mMyLastPledge * -1);
@@ -493,6 +515,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             }
         }, 2000);
     }
+
 
     public void UpdateGameBoard(Game mGame) {
         Team homeTeam = null;

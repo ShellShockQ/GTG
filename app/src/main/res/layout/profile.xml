@@ -103,16 +103,16 @@
                     android:textSize="@dimen/textsize_18" />
 
 
-                <Spinner
-                    android:id="@+id/spinner3"
-                    style="@style/spinner_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_50"
-                    android:layout_marginTop="@dimen/margin_15"
+                <!--<Spinner-->
+                    <!--android:id="@+id/spinner3"-->
+                    <!--style="@style/spinner_style"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/layout_50"-->
+                    <!--android:layout_marginTop="@dimen/margin_15"-->
 
-                    android:entries="@array/donationmethod"
-                    android:popupBackground="#fff"
-                    android:spinnerMode="dropdown" />
+                    <!--android:entries="@array/donationmethod"-->
+                    <!--android:popupBackground="#fff"-->
+                    <!--android:spinnerMode="dropdown" />-->
 
 
                 <Button

@@ -21,21 +21,23 @@ import com.gametimegiving.mobile.Application.BaseApplication;
 import com.gametimegiving.mobile.Game;
 import com.gametimegiving.mobile.Parse.BaseApi;
 import com.gametimegiving.mobile.Parse.GameJSONParser;
-import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.R;
 import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.gametimegiving.mobile.sampledata.SampleData.GetListOfGamesFromSampleData;
 
 public class SelectGameFragment extends BaseFragment implements View.OnClickListener {
     private final static String TAG = "SELECTGAMEFRAGMENT";
     public String[] gameIdArray;
     public Utilities util;
     protected BaseApi mApi;
-    List<Game> listOfGames;
+    private List<Game> listOfGames = new ArrayList<Game>();
     private Button mBtnSelect;
     private boolean isGameSelected = false;
     private String selctedgame;
@@ -182,21 +184,27 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
 
         @Override
         protected List<Game> doInBackground(RequestPackage... strings) {
-            String content = HttpManager.getData(strings[0]);
-            listOfGames = GameJSONParser.parseFeed(content);
-            return listOfGames;
+            Log.d(TAG, "Doing HTTP Get in the Background");
+            //String content = HttpManager.getData(strings[0]);
+            String content= GetListOfGamesFromSampleData();
+                listOfGames = GameJSONParser.parseFeed(content);
+             return listOfGames;
+
         }
 
         @Override
         protected void onPostExecute(List<Game> s) {
-            if (s == null) {
-                Log.i(TAG, "Can't connect to Webservice");
-                return;
+            Log.d(TAG, String.format("Results of the HTTP Get for Games: %s",s));
+            if (s==null) {
+                Log.d(TAG, "Can't connect to Webservice");
+
+                Log.d(TAG, String.format("Getting Sample Data: %s",s));
             }
-            addListenerOnSpinnerItemSelection(s);
+         //   addListenerOnSpinnerItemSelection(s);
 
         }
     }
+
 
 
 }

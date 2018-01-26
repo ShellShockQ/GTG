@@ -7,7 +7,7 @@ import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Utils.Constant;
 
 public class Game {
-    private static final String TAG = "GAMECLASS";
+    private final String TAG = getClass().getSimpleName();
     private static String GameStatus;
     private int GameId;
     private int home_Id;

@@ -56,3 +56,5 @@
 
 -keep class twitter4j.** { *; }
 -dontwarn twitter4j.**
+
+-dontnote **ILicensingService

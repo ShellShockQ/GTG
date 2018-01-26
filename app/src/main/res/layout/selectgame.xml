@@ -1,62 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/view"
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/background"
+                                             android:orientation="vertical"
+                                             tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical">
 
-        <LinearLayout
+    <Spinner
+        android:id="@+id/spinner1"
+        style="@style/spinner_style"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="80dp"
+        android:popupBackground="@color/white_color"
+        android:spinnerMode="dropdown"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:layout_conversion_absoluteHeight="50dp"
+        tools:layout_conversion_absoluteWidth="324dp"
+        tools:layout_conversion_absoluteX="30dp"
+        tools:layout_conversion_absoluteY="366dp"/>
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_60"
-            android:background="@drawable/intro_img"
-            android:orientation="vertical">
+    <Button
+        android:id="@+id/btn_game_select"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custombutton"
+        android:text="@string/btn_select"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@+id/spinner1"
+        app:layout_constraintRight_toRightOf="@+id/spinner1"
+        app:layout_constraintTop_toBottomOf="@+id/spinner1"
+        tools:layout_conversion_absoluteHeight="50dp"
+        tools:layout_conversion_absoluteWidth="324dp"
+        tools:layout_conversion_absoluteX="30dp"
+        tools:layout_conversion_absoluteY="431dp"/>
 
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="All Sports"
+        android:paddingTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/intro_img"/>
 
-        <LinearLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_top"
-            android:layout_marginRight="@dimen/margin_top"
-            android:layout_marginTop="@dimen/margin_top"
-            android:orientation="vertical">
-
-            <Spinner
-                android:id="@+id/spinner1"
-                style="@style/spinner_style"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_50"
-                android:layout_gravity="center"
-                android:popupBackground="@color/white_color"
-                android:spinnerMode="dropdown" />
-
-            <Button
-
-                android:id="@+id/btn_game_select"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_50"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_15"
-                android:background="@drawable/custombutton"
-                android:text="@string/btn_select"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

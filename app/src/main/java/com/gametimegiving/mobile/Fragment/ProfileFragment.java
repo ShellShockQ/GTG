@@ -74,7 +74,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private String isLogInFrom;
     private boolean isDrawerLocked;
     private DisplayImageOptions mOptions;
-    private Spinner mDonationMethodSpinner;
+  //  private Spinner mDonationMethodSpinner;
     private boolean spinnerFlag = true;
     private CustomizeDialog mCustomizeDialog;
     private String[] arr_charty;
@@ -112,7 +112,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mBtnTeam = (Button) view.findViewById(R.id.btnteam_spinner);
         mBtnTeam.setOnClickListener(this);
 
-        mDonationMethodSpinner = (Spinner) view.findViewById(R.id.spinner3);
+     //   mDonationMethodSpinner = (Spinner) view.findViewById(R.id.spinner3);
 
         if (CharityListAdapter.selectedCharity != null && CharityListAdapter.selectedCharity.size() > 0) {
             String chariy = CharityListAdapter.selectedCharity.toString();
@@ -162,7 +162,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         }
         mBtnSave = (Button) view.findViewById(R.id.btn_save);
 
-        addListenerOnSpinnerItemSelection();
+     //   addListenerOnSpinnerItemSelection();
         mApi.getCharity();
         mApi.getTeam();
 
@@ -175,7 +175,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             public void onClick(View v) {
                 Map<String, String> CharityIds = new HashMap<>();
                 if (CharityListAdapter.selectedCharity != null && CharityListAdapter.selectedCharity.size() > 0 &&
-                        TeamListAdapter.selectedTeams != null && TeamListAdapter.selectedTeams.size() > 0 && isDonationSelect) {
+                        TeamListAdapter.selectedTeams != null && TeamListAdapter.selectedTeams.size() > 0) {
                     SharedPreferences sharedpreferences = getActivity().getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("mycharities", CharityListAdapter.selectedCharity.toString());
@@ -191,7 +191,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                     ft.replace(R.id.ll_container, SelectGameFragment.newInstance());
                     ft.commit();
                 } else {
-                    Toast.makeText(getActivity(), "Please Select Charity , Team And Donation Method", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.InValidProfileErrorMessage, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -209,7 +209,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("TAG", "onPause");
+        Log.d(TAG, "onPause");
         mApi.removeEventListener((BaseApiListener) getActivity());
     }
 
@@ -242,71 +242,71 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     *
     * Spinner Donation Method
     * */
-    public void addListenerOnSpinnerItemSelection() {
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                View v = super.getView(position, convertView, parent);
-                if (position == getCount())
-                    ((TextView) v.findViewById(android.R.id.text1)).setText("Donation Method");
-                ((TextView) v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
-                ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
-
-                return v;
-            }
-
-            @Override
-            public int getCount() {
-                return super.getCount() - 1; // you dont display last item. It is used as hint.
-            }
-
-        };
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.add("Pay Pal");
-        adapter.add("Credit/Debit card");
-        adapter.add("Donation Method"); //This is the text that will be displayed as hint.
-
-
-        mDonationMethodSpinner.setAdapter(adapter);
-        if (BaseActivity.selectedDonationMethod != -1)
-            mDonationMethodSpinner.setSelection(BaseActivity.selectedDonationMethod);
-        else
-            mDonationMethodSpinner.setSelection(adapter.getCount()); //set the hint the default selection so it appears on launch.
-
-        mDonationMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-
-                                                         {
-
-                                                             @Override
-                                                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                                                 if (spinnerFlag && BaseActivity.selectedDonationMethod == -1) {
-                                                                     ((TextView) adapterView.getChildAt(0)).setText("Donation Method");
-                                                                     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
-                                                                     ((TextView) adapterView.getChildAt(0)).setTextSize(18);
-                                                                     spinnerFlag = false;
-                                                                 } else {
-                                                                     BaseActivity.selectedDonationMethod = i;
-                                                                     isDonationSelect = true;
-                                                                     int sid = mDonationMethodSpinner.getSelectedItemPosition();
-
-                                                                     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
-                                                                     ((TextView) adapterView.getChildAt(0)).setTextSize(18);
-
-                                                                 }
-                                                             }
-
-                                                             @Override
-                                                             public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                                             }
-                                                         }
-
-        );
-    }
+//    public void addListenerOnSpinnerItemSelection() {
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+//                View v = super.getView(position, convertView, parent);
+//                if (position == getCount())
+//                    ((TextView) v.findViewById(android.R.id.text1)).setText("Donation Method");
+//                ((TextView) v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
+//                ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
+//
+//                return v;
+//            }
+//
+//            @Override
+//            public int getCount() {
+//                return super.getCount() - 1; // you dont display last item. It is used as hint.
+//            }
+//
+//        };
+//
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        adapter.add("Pay Pal");
+//        adapter.add("Credit/Debit card");
+//        adapter.add("Donation Method"); //This is the text that will be displayed as hint.
+//
+//
+//        mDonationMethodSpinner.setAdapter(adapter);
+//        if (BaseActivity.selectedDonationMethod != -1)
+//            mDonationMethodSpinner.setSelection(BaseActivity.selectedDonationMethod);
+//        else
+//            mDonationMethodSpinner.setSelection(adapter.getCount()); //set the hint the default selection so it appears on launch.
+//
+//        mDonationMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+//
+//                                                         {
+//
+//                                                             @Override
+//                                                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                                                 if (spinnerFlag && BaseActivity.selectedDonationMethod == -1) {
+//                                                                     ((TextView) adapterView.getChildAt(0)).setText("Donation Method");
+//                                                                     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
+//                                                                     ((TextView) adapterView.getChildAt(0)).setTextSize(18);
+//                                                                     spinnerFlag = false;
+//                                                                 } else {
+//                                                                     BaseActivity.selectedDonationMethod = i;
+//                                                                     isDonationSelect = true;
+//                                                                     int sid = mDonationMethodSpinner.getSelectedItemPosition();
+//
+//                                                                     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
+//                                                                     ((TextView) adapterView.getChildAt(0)).setTextSize(18);
+//
+//                                                                 }
+//                                                             }
+//
+//                                                             @Override
+//                                                             public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                                                             }
+//                                                         }
+//
+//        );
+//    }
 
     @Override
     public void onClick(View v) {

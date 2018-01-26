@@ -36,13 +36,13 @@ import javax.security.auth.x500.X500Principal;
 //import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 public class BaseApplication extends Application {
+    private final String TAG = getClass().getSimpleName();
     public static final String META_DATA_API_SERVER_URL = "API_SERVER_URL";
     public static final String META_DATA_LOGO_BASE_URL = "LOGO_BASE_URL";
     private static final X500Principal DEBUG_DN = new X500Principal("CN=Android Debug,O=Android,C=US");
     private static final boolean GA_OPT_OUT = false;
     private static final boolean GA_IS_DRY_RUN = false;
     private static final Logger.LogLevel GA_LOG_VERBOSITY = Logger.LogLevel.VERBOSE;
-    private static String TAG = "BaseApplication";
     private static String PREFS_NAME = "BasePreferences";
     private static BaseApplication mBaseApplication;
     private static GoogleAnalytics mGa;

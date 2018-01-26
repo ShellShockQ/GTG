@@ -1,38 +1,45 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fb="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:gravity="center"
-    tools:context=".MainActivity">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:fb="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/background"
+                                             android:gravity="center"
+                                             tools:context=".MainActivity">
 
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin_left"
-        android:layout_marginRight="@dimen/margin_right"
-        android:gravity="top"
-        android:orientation="vertical">
 
         <TextView
             android:id="@+id/versiontextonlogin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
             android:text="Small Text"
             android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            fb:layout_constraintHorizontal_bias="0.501"
+            fb:layout_constraintLeft_toLeftOf="parent"
+            fb:layout_constraintRight_toRightOf="parent"
+            fb:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1"/>
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="@dimen/layout_170"
-            android:layout_height="@dimen/layout_170"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            android:src="@drawable/logo_512" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="74dp"
+            android:layout_marginStart="74dp"
+            android:contentDescription="@string/gtglogo"
+            android:src="@drawable/logo_512"
+            fb:layout_constraintBottom_toBottomOf="parent"
+            fb:layout_constraintLeft_toLeftOf="parent"
+            fb:layout_constraintTop_toBottomOf="@+id/versiontextonlogin"
+            fb:layout_constraintVertical_bias="0.17"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1"/>
 
         <!--<EditText-->
         <!--android:id="@+id/etmail"-->
@@ -105,20 +112,47 @@
         <!--</LinearLayout>-->
 
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/layout_45"
-            android:layout_marginTop="@dimen/margin_60"
+            android:id="@+id/fb_login_button"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/fbb"
+            fb:layout_constraintBottom_toBottomOf="parent"
+            fb:layout_constraintHorizontal_bias="0.0"
+            fb:layout_constraintLeft_toLeftOf="@+id/logo"
+            fb:layout_constraintRight_toRightOf="@+id/logo"
+            fb:layout_constraintTop_toBottomOf="@+id/logo"
+            fb:layout_constraintVertical_bias="0.04"
             fb:login_text=""
-            fb:logout_text="" />
+            fb:logout_text=""
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintTop_creator="1"
+            />
 
         <Button
-            android:id="@+id/twt"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/layout_45"
-            android:layout_marginTop="@dimen/margin_15"
-            android:background="@drawable/twii" />
+            android:id="@+id/twitterLoginButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/twii"
+            fb:layout_constraintHorizontal_bias="0.0"
+            fb:layout_constraintLeft_toLeftOf="@+id/fb_login_button"
+            fb:layout_constraintRight_toRightOf="@+id/fb_login_button"
+            fb:layout_constraintTop_toBottomOf="@+id/fb_login_button"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1"/>
+
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline"
+            fb:layout_constraintGuide_begin="20dp"
+            android:orientation="horizontal"/>
 
 
         <!--<LinearLayout-->
@@ -172,7 +206,5 @@
 
         <!--</LinearLayout>-->
 
-    </LinearLayout>
 
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -48,6 +49,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private String TAG =getClass().getSimpleName() ;
     public static final String twitter_consumer_key = "3qNkkdNh3vahsZ1i9xTIXqKAV";
     public static final String twitter_secret_key = "8JJe8Avu5MLgmngd8oMrSaTYQosuYn56aF9kcHibIToMdEDo0h";
     SharedPreferences sharedpreferences;
@@ -55,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mTvForgotPassword;
     private EditText mEtEmail, mEtPassword;
     private CallbackManager mCallbackManager;
-    private LoginButton mLoginButton;
+    private LoginButton mFaceBookLoginButton;
     private TwitterApp mTwitter;
     private Button mTwitterBtn;
     private String mProfileUrl = null;
@@ -96,7 +98,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-        setContentView(R.layout.login);
+       /*TODO: If the user is logged In already simply skip this
+         and go to the game board
+       */
+        if(isLoggedIn()){
+            Toast.makeText(getApplicationContext(), "Great! you are already logged In with Facebook", Toast.LENGTH_SHORT).show();
+            Log.i(TAG,"User is Already Logged In");
+        }else {
+            Log.i(TAG,"User is not Logged In Giving Login screen");
+            setContentView(R.layout.login);
+            setVersionNameOnView();
+            Log.d(TAG, "onCreate");
+            mFaceBookLoginButton = findViewById(R.id.fb_login_button);
+            mFaceBookLoginButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Toast.makeText(getApplicationContext(), "Facebook Login Button Clicked", Toast.LENGTH_SHORT).show();
+                }
+            } );
+
+        }
+    }
+
+    private void setVersionNameOnView() {
         try {
             PackageManager packageManager = getPackageManager();
             String packageName = getPackageName();
@@ -105,11 +129,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String version_value = String.format(java.util.Locale.ENGLISH, "Version %s", versionName);
             TextView tv_VersionOnLoginPage = (TextView) findViewById(R.id.versiontextonlogin);
             tv_VersionOnLoginPage.setText(version_value);
-        } catch (Exception ignored) {
+        } catch (Exception ignored)
+        {
         }
+    }
 
+    private void loginWithTWitter() {
         context = this;
-        mTwitterBtn = (Button) findViewById(R.id.twt);
+        mTwitterBtn = (Button) findViewById(R.id.twitterLoginButton);
         if (Build.VERSION.SDK_INT >= 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -128,33 +155,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             username = (username.equals("")) ? "Unknown" : username;
 
         }
-
-//        EtEmail = (EditText) findViewById(R.id.etmail);
-//        mEtPassword = (EditText) findViewById(R.id.etpassword);
-//        mBtnSignIn = (Button) findViewById(R.id.btn_signin);
-        sharedpreferences = getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
-//        mBtnSignIn.setOnClickListener(this);
-//
-//
-//        mTvForgotPassword = (TextView) findViewById(R.id.tvforgatpassword);
-//        mTvForgotPassword.setOnClickListener(this);
-
-//        TextView tvSignup = (TextView) findViewById(R.id.tvsignup);
-//        tvSignup.setOnClickListener(this);
-
-        facebookLogin();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    }
+        if(isLoggedIn()){
+            Log.i(TAG,"User is Already Logged In at line 164");
+        }else {
+            Log.i(TAG,"User is not Already Logged In at line 166");
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        }}
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+     //   mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private void onTwitterClick() {
@@ -195,36 +212,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void facebookLogin() {
         mCallbackManager = CallbackManager.Factory.create();
-        mLoginButton = (LoginButton) findViewById(R.id.login_button);
-        mLoginButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        mFaceBookLoginButton = (LoginButton) findViewById(R.id.fb_login_button);
+        mFaceBookLoginButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         List<String> permissionNeeds = Arrays.asList("user_photos", "email", "user_birthday", "public_profile");
-        mLoginButton.setReadPermissions(permissionNeeds);
+        mFaceBookLoginButton.setReadPermissions(permissionNeeds);
 
-        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        mFaceBookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                System.out.println("onSuccess");
+                if(isLoggedIn()){
+                    Toast.makeText(getApplicationContext(), "Great! you are already logged In with Facebook", Toast.LENGTH_SHORT).show();
+
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "Great! you are about to log In with Facebook", Toast.LENGTH_SHORT).show();
+                }
                 GraphRequest request = GraphRequest.newMeRequest
                         (loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                // Application code
-                                Log.v("LoginActivity", response.toString());
-                                //System.out.println("Check: " + response.toString());
                                 try {
                                     String profileUrl = object.getJSONObject("picture").getJSONObject("data").getString("url");
-//                                    profileId = object.getString("id");
-//                                    profileName = object.getString("name");
-
                                     SharedPreferences.Editor editor = sharedpreferences.edit();
-//                                    editor.putString(Constant.PROFILEURL, profileUrl);
                                     editor.putString(Constant.PROFILENAME, object.getString("name"));
                                     editor.putString(Constant.PROFILEID, object.getString("id"));
                                     editor.putBoolean(Constant.ISLOGIN, true);
                                     editor.putString(Constant.ISLOGINFROM, "facebook");
                                     editor.commit();
                                     //TODO:Update the user table in database
-                                    //
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
@@ -243,20 +258,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onCancel() {
-                // CommanDialog.showAlertDialogForInternetConnection(Login.this, "No Internet Connection", "You don't have internet connection.");
-                System.out.println("onCancel");
+                Toast.makeText(getApplicationContext(), "Ok, We have cancelled your request to login...", Toast.LENGTH_SHORT).show();
+                BaseActivity base = new BaseActivity();
+                base.UserLogout();
             }
 
 
             @Override
             public void onError(FacebookException exception) {
                 CommanDialog.showAlertDialogForInternetConnection(LoginActivity.this, "No Internet Connection");
+                Toast.makeText(getApplicationContext(), "Oops! Something Went Wrong...", Toast.LENGTH_SHORT).show();
                 System.out.println("onCancel");
             }
         });
 
     }
-
+    public boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
     /**
      * save data in sharedpreferences
      */
@@ -275,6 +295,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
 //            case R.id.tvsignup:
 //                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
@@ -307,8 +328,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                }
 //                sharedPreferences();
 //                break;
-            case R.id.twt:
-                onTwitterClick();
+//            case R.id.twitterLoginButton:
+//                onTwitterClick();
 
         }
 

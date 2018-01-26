@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/facebook_logo.png" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/facebook_logo_pressed.png" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/selector_facebook_logo.xml" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/selector_twitter_logo.xml" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/twitter_logo.png" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/twitter_logo_pressed.png" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/x.9.png" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

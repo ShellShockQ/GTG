@@ -9,14 +9,13 @@ android {
             storePassword 'in102doit'
         }
     }
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 26
     defaultConfig {
         applicationId 'com.gametimegiving.mobile'
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 27
-        versionName '1.0.27 Alpha'
+        versionCode 28
+        versionName '1.0.28 Alpha'
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -33,17 +32,15 @@ android {
     }
 }
 repositories {
+    jcenter()
+    maven { url "https://maven.google.com" }
     maven { url "https://jitpack.io" }
 }
 
 dependencies {
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
     compile 'com.ogaclejapan.smarttablayout:library:1.2.1@aar'
-    compile 'com.android.support:design:22.2.0'
-    compile 'com.braintreepayments.api:braintree:1.+'
-    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
     compile files('libs/signpost-commonshttp4-1.2.1.1.jar')
     compile files('libs/signpost-core-1.2.1.1.jar')
     compile files('libs/signpost-jetty6-1.2.1.1.jar')
@@ -54,5 +51,10 @@ dependencies {
     compile files('libs/ziesemer.jar')
     compile files('libs/cover.jar')
     compile project(':volley')
-
+    compile 'com.android.support:appcompat-v7:26.0.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    compile 'com.braintreepayments.api:braintree:2.7.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

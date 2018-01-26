@@ -33,8 +33,7 @@ import com.gametimegiving.mobile.Utils.Constant;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
-
-    private static final String TAG = "MAINACTIVITY";
+    private final String TAG = getClass().getSimpleName();
     public static String MyTeamIds;
     String[] arr_charty;
     String[] arr_team;
@@ -53,12 +52,18 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        super.onCreate(savedInstanceState);
-
+        if(savedInstanceState==null) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            super.onCreate(savedInstanceState);
+        }
+        SetGameSelectionDropDownList();
         setContentView(R.layout.main_activity);
+    }
+
+    private void SetGameSelectionDropDownList() {
+
     }
 
     @Override

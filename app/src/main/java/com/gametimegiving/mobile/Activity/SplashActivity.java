@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gametimegiving.mobile.DBOpenHelper;
 import com.gametimegiving.mobile.R;
@@ -26,9 +27,10 @@ import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.Utilities;
 
 public class SplashActivity extends Activity {
-    private static final String TAG = "SplashActivity";
+    private final String TAG = getClass().getSimpleName();
     private static int SPLASH_TIME_OUT = 2000;
     private Utilities utilties = new Utilities();
+    private Intent nextActionIntent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +67,17 @@ public class SplashActivity extends Activity {
 // Check if onboarding_complete is false
                     if (!sharedpreferences.getBoolean("onboarding_complete", false)) {
                         // Start the onboarding Activity
-                        Intent onboarding = new Intent(SplashActivity.this, OnBoardingActivity.class);
-                        startActivity(onboarding);
+                        Toast.makeText(getApplicationContext(), "Let's On Board You", Toast.LENGTH_SHORT).show();
+                        nextActionIntent = new Intent(SplashActivity.this, OnBoardingActivity.class);
 
                         // Close the main Activity
                         finish();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "You've Been OnBoarded already", Toast.LENGTH_SHORT).show();
+                        nextActionIntent = new Intent(SplashActivity.this, GameBoardActivity.class);
                     }
+
+                    startActivity(nextActionIntent);
 
                 } catch (Exception e) {
                     e.printStackTrace();

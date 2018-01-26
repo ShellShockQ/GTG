@@ -10,8 +10,8 @@ import java.util.List;
 public class GameJSONParser {
     public static List<Game> parseFeed(String content) {
         try {
-            JSONObject jsnobject = new JSONObject(content);
-            org.json.JSONArray jsonArray = jsnobject.getJSONArray("items");
+            JSONObject jsonobject = new JSONObject(content);
+            org.json.JSONArray jsonArray = jsonobject.getJSONArray("games");
             List<Game> listofGames = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject obj = jsonArray.getJSONObject(i);
@@ -21,7 +21,6 @@ public class GameJSONParser {
                 game.setAway_LongName(obj.getString("away_long"));
                 listofGames.add(game);
             }
-
             return listofGames;
         } catch (Exception e) {
             e.printStackTrace();

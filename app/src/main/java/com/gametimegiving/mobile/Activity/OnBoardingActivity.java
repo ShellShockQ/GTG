@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.gametimegiving.mobile.Fragment.OnBoardingFragment1;
@@ -18,22 +19,24 @@ import com.gc.materialdesign.views.ButtonFlat;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 public class OnBoardingActivity extends FragmentActivity {
+    private String TAG = getClass().getSimpleName();
     private ViewPager pager;
     private SmartTabLayout indicator;
     private ButtonFlat next;
     private ButtonFlat skip;
-
+    private Intent mainIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
-        pager = (ViewPager) findViewById(R.id.pager);
+         pager = (ViewPager) findViewById(R.id.pager);
         indicator = (SmartTabLayout) findViewById(R.id.indicator);
         next = (ButtonFlat) findViewById(R.id.next);
         skip = (ButtonFlat) findViewById(R.id.skip);
         FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+                Log.d(TAG, "OnCreate");
                 switch (position) {
                     case 0:
                         return new OnBoardingFragment1();
@@ -44,6 +47,7 @@ public class OnBoardingActivity extends FragmentActivity {
                     default:
                         return null;
                 }
+
             }
 
             @Override
@@ -93,21 +97,15 @@ public class OnBoardingActivity extends FragmentActivity {
         // Get the shared preferences
         SharedPreferences preferences =
                 getSharedPreferences("my_preferences", MODE_PRIVATE);
-
         // Set onboarding_complete to true
-        preferences.edit()
-                .putBoolean("onboarding_complete", true).apply();
+        preferences.edit().putBoolean("onboarding_complete", true).apply();
         Boolean LoggedInAlready = preferences.getBoolean(Constant.ISLOGIN, false);
         if (LoggedInAlready) {
-            Intent mainIntent = new Intent(OnBoardingActivity.this, MainActivity.class);
-            OnBoardingActivity.this.startActivity(mainIntent);
-            OnBoardingActivity.this.finish();
+             mainIntent = new Intent(OnBoardingActivity.this, MainActivity.class);
         } else {
-            Intent mainIntent = new Intent(OnBoardingActivity.this, LoginActivity.class);
-            OnBoardingActivity.this.startActivity(mainIntent);
-            OnBoardingActivity.this.finish();
+             mainIntent = new Intent(OnBoardingActivity.this, LoginActivity.class);
         }
-
+        startActivity(mainIntent);
 
     }
 }
