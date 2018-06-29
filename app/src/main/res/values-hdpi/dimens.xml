@@ -2,12 +2,10 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
 
-
     =============loginpage===============
     <dimen name="margin_left">30dp</dimen>
     <dimen name="margin_right">30dp</dimen>
     <dimen name="margin_top">30dp</dimen>
-
     <dimen name="margin_10">7.50dp</dimen>
     <dimen name="margin_15">11.25dp</dimen>
     <dimen name="margin_5">3.75dp</dimen>
@@ -25,7 +23,7 @@
     ========================charities===============
     <dimen name="layout_150">112.25dp</dimen>
     <dimen name="padding_15">11.25dp</dimen>
-    <dimen name="textsize_20">15sp</dimen>
+    <dimen name="textsize_20">10sp</dimen>
     <dimen name="textsize_17">12.75sp</dimen>
     <dimen name="textsize_15">11.25sp</dimen>
     <dimen name="textsize17">12.25sp</dimen>
@@ -33,10 +31,7 @@
     ===================================Forgotpassword==============
     <dimen name="margin_50">37.50dp</dimen>
     <dimen name="margin_40">30dp</dimen>
-
     <dimen name="width_30">22.50dp</dimen>
-
-
     =======================gameboard===================================
     <dimen name="layout_360">300dp</dimen>
     <dimen name="layout_65">48.75dp</dimen>

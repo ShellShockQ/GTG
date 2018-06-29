@@ -13,7 +13,7 @@ public class GameJSONParser {
             JSONObject jsonobject = new JSONObject(content);
             org.json.JSONArray jsonArray = jsonobject.getJSONArray("games");
             List<Game> listofGames = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0;i<jsonArray.length(); i++) {
                 JSONObject obj = jsonArray.getJSONObject(i);
                 Game game = new Game();
                 game.setGameId(obj.getInt("game_id"));

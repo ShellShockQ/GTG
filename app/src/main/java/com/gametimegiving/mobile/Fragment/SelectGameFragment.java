@@ -19,8 +19,8 @@ import com.gametimegiving.mobile.Activity.GameBoardActivity;
 import com.gametimegiving.mobile.Activity.MainActivity;
 import com.gametimegiving.mobile.Application.BaseApplication;
 import com.gametimegiving.mobile.Game;
+import com.gametimegiving.mobile.GamesForTheDay;
 import com.gametimegiving.mobile.Parse.BaseApi;
-import com.gametimegiving.mobile.Parse.GameJSONParser;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.R;
@@ -73,7 +73,6 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_game_select:
-
                 if (isGameSelected) {
                     selctedgame = mSelectGameSpinner.getSelectedItem().toString();
                     selectedgameid = Integer.parseInt(gameIdArray[mSelectGameSpinner.getSelectedItemPosition()]);
@@ -87,7 +86,6 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
                     } else {
                         extras.putBoolean(Constant.ISFIRSTTIMEIN, true);
                     }
-
                     intent.putExtras(extras);
                     util.WriteSharedPref(Constant.ACTIVEGAME, Integer.toString(selectedgameid), getActivity(), "i");
                     startActivity(intent);
@@ -100,7 +98,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
     }
 
 
-    public void addListenerOnSpinnerItemSelection(List<Game> s) {
+    public void addListenerOnSpinnerItemSelection(GamesForTheDay s) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -125,8 +123,9 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //  String theGame;
         int cnt = 0;
-        gameIdArray = new String[s.size()];
-        for (Game g : s) {
+        gameIdArray = new String[s.getGameId()];
+        ArrayList<Game> TodaysGames = new ArrayList<Game>();
+        for (Game g : TodaysGames) {
             //  theGame = g.getHome_LongName() + " vs " + g.getAway_LongName();
             adapter.add(String.format("%s vs. %s", g.getHome_LongName(), g.getAway_LongName()));
             gameIdArray[cnt] = String.valueOf(g.getGameId());
@@ -176,31 +175,31 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
 
     }
 
-    public class GetGamesAsynch extends AsyncTask<RequestPackage, String, List<Game>> {
+    public class GetGamesAsynch extends AsyncTask<RequestPackage, String, GamesForTheDay> {
 
         @Override
         protected void onPreExecute() {
         }
 
         @Override
-        protected List<Game> doInBackground(RequestPackage... strings) {
+        protected GamesForTheDay doInBackground(RequestPackage... strings) {
             Log.d(TAG, "Doing HTTP Get in the Background");
             //String content = HttpManager.getData(strings[0]);
-            String content= GetListOfGamesFromSampleData();
-                listOfGames = GameJSONParser.parseFeed(content);
+            GamesForTheDay listOfGames= GetListOfGamesFromSampleData();
+     //           listOfGames = GameJSONParser.parseFeed(content);
              return listOfGames;
 
         }
 
         @Override
-        protected void onPostExecute(List<Game> s) {
-            Log.d(TAG, String.format("Results of the HTTP Get for Games: %s",s));
+        protected void onPostExecute(GamesForTheDay s) {
+            Log.d(TAG, String.format("Results of the HTTP Get for Games: %s",s.getTodaysGames().toString()));
             if (s==null) {
                 Log.d(TAG, "Can't connect to Webservice");
 
                 Log.d(TAG, String.format("Getting Sample Data: %s",s));
             }
-         //   addListenerOnSpinnerItemSelection(s);
+            addListenerOnSpinnerItemSelection(s);
 
         }
     }

@@ -6,6 +6,8 @@ import android.util.Log;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Utils.Constant;
 
+import java.util.Date;
+
 public class Game {
     private final String TAG = getClass().getSimpleName();
     private static String GameStatus;
@@ -17,6 +19,16 @@ public class Game {
     private int home_score;
     private int away_score;
     private int period;
+
+    public Date getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
+    }
+
+    private Date startdate;
     private String starttime;
     private String timeLeft;
     private int hometeam_pledge;
@@ -33,7 +45,11 @@ public class Game {
     }
 
     public void setHometeam_pledge(int hometeam_pledge) {
-        this.hometeam_pledge = hometeam_pledge;
+        try {
+            this.hometeam_pledge = hometeam_pledge;
+        }catch (Exception ex){
+            this.hometeam_pledge=0;
+        }
     }
 
     public int getVisitingteam_pledge() {

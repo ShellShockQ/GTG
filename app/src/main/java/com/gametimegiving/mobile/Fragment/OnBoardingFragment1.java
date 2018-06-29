@@ -8,12 +8,17 @@ import android.view.ViewGroup;
 
 import com.gametimegiving.mobile.R;
 
-public class OnBoardingFragment1 extends Fragment {
+/**
+ * Created by Detrick on 1/26/2018.
+ */
 
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle s) {
-        return inflater.inflate(R.layout.onboarding_screen1, container, false);
-///
+public class OnBoardingFragment1 extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater,
+                                 ViewGroup container, Bundle s) {
+            return inflater.inflate(R.layout.onboarding_screen1, container, false);
+
+        }
     }
-}
+
+

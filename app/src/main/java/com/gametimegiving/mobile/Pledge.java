@@ -2,11 +2,6 @@ package com.gametimegiving.mobile;
 
 import android.app.Activity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.gametimegiving.mobile.Application.BaseApplication;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Utils.Constant;
@@ -14,8 +9,6 @@ import com.gametimegiving.mobile.Utils.Log;
 import com.gametimegiving.mobile.Utils.Utilities;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Pledge extends BaseApplication {
     private final static String TAG = "PLEDGE";
@@ -91,7 +84,7 @@ public class Pledge extends BaseApplication {
         this.preferredCharity_id = 1;
     }
 
-    public int SubmitPledge() { //Using Volley
+    public int SubmitPledge() {
         int rtnVal = 0;
         String method = "pledge";
         try {
@@ -106,41 +99,6 @@ public class Pledge extends BaseApplication {
             p.setParam("amount", Integer.toString(getAmount()));
             p.setParam("user", Integer.toString(getUser()));
             String args = p.getEncodedParams();
-            StringRequest request = new StringRequest(Request.Method.POST,
-                    p.getUri(),
-                    new Response.Listener<String>() {
-
-                        @Override
-                        public void onResponse(String response) {
-
-                            utilities.WriteSharedPref(Constant.GAMEDATAREFRESHED, "true", mContext, "b");
-                        }
-                    },
-                    new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("args", p.getEncodedParams().replace("args=", ""));
-                    return params;
-                }
-
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json; charset=utf-8");
-                    return headers;
-                }
-
-
-            };
-            BaseApplication.getInstance().addToRequestQueue(request);
-
 
         } catch (Exception exc) {
             Log.e(TAG, exc.toString());

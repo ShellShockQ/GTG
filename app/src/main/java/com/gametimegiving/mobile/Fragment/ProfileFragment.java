@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -21,12 +20,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -163,8 +159,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mBtnSave = (Button) view.findViewById(R.id.btn_save);
 
      //   addListenerOnSpinnerItemSelection();
-        mApi.getCharity();
-        mApi.getTeam();
+//TODO (1): I temporarily removed these api calls to get the app to build. Got to put this back
+//        mApi.getCharity();
+ //       mApi.getTeam();
 
         mBtnSave.setOnClickListener(new View.OnClickListener() {
 

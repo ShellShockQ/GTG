@@ -1,10 +1,5 @@
 
 package com.gametimegiving.mobile.Activity;
-/***************************************************************************************
- * FileName : GameBoardActivity.java
- * <p/>
- * Description : This is GameBoardActivity where user see detail of select team and donate money of charity.
- ***************************************************************************************/
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,12 +19,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.gametimegiving.mobile.Application.BaseApplication;
 import com.gametimegiving.mobile.Game;
 import com.gametimegiving.mobile.Parse.HttpManager;
@@ -49,8 +38,6 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -96,11 +83,10 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-
         player.setPlayer_id();
         setContentView(R.layout.gameboard);
         startTimer();
-        tvPledges = (TextView) findViewById(R.id.pledges);
+        tvPledges = findViewById(R.id.pledges);
         if (getIntent().getExtras() != null) {
             try {
                 Bundle extras = getIntent().getExtras();
@@ -126,12 +112,12 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         context = this;
 
-        mTvYourTeam = (TextView)findViewById(R.id.tvyourteam);
-        mUndoLastPledge = (Button)findViewById(R.id.btnundolastpledge);
+        mTvYourTeam = findViewById(R.id.tvyourteam);
+        mUndoLastPledge = findViewById(R.id.btnundolastpledge);
         mUndoLastPledge.setOnClickListener(this);
         mUndoLastPledge.setEnabled(false);
 
-        mTvOpponentTeam = (TextView)findViewById(R.id.tvopponentteam);
+        mTvOpponentTeam = findViewById(R.id.tvopponentteam);
 
         //getGame(ActiveGameID);
 
@@ -280,62 +266,13 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     public void getCurrentGame(Integer gameId) {
 
         final RequestPackage p = new RequestPackage();
-        try {
-            String method = "game";
-            p.setMethod("POST");
-            p.setUri(String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game"));
-            p.setParam("token", null);
-            p.setParam("page", Integer.toString(0));
-            p.setParam("game_id", Integer.toString(gameId));
-            String args = p.getEncodedParams();
-            StringRequest request = new StringRequest(Request.Method.POST,
-                    p.getUri(),
-                    new Response.Listener<String>() {
-                        @Override
-
-                        public void onResponse(String response) {
-                            mGame = MyGameJSONParser.parseFeed(response);
-                            SetUpDemo();
-                            SetGameBoard(mGame);
-                            UpdateGameBoard(mGame);
-                            mGame.setUserteam_id(mGame.getHome_Id());
-                            mUserTeamID = mGame.getUserteam_id();
-
-                        }
-                    },
-
-                    new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d(TAG, String.format("The Error from volley response was %s", error.toString()));
-
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("args", p.getEncodedParams().replace("args=", ""));
-                    return params;
-                }
-
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json; charset=utf-8");
-                    return headers;
-                }
-
-
-            };
-            BaseApplication.getInstance().addToRequestQueue(request);
-
-            Log.d(TAG, String.format("The volley request was:%s", request.toString()));
-        } catch (Exception exc) {
-            Log.e(TAG, exc.toString());
-        }
-
-
+        String method = "game";
+        p.setMethod("POST");
+        p.setUri(String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game"));
+        p.setParam("token", null);
+        p.setParam("page", Integer.toString(0));
+        p.setParam("game_id", Integer.toString(gameId));
+        String args = p.getEncodedParams();
     }
     /*
     *
@@ -414,20 +351,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void SetTeamLogo(String sTeamLogoUrl, final ImageView mImageView) {
-        ImageRequest request = new ImageRequest(sTeamLogoUrl,
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap bitmap) {
-                        mImageView.setImageBitmap(bitmap);
-                    }
-                }, 0, 0, null,
-                new Response.ErrorListener() {
-                    public void onErrorResponse(VolleyError error) {
-                        mImageView.setImageResource(R.drawable.fail);
-                    }
-                });
-
-        BaseApplication.getInstance().addToRequestQueue(request);
 
 
     }
@@ -444,7 +367,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void showdialog() {
-
         final CustomizeDialog customizeDialog = new CustomizeDialog(context);
         customizeDialog.setContentView(R.layout.undolastpledgedialog);
         TextView YourTeamName = (TextView) customizeDialog.findViewById(R.id.tvyourteamname);
@@ -497,7 +419,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         String sConfirmation;
         final CustomizeDialog pledgeDialog = new CustomizeDialog(context);
         pledgeDialog.setContentView(R.layout.dilogpledges);
-        TextView tv_pledge_donation = (TextView) pledgeDialog.findViewById(R.id.tv_pledge_donation);
+        TextView tv_pledge_donation = pledgeDialog.findViewById(R.id.tv_pledge_donation);
         if (pledge_value < 0) {
             sConfirmation = String.format("Your last pledge of <br /><b>%s</b><br /> has been undone", utilities.FormatCurrency(pledge_value).replace("-", ""));
 
@@ -520,9 +442,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     public void UpdateGameBoard(Game mGame) {
         Team homeTeam = null;
         Team awayTeam = null;
-        TextView tv_homeTeamScore = (TextView) findViewById(R.id.tv_HomeTeamScore);
-        TextView tv_awayTeamScore = (TextView) findViewById(R.id.tv_AwayTeamScore);
-        TextView pledges = (TextView) findViewById(R.id.pledges);
+        TextView tv_homeTeamScore = findViewById(R.id.tv_HomeTeamScore);
+        TextView tv_awayTeamScore = findViewById(R.id.tv_AwayTeamScore);
+        TextView pledges = findViewById(R.id.pledges);
         TextView tvMyTeamPledgeTotals = (TextView) findViewById(R.id.tv_HomeTeamPledges);
         TextView tvTheirTeamPledgeTotals = (TextView) findViewById(R.id.tv_AwayTeamPledges);
         tv_homeTeamScore.setText(Integer.toString(mGame.getHome_score()));
