@@ -18,7 +18,8 @@ public class GamesForTheDay extends Game {
       TheDate = theDate;
    }
 
-   public GamesForTheDay getTodaysGames() {
+   public List<Game> getTodaysGames() {
+
      return  SampleData.GetListOfGamesFromSampleData();
    }
 

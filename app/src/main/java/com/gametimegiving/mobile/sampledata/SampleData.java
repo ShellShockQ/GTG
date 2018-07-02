@@ -1,7 +1,6 @@
 package com.gametimegiving.mobile.sampledata;
 
 import com.gametimegiving.mobile.Game;
-import com.gametimegiving.mobile.GamesForTheDay;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,13 +16,13 @@ public  class SampleData {
         Date today = Calendar.getInstance().getTime();
         List<Game> SampleGames=null;
         Game game1 = new Game();
-        game1.setGameId(000);
+        game1.setGameId(0);
         game1.setHome_LongName("Dallas Cowboys");
         game1.setAway_LongName("Pittsburgh Steelers");
         game1.setStartdate(today);
         SampleGames.add(game1);
         Game game2 = new Game();
-        game2.setGameId(001);
+        game2.setGameId(1);
         game2.setHome_LongName("LA Clippers");
         game2.setAway_LongName("Milwaukee Bucks");
         game2.setStartdate(today);
@@ -36,9 +35,7 @@ public  class SampleData {
 //        SampleGames.add(game5);
 //        Game game6 = new Game();
 //        SampleGames.add(game6);
-        GamesForTheDay theGames = new GamesForTheDay();
-        theGames.setTodaysGames(SampleGames);
-        return theGames;
+        return SampleGames;
     }
 
     public boolean IsTestRunning(boolean bool){

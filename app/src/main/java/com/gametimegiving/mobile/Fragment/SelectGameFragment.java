@@ -37,7 +37,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
     public String[] gameIdArray;
     public Utilities util;
     protected BaseApi mApi;
-    private List<Game> listOfGames = new ArrayList<Game>();
+    private List<Game> listOfGames = new ArrayList<>();
     private Button mBtnSelect;
     private boolean isGameSelected = false;
     private String selctedgame;
@@ -61,8 +61,8 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.selectgame, container, false);
         mApi = BaseApplication.getInstance().Api;
-        mBtnSelect = (Button) view.findViewById(R.id.btn_game_select);
-        mSelectGameSpinner = (Spinner) view.findViewById(R.id.spinner1);
+        mBtnSelect = view.findViewById(R.id.btn_game_select);
+        mSelectGameSpinner = view.findViewById(R.id.spinner1);
         mBtnSelect.setOnClickListener(this);
         Player player = new Player();
         GetGames(Constant.APISERVERURL + "/api/game", player);
@@ -124,7 +124,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         //  String theGame;
         int cnt = 0;
         gameIdArray = new String[s.getGameId()];
-        ArrayList<Game> TodaysGames = new ArrayList<Game>();
+        ArrayList<Game> TodaysGames = new ArrayList<>();
         for (Game g : TodaysGames) {
             //  theGame = g.getHome_LongName() + " vs " + g.getAway_LongName();
             adapter.add(String.format("%s vs. %s", g.getHome_LongName(), g.getAway_LongName()));
@@ -142,7 +142,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (spinnerFlag) {
-                    ((TextView) adapterView.getChildAt(0)).setText("Select a game");
+                    ((TextView) adapterView.getChildAt(0)).setText(R.string.selectgame);
                     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
                     ((TextView) adapterView.getChildAt(0)).setTextSize(18);
                     spinnerFlag = false;
@@ -175,30 +175,25 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
 
     }
 
-    public class GetGamesAsynch extends AsyncTask<RequestPackage, String, GamesForTheDay> {
+    public static class GetGamesAsynch extends AsyncTask<RequestPackage, String, List<Game>> {
 
         @Override
         protected void onPreExecute() {
         }
 
         @Override
-        protected GamesForTheDay doInBackground(RequestPackage... strings) {
+        protected List<Game> doInBackground(RequestPackage... strings) {
             Log.d(TAG, "Doing HTTP Get in the Background");
             //String content = HttpManager.getData(strings[0]);
-            GamesForTheDay listOfGames= GetListOfGamesFromSampleData();
+            // GamesForTheDay listOfGames= new GamesForTheDay();
      //           listOfGames = GameJSONParser.parseFeed(content);
-             return listOfGames;
+            return GetListOfGamesFromSampleData();
 
         }
 
-        @Override
+
         protected void onPostExecute(GamesForTheDay s) {
             Log.d(TAG, String.format("Results of the HTTP Get for Games: %s",s.getTodaysGames().toString()));
-            if (s==null) {
-                Log.d(TAG, "Can't connect to Webservice");
-
-                Log.d(TAG, String.format("Getting Sample Data: %s",s));
-            }
             addListenerOnSpinnerItemSelection(s);
 
         }

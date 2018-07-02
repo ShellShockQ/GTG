@@ -58,5 +58,7 @@
     <string name="onboardingscreen2headertext">Compete!</string>
     <string name="InValidProfileErrorMessage">Please Select Charity and Team</string>
     <string name="gtglogo">GTGLogo</string>
+    <string name="selectgame">Select a game</string>
+    <string name="versionnumber">Version 1.01</string>
 
 </resources>
