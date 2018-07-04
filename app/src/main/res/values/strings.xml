@@ -60,5 +60,7 @@
     <string name="gtglogo">GTGLogo</string>
     <string name="selectgame">Select a game</string>
     <string name="versionnumber">Version 1.01</string>
+    <string name="usersname">Your Name</string>
+    <string name="user_image">User Image</string>
 
 </resources>

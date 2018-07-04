@@ -1,139 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:id="@+id/view"
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-
-    <LinearLayout
-        android:id="@+id/ll_container1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="@drawable/drawerback">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.gametimegiving.mobile.Utils.RoundedImageView
-                    android:id="@+id/profilePicture"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-
-                    android:layout_margin="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:src="@drawable/usericon" />
-
-                <TextView
-                    android:id="@+id/profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="45dp"
-                    android:singleLine="true"
-                    android:text="Your Name"
-                    android:textSize="15sp" />
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/background"
+                                             android:orientation="vertical"
+    >
 
 
-            </LinearLayout>
+    <FrameLayout
 
-            <ImageView
-                android:id="@+id/editimage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="110dp"
-                android:src="@drawable/editimage" />
-        </FrameLayout>
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/drawerback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <FrameLayout
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_top"
-            android:layout_marginRight="@dimen/margin_top"
-            android:layout_marginTop="40dp">
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <com.gametimegiving.mobile.Utils.RoundedImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_margin="15dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/usericon"/>
 
-                <Button
-                    android:id="@+id/btncharity_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/spinner_bg"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="@dimen/padding_5"
-                    android:paddingRight="@dimen/padding_25"
-                    android:singleLine="true"
-                    android:text="@string/Charityprompt"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black_color"
-                    android:textSize="@dimen/textsize_18" />
-
-                <Button
-                    android:id="@+id/btnteam_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/spinner_bg"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="@dimen/padding_5"
-                    android:paddingRight="@dimen/padding_25"
-                    android:singleLine="true"
-                    android:text="@string/Teamprompt"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black_color"
-                    android:textSize="@dimen/textsize_18" />
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="45dp"
+                android:singleLine="true"
+                android:text="@string/usersname"
+                android:textSize="15sp"/>
 
 
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinner3"-->
-                    <!--style="@style/spinner_style"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/layout_50"-->
-                    <!--android:layout_marginTop="@dimen/margin_15"-->
+        </LinearLayout>
 
-                    <!--android:entries="@array/donationmethod"-->
-                    <!--android:popupBackground="#fff"-->
-                    <!--android:spinnerMode="dropdown" />-->
+        <ImageView
+            android:id="@+id/editimage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="110dp"
+            android:contentDescription="@string/user_image"
+            android:src="@drawable/editimage"/>
+    </FrameLayout>
 
 
-                <Button
-                    android:id="@+id/btn_save"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_15"
-                    android:background="@drawable/custombutton"
-                    android:text="@string/btn_save"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/textsize_20" />
-            </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
+    <Button
+        android:id="@+id/btncharity_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spinner_bg"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="@dimen/padding_25"
+        android:paddingStart="@dimen/padding_5"
+        android:singleLine="true"
+        android:text="@string/Charityprompt"
+        android:textAllCaps="false"
+        android:textColor="@color/black_color"
+        android:textSize="@dimen/textsize_18"
+        app:layout_constraintEnd_toEndOf="@+id/btnteam_spinner"
+        app:layout_constraintStart_toStartOf="@+id/btnteam_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/btnteam_spinner"/>
+
+    <Button
+        android:id="@+id/btnteam_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/spinner_bg"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="@dimen/padding_25"
+        android:paddingStart="@dimen/padding_5"
+        android:singleLine="true"
+        android:text="@string/Teamprompt"
+        android:textAllCaps="false"
+        android:textColor="@color/black_color"
+        android:textSize="@dimen/textsize_18"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"/>
+
+
+    <!--<Spinner-->
+    <!--android:id="@+id/spinner3"-->
+    <!--style="@style/spinner_style"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/layout_50"-->
+    <!--android:layout_marginTop="@dimen/margin_15"-->
+
+    <!--android:entries="@array/donationmethod"-->
+    <!--android:popupBackground="#fff"-->
+    <!--android:spinnerMode="dropdown" />-->
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custombutton"
+        android:text="@string/btn_save"
+        android:textColor="#fff"
+        android:textSize="@dimen/textsize_20"
+        app:layout_constraintEnd_toEndOf="@+id/btncharity_spinner"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/btncharity_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/btncharity_spinner"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_save"
+        app:layout_constraintStart_toStartOf="@+id/btn_save"
+        app:layout_constraintTop_toBottomOf="@+id/btn_save"/>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
 

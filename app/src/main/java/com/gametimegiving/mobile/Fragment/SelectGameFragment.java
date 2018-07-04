@@ -194,7 +194,8 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
 
         protected void onPostExecute(GamesForTheDay s) {
             Log.d(TAG, String.format("Results of the HTTP Get for Games: %s",s.getTodaysGames().toString()));
-            addListenerOnSpinnerItemSelection(s);
+            SelectGameFragment selectGameFragment = new SelectGameFragment();
+            selectGameFragment.addListenerOnSpinnerItemSelection(s);
 
         }
     }
