@@ -90,8 +90,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         if (connectivityManager != null) {
             NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
             if (netInfos != null)
-                if (netInfos.isConnected())
-                    return true;
+                return netInfos.isConnected();
         }
         return false;
     }
@@ -101,11 +100,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.profile, container, false);
         mApi = BaseApplication.getInstance().Api;
 
-        TvProfileName = (TextView) view.findViewById(R.id.profile_name);
+        TvProfileName = view.findViewById(R.id.profile_name);
         TvProfileName.setSelected(true);
-        mBtnCharity = (Button) view.findViewById(R.id.btncharity_spinner);
+        mBtnCharity = view.findViewById(R.id.btncharity_spinner);
         mBtnCharity.setOnClickListener(this);
-        mBtnTeam = (Button) view.findViewById(R.id.btnteam_spinner);
+        mBtnTeam = view.findViewById(R.id.btnteam_spinner);
         mBtnTeam.setOnClickListener(this);
 
      //   mDonationMethodSpinner = (Spinner) view.findViewById(R.id.spinner3);
@@ -129,7 +128,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         mProfileId = sharedpreferences.getString(Constant.PROFILEID, null);
         isLogInFrom = sharedpreferences.getString(Constant.ISLOGINFROM, "");
         isDrawerLocked = sharedpreferences.getBoolean(Constant.ISPROFILESUBMITTED, false);
-        mProfilepictureView = (RoundedImageView) view.findViewById(R.id.profilePicture);
+        mProfilepictureView = view.findViewById(R.id.profilePicture);
 
 
         /*
@@ -139,7 +138,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             TvProfileName.setText(profileName);
         setProfileImage();
 
-        mImgEdit = (ImageView) view.findViewById(R.id.editimage);
+        mImgEdit = view.findViewById(R.id.editimage);
 
         if (isLogInFrom.equals("facebook") || isLogInFrom.equals("twitter")) {
             mImgEdit.setEnabled(false);
@@ -156,12 +155,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 }
             });
         }
-        mBtnSave = (Button) view.findViewById(R.id.btn_save);
+        mBtnSave = view.findViewById(R.id.btn_save);
 
      //   addListenerOnSpinnerItemSelection();
-//TODO (1): I temporarily removed these api calls to get the app to build. Got to put this back
-//        mApi.getCharity();
- //       mApi.getTeam();
+        mApi.getCharity();
+        //   mApi.getTeam();
 
         mBtnSave.setOnClickListener(new View.OnClickListener() {
 
@@ -315,8 +313,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 mCustomizeDialog = new CustomizeDialog(getActivity());
                 mCustomizeDialog.setCancelable(false);
                 mCustomizeDialog.setContentView(R.layout.organization_dialog);
-                TextView tvTitle = (TextView) mCustomizeDialog.findViewById(R.id.tvtitle);
-                Button btnDone = (Button) mCustomizeDialog.findViewById(R.id.btn_done);
+                TextView tvTitle = mCustomizeDialog.findViewById(R.id.tvtitle);
+                Button btnDone = mCustomizeDialog.findViewById(R.id.btn_done);
 
                 btnDone.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -343,9 +341,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 mCustomizeDialog = new CustomizeDialog(getActivity());
                 mCustomizeDialog.setCancelable(false);
                 mCustomizeDialog.setContentView(R.layout.organization_dialog);
-                TextView tvTitle1 = (TextView) mCustomizeDialog.findViewById(R.id.tvtitle);
+                TextView tvTitle1 = mCustomizeDialog.findViewById(R.id.tvtitle);
                 tvTitle1.setText("Select Team");
-                Button btnDone1 = (Button) mCustomizeDialog.findViewById(R.id.btn_done);
+                Button btnDone1 = mCustomizeDialog.findViewById(R.id.btn_done);
                 btnDone1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -508,7 +506,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             Log.i(TAG, "OnPost Execute :");
             //FlowerList = FlowerXMLParser.parseFeed(s);
 //            updateDisplay();
-            ListView listView1 = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
+            ListView listView1 = mCustomizeDialog.findViewById(R.id.list_organisation);
             TeamListAdapter teamListAdapter = new TeamListAdapter(getActivity(), listOfTeams);
             listView1.setAdapter(teamListAdapter);
 
@@ -526,6 +524,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         @Override
         protected List<Charity> doInBackground(RequestPackage... strings) {
             String content = HttpManager.getData(strings[0]);
+            //TODO:(1) Create a Global variable for sample data
+            //TODO:(2) Pull from the sample data file if the configuration is Sample data
+
             listOfCharities = CharityJSONParser.parseFeed(content);
             return listOfCharities;
         }
@@ -539,7 +540,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             Log.i(TAG, "OnPost Execute :");
             //FlowerList = FlowerXMLParser.parseFeed(s);
 //            updateDisplay();
-            ListView listView1 = (ListView) mCustomizeDialog.findViewById(R.id.list_organisation);
+            ListView listView1 = mCustomizeDialog.findViewById(R.id.list_organisation);
             CharityListAdapter charityListAdapter = new CharityListAdapter(getActivity(), listOfCharities);
             listView1.setAdapter(charityListAdapter);
 

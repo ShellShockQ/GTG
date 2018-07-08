@@ -2,6 +2,7 @@ package com.gametimegiving.mobile;
 
 import com.gametimegiving.mobile.sampledata.SampleData;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,10 @@ import java.util.List;
  */
 
 public class GamesForTheDay extends Game {
+   public GamesForTheDay() {
+      TheDate = Calendar.getInstance().getTime();
+   }
+
    public Date getTheDate() {
       return TheDate;
    }

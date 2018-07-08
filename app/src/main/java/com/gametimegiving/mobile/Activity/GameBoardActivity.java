@@ -85,7 +85,10 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         player.setPlayer_id();
         setContentView(R.layout.gameboard);
-        startTimer();
+        Game currentGame = new Game();
+        currentGame.getCurrentGame();
+        //TODO:Get the Sample Game Data Back
+        //startTimer();
         tvPledges = findViewById(R.id.pledges);
         if (getIntent().getExtras() != null) {
             try {
@@ -98,7 +101,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
         }
 
-        getCurrentGame(ActiveGameID);
+        //getCurrentGame(ActiveGameID);
 
         //TODO:Determine Game Status based on the time
 
@@ -154,8 +157,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private void SetGameBoard(Game mGame) {
         View l = findViewById(R.id.pledgeButtons);
         View ppl = findViewById(R.id.personalpledgelayout);
-        Button btn = (Button) findViewById(R.id.btnundolastpledge);
-        Button btnPay = (Button) findViewById(R.id.paynow);
+        Button btn = findViewById(R.id.btnundolastpledge);
+        Button btnPay = findViewById(R.id.paynow);
         switch (mGame.getGameStatus()) {
             case Constant.GAMENOTSTARTED:
                 TurnOffPledgeMechanisms(l, ppl, btn, btnPay);
@@ -207,27 +210,27 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         //set a new Timer
         timer = new Timer();
         //initialize the TimerTask's job
-        RefreshGame();
+        //RefreshGame();
 
         //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
         timer.schedule(timerTask, 5000, 10000); //
 
     }
 
-    public void RefreshGame() {
-
-        timerTask = new TimerTask() {
-            public void run() {
-
-                //use a handler to run a toast that shows the current timestamp
-                handler.post(new Runnable() {
-                    public void run() {
-                        getCurrentGame(ActiveGameID);
-                    }
-                });
-            }
-        };
-    }
+//    public void RefreshGame() {
+//
+//        timerTask = new TimerTask() {
+//            public void run() {
+//
+//                //use a handler to run a toast that shows the current timestamp
+//                handler.post(new Runnable() {
+//                    public void run() {
+//                        getCurrentGame(ActiveGameID);
+//                    }
+//                });
+//            }
+//        };
+//    }
 
     @Override
     protected void onActivityResult(int requestCode,
@@ -263,17 +266,17 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void getCurrentGame(Integer gameId) {
-
-        final RequestPackage p = new RequestPackage();
-        String method = "game";
-        p.setMethod("POST");
-        p.setUri(String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game"));
-        p.setParam("token", null);
-        p.setParam("page", Integer.toString(0));
-        p.setParam("game_id", Integer.toString(gameId));
-        String args = p.getEncodedParams();
-    }
+    //    public void getCurrentGame(Integer gameId) {
+//        if(gameId==null) gameId=Constant.DEFAULTGAMEID;
+//        final RequestPackage p = new RequestPackage();
+//        String method = "game";
+//        p.setMethod("POST");
+//        p.setUri(String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game"));
+//        p.setParam("token", null);
+//        p.setParam("page", Integer.toString(0));
+//        p.setParam("game_id", Integer.toString(gameId));
+//        String args = p.getEncodedParams();
+//    }
     /*
     *
     * Select Game Show in GameBoard Screen
@@ -301,7 +304,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private void addPledges(int value, int game_id, int team_id) {
         mUndoLastPledge.setEnabled(true);
         mMyLastPledge = value;
-        tvMyTeamPledgeTotals = (TextView)findViewById(R.id.tv_HomeTeamPledges);
+        tvMyTeamPledgeTotals = findViewById(R.id.tv_HomeTeamPledges);
         player.setMyLastPledgeAmount(value);
         utilities.WriteSharedPref(Constant.GAMEDATAREFRESHED, "false", this, "b");
         utilities.WriteSharedPref(Constant.LASTPLEDGEDAMOUNT, Integer.toString(player.getMyTotalPledgeAmount(this)), this, "i");
@@ -369,9 +372,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     public void showdialog() {
         final CustomizeDialog customizeDialog = new CustomizeDialog(context);
         customizeDialog.setContentView(R.layout.undolastpledgedialog);
-        TextView YourTeamName = (TextView) customizeDialog.findViewById(R.id.tvyourteamname);
-        TextView SupportTeamName = (TextView) customizeDialog.findViewById(R.id.tvsupportteamname);
-        Button button = (Button) customizeDialog.findViewById(R.id.btnok);
+        TextView YourTeamName = customizeDialog.findViewById(R.id.tvyourteamname);
+        TextView SupportTeamName = customizeDialog.findViewById(R.id.tvsupportteamname);
+        Button button = customizeDialog.findViewById(R.id.btnok);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -412,7 +415,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 break;
         }
         //getGame(ActiveGameID);
-        getCurrentGame(ActiveGameID);
+        //getCurrentGame(ActiveGameID);
     }
 
     public void openDailogPledgesAdd(int pledge_value) {
@@ -445,42 +448,42 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         TextView tv_homeTeamScore = findViewById(R.id.tv_HomeTeamScore);
         TextView tv_awayTeamScore = findViewById(R.id.tv_AwayTeamScore);
         TextView pledges = findViewById(R.id.pledges);
-        TextView tvMyTeamPledgeTotals = (TextView) findViewById(R.id.tv_HomeTeamPledges);
-        TextView tvTheirTeamPledgeTotals = (TextView) findViewById(R.id.tv_AwayTeamPledges);
+        TextView tvMyTeamPledgeTotals = findViewById(R.id.tv_HomeTeamPledges);
+        TextView tvTheirTeamPledgeTotals = findViewById(R.id.tv_AwayTeamPledges);
         tv_homeTeamScore.setText(Integer.toString(mGame.getHome_score()));
         tv_awayTeamScore.setText(Integer.toString(mGame.getAway_score()));
         mTvYourTeam.setText(mGame.getHome_LongName());
         mTvOpponentTeam.setText(mGame.getAway_LongName());
         pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount(this))));
-        TextView tv_GamePeriod = (TextView) findViewById(R.id.tv_GamePeriod);
+        TextView tv_GamePeriod = findViewById(R.id.tv_GamePeriod);
         tv_GamePeriod.setText(String.format("%s in %s", mGame.getTimeLeft(), Integer.toString(mGame.getPeriod())));
         tvMyTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getHometeam_pledge()));
         tvTheirTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getVisitingteam_pledge()));
         String homelogourl = String.format("%s%s.png", LOGO_BASE_URL, mGame.getHomeLogo());
         String awaylogourl = String.format("%s%s.png", LOGO_BASE_URL, mGame.getAwayLogo());
-        ImageView mHomeLogo = (ImageView) findViewById(R.id.hometeamlogo);
-        ImageView mAwayLogo = (ImageView) findViewById(R.id.awayteamlogo);
+        ImageView mHomeLogo = findViewById(R.id.hometeamlogo);
+        ImageView mAwayLogo = findViewById(R.id.awayteamlogo);
         SetTeamLogo(homelogourl, mHomeLogo);
         SetTeamLogo(awaylogourl, mAwayLogo);
     }
 
-    public void getGame(int game_id) {
-        try {
-            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
-            String method = "game";
-            RequestPackage p = new RequestPackage();
-            p.setMethod("POST");
-            p.setUri(url);
-            p.setParam("token", null);
-            p.setParam("page", Integer.toString(0));
-            p.setParam("game_id", Integer.toString(game_id));
-            GetMyGame task = new GetMyGame();
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
-
-        } catch (Exception exc) {
-            Log.e(TAG, exc.toString());
-        }
-    }
+//    public void getGame(int game_id) {
+//        try {
+//            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
+//            String method = "game";
+//            RequestPackage p = new RequestPackage();
+//            p.setMethod("POST");
+//            p.setUri(url);
+//            p.setParam("token", null);
+//            p.setParam("page", Integer.toString(0));
+//            p.setParam("game_id", Integer.toString(game_id));
+//            GetMyGame task = new GetMyGame();
+//            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+//
+//        } catch (Exception exc) {
+//            Log.e(TAG, exc.toString());
+//        }
+//    }
 
     public Bitmap getBitmapFromMemCache(int key) {
         try {

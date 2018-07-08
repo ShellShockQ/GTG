@@ -6,8 +6,8 @@ import com.gametimegiving.mobile.GamesForTheDay;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,14 +17,15 @@ public class GamesForTheDayTest {
     @Test
     public void GetAListOfTodaysGames(){
         //Arrange
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE, MMMM d, yyyy");
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0); //
-        Date ExpectedDate = today.getTime();
+        String ExpectedDate = dateFormatter.format(today.getTime());
 
         //Act
         GamesForTheDay todaysGames = new GamesForTheDay();
         List<Game> theGames = todaysGames.getTodaysGames();
-        Date firstGameDate = todaysGames.getTheDate();
+        String firstGameDate = dateFormatter.format(todaysGames.getTheDate());
 
         //Assert
         Assert.assertEquals(ExpectedDate,firstGameDate);

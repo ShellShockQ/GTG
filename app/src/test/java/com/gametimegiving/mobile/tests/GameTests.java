@@ -31,8 +31,7 @@ public class GameTests {
         //Arrange
         //Assert
         //Act
-        ;
-       }
+    }
     @Test
     public void WhensetHometeam_pledgeToPledgeToZeroHomeTeamPledgeIsZero() {
         //Arrange
@@ -43,14 +42,5 @@ public class GameTests {
         //Act
         Assert.assertEquals(zeropledge,ActualResult);
     }
-    @Test
-    public void WhensetHometeam_pledgeToNullHomeTeamPledgeStillReturnsZero() {
-        //Arrange
-        int zeropledge=0;
-        mGame.setHometeam_pledge((Integer)null);
-        //Assert
-        int ActualResult = mGame.getHometeam_pledge();
-        //Act
-        Assert.assertEquals(zeropledge,ActualResult);
-    }
+
 }

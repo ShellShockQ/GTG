@@ -1,10 +1,8 @@
 package com.gametimegiving.mobile;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.gametimegiving.mobile.Parse.RequestPackage;
-import com.gametimegiving.mobile.Utils.Constant;
 
 import java.util.Date;
 
@@ -19,6 +17,7 @@ public class Game {
     private int home_score;
     private int away_score;
     private int period;
+
 
     public Date getStartdate() {
         return startdate;
@@ -211,44 +210,23 @@ public class Game {
 
     }
 
-    public Game getCurrentGame(Integer gameId) {
+    public Game getCurrentGame() {
+        int gameId = 1;
+        //TODO: This class needs to determine the current game based on location, a link, demo, etc.
+        //TODO: Make an ajax call to get live game data
         Game mGame = null;
         RequestPackage p = new RequestPackage();
-        try {
-            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
-            String method = "game";
-            p.setMethod("POST");
-            p.setUri(url);
-            p.setParam("token", null);
-            p.setParam("page", Integer.toString(0));
-            p.setParam("game_id", Integer.toString(gameId));
-//            GetMyGame task = new GetMyGame();
-//            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
-
-        } catch (Exception exc) {
-            Log.e(TAG, exc.toString());
-        }
-//        JsonObjectRequest request = new JsonObjectRequest(p.getUri(),
-//                null,
-//                new Response.Listener<JSONObject>() {
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        Log.d(TAG, String.format("The volley response was %s", response.toString()));
-//                    }
-//                },
-//
-//                new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.d(TAG, String.format("The Error from volley response was %s", error.toString()));
-//
-//                    }
-//                }
-//        );
-//        BaseApplication.getInstance().getRequestQueue().add(request);
-
+//        try {
+//            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
+//            String method = "game";
+//            p.setMethod("POST");
+//            p.setUri(url);
+//            p.setParam("token", null);
+//            p.setParam("page", Integer.toString(0));
+//            p.setParam("game_id", Integer.toString(gameId));
+//        } catch (Exception exc) {
+//            Log.e(TAG, exc.toString());
+//        }
         return mGame;
     }
 

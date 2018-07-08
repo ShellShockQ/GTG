@@ -2,6 +2,7 @@ package com.gametimegiving.mobile.sampledata;
 
 import com.gametimegiving.mobile.Game;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ public  class SampleData {
     static public List<Game> GetListOfGamesFromSampleData() {
         String JSONGames= "{\"games\":[{\"game_id\":\"000\",\"home_long\":\"Dallas Cowboys\",\"away_long\":\"Pittsburgh Steelers\"},{\"game_id\":\"001\",\"home_long\":\"LA Clippers\",\"away_long\":\"Milwaukee Bucks\"}]}";
         Date today = Calendar.getInstance().getTime();
-        List<Game> SampleGames=null;
+        List<Game> SampleGames = new ArrayList<>();
         Game game1 = new Game();
         game1.setGameId(0);
         game1.setHome_LongName("Dallas Cowboys");
@@ -41,5 +42,10 @@ public  class SampleData {
     public boolean IsTestRunning(boolean bool){
 
         return bool;
+    }
+
+    public String SampleCharityData() {
+        String SampleCharityJSON = "results{\'name:Charity One\',\'001\',\'name:Charity Two\',\'002\'}";
+        return SampleCharityJSON;
     }
 }

@@ -1,352 +1,374 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/GameBoardLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/Backdrop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/teamboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#001325"
-        app:theme="@style/Toolbar_Theme">
-
+        app:theme="@style/Toolbar_Theme"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="GameBoard"
+            android:contentDescription="@string/game_board_title"
+            android:text="@string/game_board_title"
             android:textColor="#fff"
-            android:textSize="20sp" />
-
+            android:textSize="20sp"
+            />
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/VisitorTeamName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintEnd_toEndOf="@+id/awayteamlogo"
+        app:layout_constraintStart_toStartOf="@+id/awayteamlogo"
+        app:layout_constraintTop_toTopOf="@+id/Backdrop"
+        tools:text="Essex"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:orientation="vertical"
-            android:weightSum="2">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_360"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:layout_marginRight="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_20"
-                android:layout_weight=".7"
-                android:background="@drawable/teamboard"
-                android:orientation="vertical"
-                android:weightSum="3">
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_marginTop="@dimen/margin_20"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2">-->
-
-                <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/hometeam"-->
-                <!--android:textColor="#01ccc6"-->
-                <!--android:textSize="@dimen/textsize_20" />-->
-
-                <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/visitingteam"-->
-                <!--android:textColor="#01ccc6"-->
-                <!--android:textSize="@dimen/textsize_20" />-->
-                <!--</LinearLayout>-->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/hometeamlogo"
-                            android:layout_width="90dp"
-                            android:layout_height="90dp"
-                            android:scaleType="fitXY" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/awayteamlogo"
-                            android:layout_width="90dp"
-                            android:layout_height="90dp"
-                            android:scaleType="fitXY" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2">
-                    <TextView
-                        android:id="@+id/tvyourteam"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/textsize20" />
-
-                    <TextView
-                        android:id="@+id/tvopponentteam"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="10dp"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/textsize20" />
+    <ImageView
+        android:id="@+id/awayteamlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/hometeamlogo"
+        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/VisitorTeamName"
+        app:srcCompat="@drawable/teamknvp"
+        tools:layout_conversion_absoluteHeight="90dp"
+        tools:layout_conversion_absoluteWidth="90dp"/>
 
 
-                </LinearLayout>
+    <TextView
+        android:id="@+id/HomeTeamName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintEnd_toEndOf="@+id/hometeamlogo"
+        app:layout_constraintStart_toStartOf="@+id/hometeamlogo"
+        app:layout_constraintTop_toTopOf="@+id/Backdrop"
+        tools:text="North Bay"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/margin_20"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_top20"
+    <ImageView
+        android:id="@+id/hometeamlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/HomeTeamName"
+        app:srcCompat="@drawable/teama"
+        tools:layout_conversion_absoluteHeight="90dp"
+        tools:layout_conversion_absoluteWidth="90dp"/>
 
-                    android:text="Session"
-                    android:textColor="@color/white_color" />
+    <TextView
+        android:id="@+id/VisitorTeamMascot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintEnd_toEndOf="@+id/awayteamlogo"
+        app:layout_constraintStart_toStartOf="@+id/awayteamlogo"
+        app:layout_constraintTop_toBottomOf="@+id/awayteamlogo"
+        tools:text="Lions"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_left"
-                    android:layout_marginRight="@dimen/margin_right"
+    <TextView
+        android:id="@+id/HomeTeamMascot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintEnd_toEndOf="@+id/hometeamlogo"
+        app:layout_constraintStart_toStartOf="@+id/hometeamlogo"
+        app:layout_constraintTop_toBottomOf="@+id/hometeamlogo"
+        tools:text="Guardian Angels"/>
 
-                    android:orientation="horizontal"
-                    android:weightSum="3">
+    <TextView
+        android:id="@+id/tv_HomeTeamScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="@string/_0"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/HomeTeamMascot"
+        app:layout_constraintStart_toStartOf="@+id/HomeTeamMascot"
+        app:layout_constraintTop_toBottomOf="@+id/HomeTeamMascot"
+        tools:layout_conversion_absoluteHeight="16dp"
+        tools:layout_conversion_absoluteWidth="102dp"/>
 
-                    <TextView
-                        android:id="@+id/tv_HomeTeamScore"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/textsize_20"
-                        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/Period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/period"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/tv_GamePeriod"
+        app:layout_constraintEnd_toStartOf="@+id/tv_AwayTeamScore"
+        app:layout_constraintStart_toEndOf="@+id/tv_HomeTeamScore"
+        tools:layout_conversion_absoluteHeight="20dp"
+        tools:layout_conversion_absoluteWidth="27dp"
+        tools:text="Period"/>
 
-                    <TextView
-                        android:id="@+id/tv_GamePeriod"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/hight_30"
-                        android:layout_weight="1"
-                        android:background="@drawable/custombuttontextview"
-                        android:gravity="center"
-                        android:text="1"
-                        android:textSize="@dimen/textsize_20"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/tv_AwayTeamScore"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/textsize_20"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_left"
-                    android:layout_marginRight="@dimen/margin_right"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:weightSum="3">
-
-                    <TextView
-                        android:id="@+id/tv_HomeTeamPledges"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/textsize_17"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_35"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="  Total\nPledges"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/textsize_15"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/tv_AwayTeamPledges"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_top"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/textsize_17"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/personalpledgelayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_65"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginRight="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15"
-                android:background="@drawable/rounded_pledge"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="YOUR PLEDGES:"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/textsize_15" />
-
-                <TextView
-                    android:id="@+id/pledges"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:text="$0.00"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/textsize_20" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/paynow"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_65"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginRight="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15"
-                android:background="@drawable/rounded_dollor_button"
-                android:text="Donate Now"
-                android:visibility="visible" />
-
-            <LinearLayout
-                android:id="@+id/pledgeButtons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_20"
-
-                android:layout_marginRight="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal"
-
-                android:visibility="gone"
-                android:weightSum="3">
-
-                <Button
-                    android:id="@+id/btn_$1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/hight_50"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_dollor_button"
-                    android:text="$1"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/textsize_20" />
-
-                <Button
-                    android:id="@+id/btn_$2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/hight_50"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_dollor_button"
-                    android:text="$2"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/textsize_20" />
-
-                <Button
-                    android:id="@+id/btn_$5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/hight_50"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_dollor_button"
-                    android:text="$5"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/textsize_20" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnundolastpledge"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginRight="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@drawable/rounded_pledge"
-                android:text="UNDO LAST PLEDGE"
-                android:textSize="@dimen/textsize_20"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </LinearLayout>
-    </ScrollView>
+    <TextView
+        android:id="@+id/tv_HomeTeamPledges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#fff"
+        android:textSize="@dimen/textsize_17"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/totalPledges"
+        app:layout_constraintEnd_toEndOf="@+id/tv_HomeTeamScore"
+        app:layout_constraintStart_toStartOf="@+id/tv_HomeTeamScore"
+        app:layout_constraintTop_toBottomOf="@+id/tv_HomeTeamScore"
+        tools:layout_conversion_absoluteHeight="23dp"
+        tools:layout_conversion_absoluteWidth="65dp"
+        tools:text="$15.00"/>
 
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_GamePeriod"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custombuttontextview"
+        android:gravity="center"
+        android:text="@string/_1"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="@+id/Period"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/Period"
+        tools:layout_conversion_absoluteHeight="30dp"
+        tools:layout_conversion_absoluteWidth="102dp"
+        tools:text="2"/>
+
+
+    <TextView
+        android:id="@+id/tv_AwayTeamScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/VisitorTeamMascot"
+        app:layout_constraintStart_toStartOf="@+id/VisitorTeamMascot"
+        app:layout_constraintTop_toBottomOf="@+id/VisitorTeamMascot"
+        tools:layout_conversion_absoluteHeight="16dp"
+        tools:layout_conversion_absoluteWidth="102dp"/>
+
+
+    <TextView
+        android:id="@+id/totalPledges"
+        android:layout_width="114dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="@dimen/textsize_15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/Backdrop"
+        app:layout_constraintEnd_toStartOf="@+id/Backdrop"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/Backdrop"
+        tools:layout_conversion_absoluteHeight="39dp"
+        tools:layout_conversion_absoluteWidth="110dp"
+        tools:text="Total Pledges"/>
+
+
+    <TextView
+        android:id="@+id/tv_AwayTeamPledges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="#fff"
+        android:textSize="@dimen/textsize_17"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/totalPledges"
+        app:layout_constraintEnd_toEndOf="@+id/tv_AwayTeamScore"
+        app:layout_constraintStart_toStartOf="@+id/tv_AwayTeamScore"
+        app:layout_constraintTop_toBottomOf="@+id/tv_AwayTeamScore"
+        tools:layout_conversion_absoluteHeight="23dp"
+        tools:layout_conversion_absoluteWidth="66dp"
+        tools:text="$45.00"/>
+
+
+    <TextView
+        android:id="@+id/YourPledges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:textColor="#fff"
+        android:textSize="@dimen/textsize_15"
+        app:layout_constraintEnd_toStartOf="@+id/pledges"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalPledges"
+        tools:text="Your Pledges"/>
+
+    <TextView
+        android:id="@+id/pledges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:textColor="#fff"
+        android:textSize="@dimen/textsize_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/YourPledges"
+        app:layout_constraintTop_toBottomOf="@+id/totalPledges"
+        tools:text="$0.00"/>
+
+    <Button
+        android:id="@+id/paynow"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_dollor_button"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_$2"
+        tools:text="Donate Now"/>
+
+
+    <Button
+        android:id="@+id/btnundolastpledge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_pledge"
+        android:text="@string/undo_last_pledge"
+        android:textSize="@dimen/textsize_20"
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/btn_$5"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_dollor_button"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/YourPledges"
+        tools:text="$5"/>
+
+    <Button
+        android:id="@+id/btn_$1"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_dollor_button"
+        android:text="$1"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btn_$2"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/YourPledges"
+        tools:text="$1"/>
+
+    <Button
+        android:id="@+id/btn_$2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_dollor_button"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btn_$5"
+        app:layout_constraintTop_toBottomOf="@+id/YourPledges"
+        tools:text="$3"/>
+
+    <android.support.constraint.Group
+        android:id="@+id/pledgeButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="btn_$5,btn_$2,btn_$1"/>
+
+
+</ android.support.constraint.ConstraintLayout>

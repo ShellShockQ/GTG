@@ -4,6 +4,7 @@ import com.gametimegiving.mobile.Application.BaseApplication;
 
 public class Constant {
     public static final String MyPREFERENCES = "MyPrefs";
+    public static final int DEFAULTGAMEID = 1;
     public static final String EMAILADDRESS = "emailKey";
     public static final String PASSWORD = "passwordKey";
     public static final String CONFIRMPASSWORD = "confirmpasswordKey";
