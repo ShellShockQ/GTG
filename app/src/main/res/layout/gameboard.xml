@@ -11,14 +11,19 @@
 
     <ImageView
         android:id="@+id/Backdrop"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/teamboard"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -37,9 +42,38 @@
             android:textSize="20sp"
             />
     </android.support.v7.widget.Toolbar>
+    <!-- Home Team -->
+    <TextView
+        android:id="@+id/HomeTeamName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/hometeamlogo"
+        app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="60dp"
+        tools:text="North Bay"/>
+
+    <ImageView
+        android:id="@+id/hometeamlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/GLTeamLogo"
+        app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:srcCompat="@drawable/teama"
+        tools:layout_conversion_absoluteHeight="90dp"
+        tools:layout_conversion_absoluteWidth="90dp"/>
 
     <TextView
-        android:id="@+id/VisitorTeamName"
+        android:id="@+id/HomeTeamMascot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -47,9 +81,65 @@
         android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="@color/com_facebook_likeboxcountview_text_color"
-        app:layout_constraintEnd_toEndOf="@+id/awayteamlogo"
-        app:layout_constraintStart_toStartOf="@+id/awayteamlogo"
-        app:layout_constraintTop_toTopOf="@+id/Backdrop"
+        app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/hometeamlogo"
+        tools:text="Guardian Angels"/>
+
+    <TextView
+        android:id="@+id/tv_HomeTeamScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/_0"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/GLScore"
+        app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/HomeTeamMascot"
+        tools:layout_conversion_absoluteHeight="16dp"
+        tools:layout_conversion_absoluteWidth="102dp"/>
+
+    <TextView
+        android:id="@+id/tv_HomeTeamPledges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#fff"
+        android:textSize="@dimen/textsize_17"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/Backdrop"
+        app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintTop_toTopOf="@+id/GLScore"
+        tools:layout_conversion_absoluteHeight="23dp"
+        tools:layout_conversion_absoluteWidth="65dp"
+        tools:text="$15.00"/>
+
+    <!--Visitor Team -->
+    <TextView
+        android:id="@+id/VisitorTeamName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textAppearance="@android:style/TextAppearance"
+        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/awayteamlogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintTop_toTopOf="@+id/HomeTeamName"
         tools:text="Essex"/>
 
     <ImageView
@@ -57,40 +147,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/hometeamlogo"
-        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
-        app:layout_constraintTop_toBottomOf="@+id/VisitorTeamName"
-        app:srcCompat="@drawable/teamknvp"
-        tools:layout_conversion_absoluteHeight="90dp"
-        tools:layout_conversion_absoluteWidth="90dp"/>
-
-
-    <TextView
-        android:id="@+id/HomeTeamName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@android:style/TextAppearance"
-        android:textColor="@color/com_facebook_likeboxcountview_text_color"
-        app:layout_constraintEnd_toEndOf="@+id/hometeamlogo"
-        app:layout_constraintStart_toStartOf="@+id/hometeamlogo"
-        app:layout_constraintTop_toTopOf="@+id/Backdrop"
-        tools:text="North Bay"/>
-
-    <ImageView
-        android:id="@+id/hometeamlogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
-        app:layout_constraintTop_toBottomOf="@+id/HomeTeamName"
-        app:srcCompat="@drawable/teama"
+        app:layout_constraintBottom_toTopOf="@+id/GLTeamLogo"
+        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
+        app:srcCompat="@drawable/teamknvp"
         tools:layout_conversion_absoluteHeight="90dp"
         tools:layout_conversion_absoluteWidth="90dp"/>
 
@@ -100,85 +162,54 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="@color/com_facebook_likeboxcountview_text_color"
-        app:layout_constraintEnd_toEndOf="@+id/awayteamlogo"
-        app:layout_constraintStart_toStartOf="@+id/awayteamlogo"
-        app:layout_constraintTop_toBottomOf="@+id/awayteamlogo"
+        app:layout_constraintBottom_toBottomOf="@+id/HomeTeamMascot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
         tools:text="Lions"/>
 
     <TextView
-        android:id="@+id/HomeTeamMascot"
+        android:id="@+id/tv_AwayTeamScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@android:style/TextAppearance"
-        android:textColor="@color/com_facebook_likeboxcountview_text_color"
-        app:layout_constraintEnd_toEndOf="@+id/hometeamlogo"
-        app:layout_constraintStart_toStartOf="@+id/hometeamlogo"
-        app:layout_constraintTop_toBottomOf="@+id/hometeamlogo"
-        tools:text="Guardian Angels"/>
-
-    <TextView
-        android:id="@+id/tv_HomeTeamScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="@string/_0"
+        android:text="0"
         android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/HomeTeamMascot"
-        app:layout_constraintStart_toStartOf="@+id/HomeTeamMascot"
-        app:layout_constraintTop_toBottomOf="@+id/HomeTeamMascot"
+        app:layout_constraintBottom_toTopOf="@+id/GLScore"
+        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintTop_toBottomOf="@+id/VisitorTeamMascot"
         tools:layout_conversion_absoluteHeight="16dp"
         tools:layout_conversion_absoluteWidth="102dp"/>
 
+    <!-- Scoreboard Elements -->
     <TextView
         android:id="@+id/Period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/period"
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="@color/com_facebook_likeboxcountview_text_color"
-        app:layout_constraintBottom_toTopOf="@+id/tv_GamePeriod"
-        app:layout_constraintEnd_toStartOf="@+id/tv_AwayTeamScore"
-        app:layout_constraintStart_toEndOf="@+id/tv_HomeTeamScore"
-        tools:layout_conversion_absoluteHeight="20dp"
-        tools:layout_conversion_absoluteWidth="27dp"
+        app:layout_constraintBottom_toTopOf="@+id/GLScore"
+        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/GLTeamLogo"
         tools:text="Period"/>
-
-    <TextView
-        android:id="@+id/tv_HomeTeamPledges"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="0"
-        android:textColor="#fff"
-        android:textSize="@dimen/textsize_17"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/totalPledges"
-        app:layout_constraintEnd_toEndOf="@+id/tv_HomeTeamScore"
-        app:layout_constraintStart_toStartOf="@+id/tv_HomeTeamScore"
-        app:layout_constraintTop_toBottomOf="@+id/tv_HomeTeamScore"
-        tools:layout_conversion_absoluteHeight="23dp"
-        tools:layout_conversion_absoluteWidth="65dp"
-        tools:text="$15.00"/>
 
 
     <TextView
         android:id="@+id/tv_GamePeriod"
-        android:layout_width="0dp"
+        android:layout_width="31dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -187,48 +218,33 @@
         android:text="@string/_1"
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="@android:color/background_light"
-        app:layout_constraintEnd_toEndOf="@+id/Period"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/Period"
+        app:layout_constraintBottom_toTopOf="@+id/GLScore"
+        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/Period"
         tools:layout_conversion_absoluteHeight="30dp"
         tools:layout_conversion_absoluteWidth="102dp"
+        tools:layout_editor_absoluteY="245dp"
         tools:text="2"/>
 
 
-    <TextView
-        android:id="@+id/tv_AwayTeamScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:text="0"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/VisitorTeamMascot"
-        app:layout_constraintStart_toStartOf="@+id/VisitorTeamMascot"
-        app:layout_constraintTop_toBottomOf="@+id/VisitorTeamMascot"
-        tools:layout_conversion_absoluteHeight="16dp"
-        tools:layout_conversion_absoluteWidth="102dp"/>
+
 
 
     <TextView
         android:id="@+id/totalPledges"
         android:layout_width="114dp"
         android:layout_height="38dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center"
         android:textColor="#fff"
         android:textSize="@dimen/textsize_15"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/Backdrop"
-        app:layout_constraintEnd_toStartOf="@+id/Backdrop"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Backdrop"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_HomeTeamPledges"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_HomeTeamPledges"
         tools:layout_conversion_absoluteHeight="39dp"
         tools:layout_conversion_absoluteWidth="110dp"
         tools:text="Total Pledges"/>
@@ -239,19 +255,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="2"
         android:textColor="#fff"
         android:textSize="@dimen/textsize_17"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/totalPledges"
-        app:layout_constraintEnd_toEndOf="@+id/tv_AwayTeamScore"
-        app:layout_constraintStart_toStartOf="@+id/tv_AwayTeamScore"
-        app:layout_constraintTop_toBottomOf="@+id/tv_AwayTeamScore"
+        app:layout_constraintBottom_toBottomOf="@+id/Backdrop"
+        app:layout_constraintTop_toTopOf="@+id/GLScore"
         tools:layout_conversion_absoluteHeight="23dp"
         tools:layout_conversion_absoluteWidth="66dp"
+        tools:layout_editor_absoluteX="316dp"
         tools:text="$45.00"/>
 
 
@@ -260,14 +274,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
         android:textColor="#fff"
         android:textSize="@dimen/textsize_15"
-        app:layout_constraintEnd_toStartOf="@+id/pledges"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalPledges"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="453dp"
         tools:text="Your Pledges"/>
 
     <TextView
@@ -275,20 +285,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="120dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
         android:textColor="#fff"
         android:textSize="@dimen/textsize_20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/YourPledges"
-        app:layout_constraintTop_toBottomOf="@+id/totalPledges"
+        tools:layout_editor_absoluteX="206dp"
+        tools:layout_editor_absoluteY="453dp"
         tools:text="$0.00"/>
+
 
     <Button
         android:id="@+id/paynow"
         android:layout_width="100dp"
         android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -298,10 +306,10 @@
         android:textColor="#fff"
         android:textStyle="bold"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_$2"
+        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
         tools:text="Donate Now"/>
 
 
@@ -318,50 +326,54 @@
 
     <Button
         android:id="@+id/btn_$5"
-        android:layout_width="107dp"
+        android:layout_width="127dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_dollor_button"
-        android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
-        app:layout_constraintTop_toBottomOf="@+id/YourPledges"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_$2"
+        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
         tools:text="$5"/>
 
     <Button
         android:id="@+id/btn_$1"
-        android:layout_width="107dp"
+        android:layout_width="126dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_dollor_button"
         android:text="$1"
         android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_$2"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
-        app:layout_constraintTop_toBottomOf="@+id/YourPledges"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
         tools:text="$1"/>
 
     <Button
         android:id="@+id/btn_$2"
-        android:layout_width="100dp"
+        android:layout_width="126dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="32dp"
         android:background="@drawable/rounded_dollor_button"
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btn_$5"
-        app:layout_constraintTop_toBottomOf="@+id/YourPledges"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
+        tools:layout_editor_absoluteX="142dp"
         tools:text="$3"/>
 
     <android.support.constraint.Group
@@ -369,6 +381,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="btn_$5,btn_$2,btn_$1"/>
+
+    <!-- Guidelines -->
+    <android.support.constraint.Guideline
+        android:id="@+id/GLTeamLogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="704dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="27dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="199dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/GLVerticalCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="731dp"
+        android:layout_marginEnd="391dp"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="205dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/GLScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="275dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
 </ android.support.constraint.ConstraintLayout>
