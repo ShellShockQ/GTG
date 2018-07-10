@@ -127,7 +127,7 @@ public class SelectGameFragment extends BaseFragment implements View.OnClickList
         ArrayList<Game> TodaysGames = new ArrayList<>();
         for (Game g : TodaysGames) {
             //  theGame = g.getHome_LongName() + " vs " + g.getAway_LongName();
-            adapter.add(String.format("%s vs. %s", g.getHome_LongName(), g.getAway_LongName()));
+            adapter.add(String.format("%s vs. %s", g.getHomeTeam().getTeamName(), g.getAwayTeam().getTeamName()));
             gameIdArray[cnt] = String.valueOf(g.getGameId());
             cnt++;
         }

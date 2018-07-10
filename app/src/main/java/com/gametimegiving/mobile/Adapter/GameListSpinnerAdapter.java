@@ -50,7 +50,7 @@ public class GameListSpinnerAdapter extends ArrayAdapter<Game> {
         Game game = listOfGames.get(position);
         label.setTextColor(Color.BLACK);
         label.setTextSize(16);
-        theGame = game.getHome_LongName() + " vs. " + game.getAway_LongName();
+        theGame = game.getHomeTeam().getTeamName() + " vs. " + game.getAwayTeam().getTeamName();
         label.setText(theGame);
 
         return label;

@@ -73,5 +73,6 @@
     <string name="period">Session</string>
     <string name="_0">0</string>
     <string name="_1">1</string>
+    <string name="zerodollars">$0.00</string>
 
 </resources>

@@ -3,6 +3,8 @@ package com.gametimegiving.mobile;
 import android.graphics.Bitmap;
 
 import com.gametimegiving.mobile.Parse.RequestPackage;
+import com.gametimegiving.mobile.Utils.Constant;
+import com.gametimegiving.mobile.sampledata.SampleData;
 
 import java.util.Date;
 
@@ -10,14 +12,15 @@ public class Game {
     private final String TAG = getClass().getSimpleName();
     private static String GameStatus;
     private int GameId;
-    private int home_Id;
-    private int away_Id;
-    private String home_LongName;
-    private String away_LongName;
+    private Team HomeTeam;
+    private Team AwayTeam;
     private int home_score;
     private int away_score;
     private int period;
 
+    public Game() {
+        setGameStatus(Constant.GAMEINPROGRESS);
+    }
 
     public Date getStartdate() {
         return startdate;
@@ -84,37 +87,6 @@ public class Game {
         GameId = gameId;
     }
 
-    public int getHome_Id() {
-        return home_Id;
-    }
-
-    public void setHome_Id(int home_Id) {
-        this.home_Id = home_Id;
-    }
-
-    public int getAway_Id() {
-        return away_Id;
-    }
-
-    public void setAway_Id(int away_Id) {
-        this.away_Id = away_Id;
-    }
-
-    public String getHome_LongName() {
-        return home_LongName;
-    }
-
-    public void setHome_LongName(String home_LongName) {
-        this.home_LongName = home_LongName;
-    }
-
-    public String getAway_LongName() {
-        return away_LongName;
-    }
-
-    public void setAway_LongName(String away_LongName) {
-        this.away_LongName = away_LongName;
-    }
 
     public int getHome_score() {
         return home_score;
@@ -210,11 +182,26 @@ public class Game {
 
     }
 
+    public Team getAwayTeam() {
+        return AwayTeam;
+    }
+
+    public void setAwayTeam(Team awayTeam) {
+        AwayTeam = awayTeam;
+    }
+
+    public Team getHomeTeam() {
+        return HomeTeam;
+    }
+
+    public void setHomeTeam(Team homeTeam) {
+        HomeTeam = homeTeam;
+    }
     public Game getCurrentGame() {
         int gameId = 1;
         //TODO: This class needs to determine the current game based on location, a link, demo, etc.
         //TODO: Make an ajax call to get live game data
-        Game mGame = null;
+        Game mGame = SampleData.getDemoGame();
         RequestPackage p = new RequestPackage();
 //        try {
 //            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
@@ -229,7 +216,6 @@ public class Game {
 //        }
         return mGame;
     }
-
 
 
 }

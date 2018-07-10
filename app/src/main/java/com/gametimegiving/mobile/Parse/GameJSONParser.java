@@ -17,8 +17,8 @@ public class GameJSONParser {
                 JSONObject obj = jsonArray.getJSONObject(i);
                 Game game = new Game();
                 game.setGameId(obj.getInt("game_id"));
-                game.setHome_LongName(obj.getString("home_long"));
-                game.setAway_LongName(obj.getString("away_long"));
+                game.getHomeTeam().setTeamName(obj.getString("home_long"));
+                game.getAwayTeam().setTeamName(obj.getString("away_long"));
                 listofGames.add(game);
             }
             return listofGames;

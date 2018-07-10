@@ -19,9 +19,9 @@ public class MyGameJSONParser {
             int i = 0;
                 JSONObject obj = jsonArray.getJSONObject(i);
                 game.setGameId(obj.getInt("game_id"));
-                game.setHome_LongName(obj.getString("home_long"));
+            game.getHomeTeam().setTeamName(obj.getString("home_long"));
                 game.setHome_score(obj.getInt("home_score"));
-                game.setAway_LongName(obj.getString("away_long"));
+            game.getAwayTeam().setTeamName(obj.getString("away_long"));
                 game.setAway_score(obj.getInt("away_score"));
                 game.setPeriod(obj.getInt("period"));
                 game.setTimeLeft(obj.getString("clock"));
@@ -29,8 +29,8 @@ public class MyGameJSONParser {
                 game.setVisitingteam_pledge(obj.getInt("away_pledge"));
                 game.setHomeLogo(obj.getString("home_photo"));
                 game.setAwayLogo(obj.getString("away_photo"));
-                game.setHome_Id(obj.getInt("home_id"));
-                game.setAway_Id(obj.getInt("away_id"));
+            game.getHomeTeam().setTeamId(obj.getInt("home_id"));
+            game.getAwayTeam().setTeamId(obj.getInt("away_id"));
             game.setStarttime(obj.getString("start_dtm"));
             try {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

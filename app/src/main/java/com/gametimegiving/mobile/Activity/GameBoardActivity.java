@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.Group;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -28,7 +29,6 @@ import com.gametimegiving.mobile.Payment;
 import com.gametimegiving.mobile.Player;
 import com.gametimegiving.mobile.Pledge;
 import com.gametimegiving.mobile.R;
-import com.gametimegiving.mobile.Team;
 import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.CustomizeDialog;
 import com.gametimegiving.mobile.Utils.Utilities;
@@ -49,34 +49,42 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     final int cacheSize = MaxMemory / 8;
     final Handler handler = new Handler();
     private final Player player = new Player();
-    public Integer ActiveGameID;
-    public Integer mUserTeamID;
+    public Integer ActiveGameID,
+            mUserTeamID;
     public String ClientToken;
     public Payment payment;
     public String MyPledgeAmount;
     public Boolean PreferredCharityNoticeShown;
     public boolean bFirstTimeIn = true;
-    public Game mGame = new Game();
+    public Game mGame = null;
     Utilities utilities = new Utilities();
-    TextView tvMyTeamPledgeTotals;
     Timer timer;
     TimerTask timerTask;
-    private Integer mMyTeamsPledgeTotals = 0;
-    private Integer mTheirTeamsPledgeTotals = 0;
-    private Integer mMyPledgeTotals = 0;
-    private Integer mMyLastPledge = 0;
-    private TextView tvPledges, tv_$15;
-    private Button btn_$1;
-    private Button btn_$2;
-    private Button btn_$5;
+    Group pledgeButtons;
+    private ImageView mHomeLogo,
+            mAwayLogo;
     private Context context;
     private String[] arr = null;
-    private TextView mTvYourTeam, mTvOpponentTeam;
-    private Button mUndoLastPledge;
+    private Integer mMyTeamsPledgeTotals = 0,
+            mTheirTeamsPledgeTotals = 0,
+            mMyPledgeTotals = 0,
+            mMyLastPledge = 0;
+    private TextView tv_VisitorTeamName,
+            tv_HomeTeamName,
+            tv_homeTeamMascot,
+            tv_AwayTeamScore,
+            tv_homeTeamScore,
+            tv_pledges,
+            tv_MyTeamPledgeTotals,
+            tv_TheirTeamPledgeTotals,
+            tv_GamePeriod;
+    private Button mUndoLastPledge,
+            pledgeBtn1,
+            pledgeBtn2,
+            pledgeBtn3,
+            btnPayNow;
     private String mToken;
     private LruCache<Integer, Bitmap> imageMemCache;
-    private Button btn;
-    private Button btnPay;
 
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -85,11 +93,40 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         player.setPlayer_id();
         setContentView(R.layout.gameboard);
+        //Find and set all the textviews on the view
+        tv_HomeTeamName = findViewById(R.id.HomeTeamName);
+        tv_homeTeamMascot = findViewById(R.id.HomeTeamMascot);
+        tv_VisitorTeamName = findViewById(R.id.VisitorTeamName);
+        tv_pledges = findViewById(R.id.pledges);
+        tv_homeTeamScore = findViewById(R.id.tv_HomeTeamScore);
+        tv_AwayTeamScore = findViewById(R.id.tv_AwayTeamScore);
+        tv_pledges = findViewById(R.id.pledges);
+        tv_MyTeamPledgeTotals = findViewById(R.id.tv_HomeTeamPledges);
+        tv_TheirTeamPledgeTotals = findViewById(R.id.tv_AwayTeamPledges);
+        tv_GamePeriod = findViewById(R.id.tv_GamePeriod);
+        //Find and set all the buttons on the view
+        mUndoLastPledge = findViewById(R.id.btnundolastpledge);
+        mUndoLastPledge.setOnClickListener(this);
+        mUndoLastPledge.setEnabled(false);
+        pledgeBtn1 = findViewById(R.id.PledgeButton1);
+        pledgeBtn1.setOnClickListener(this);
+        pledgeBtn2 = findViewById(R.id.PledgeButton2);
+        pledgeBtn2.setOnClickListener(this);
+        pledgeBtn3 = findViewById(R.id.PledgeButton3);
+        pledgeBtn3.setOnClickListener(this);
+        btnPayNow = findViewById(R.id.btnpaynow);
+        //Find all the imageviews
+        mHomeLogo = findViewById(R.id.hometeamlogo);
+        mAwayLogo = findViewById(R.id.awayteamlogo);
+        //Find the groups on the view
+        pledgeButtons = findViewById(R.id.pledgeButtons);
+
+        //Create a Game Objec to hold the current Game
         Game currentGame = new Game();
-        currentGame.getCurrentGame();
-        //TODO:Get the Sample Game Data Back
-        //startTimer();
-        tvPledges = findViewById(R.id.pledges);
+        mGame = currentGame.getCurrentGame();
+        SetGameBoardMode();
+        UpdateGameBoard();
+
         if (getIntent().getExtras() != null) {
             try {
                 Bundle extras = getIntent().getExtras();
@@ -100,41 +137,12 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             }
 
         }
-
-        //getCurrentGame(ActiveGameID);
-
-        //TODO:Determine Game Status based on the time
-
-        /* ********************************************** */
-
-
         imageMemCache = new LruCache<>(cacheSize);
-        //Set Period
         Integer ag = utilities.ReadSharedPref("activegame", this);
-
-
         context = this;
-
-        mTvYourTeam = findViewById(R.id.tvyourteam);
-        mUndoLastPledge = findViewById(R.id.btnundolastpledge);
-        mUndoLastPledge.setOnClickListener(this);
-        mUndoLastPledge.setEnabled(false);
-
-        mTvOpponentTeam = findViewById(R.id.tvopponentteam);
-
-        //getGame(ActiveGameID);
-
-
-       // btn_$1 = (Button)findViewById(R.id.btn_$1);
-       // btn_$2 = (Button)findViewById(R.id.btn_$2);
-       // btn_$5 = (Button)findViewById(R.id.btn_$5);
-
-       // btn_$1.setOnClickListener(this);
-       // btn_$2.setOnClickListener(this);
-       // btn_$5.setOnClickListener(this);
-        if (bFirstTimeIn) {
-            showdialog();
-        }
+//        if (bFirstTimeIn) {
+//            showdialog();
+//        }
 
     }
     public void SetUpDemo(){
@@ -154,35 +162,32 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             mGame.setTimeLeft("0:00");
         }
     }
-    private void SetGameBoard(Game mGame) {
+
+    private void SetGameBoardMode() {
+
         View l = findViewById(R.id.pledgeButtons);
-        View ppl = findViewById(R.id.personalpledgelayout);
-        Button btn = findViewById(R.id.btnundolastpledge);
-        Button btnPay = findViewById(R.id.paynow);
+        View ppl = null; //TODO: Replace this with a group
         switch (mGame.getGameStatus()) {
             case Constant.GAMENOTSTARTED:
-                TurnOffPledgeMechanisms(l, ppl, btn, btnPay);
+                pledgeButtons.setVisibility(View.GONE);
                 mGame.ClearBoard();
                 break;
             case Constant.GAMEINPROGRESS:
+                pledgeButtons.setVisibility(View.VISIBLE);
                 l.setVisibility(View.VISIBLE);
-                btn.setVisibility(View.VISIBLE);
-                btnPay.setVisibility(View.GONE);
-
+                btnPayNow.setVisibility(View.GONE);
                 break;
             case Constant.GAMEOVER:
                 GenerateClientToken();
-                if (tvPledges.getText() != "$0.00") {
-                    MyPledgeAmount = tvPledges.getText().toString();
+                if (tv_pledges.getText() != getString(R.string.zerodollars)) {
+                    MyPledgeAmount = tv_pledges.getText().toString();
                     l.setVisibility(View.GONE);
-                    btn.setVisibility(View.GONE);
-                    btnPay.setVisibility(View.VISIBLE);
-                    btnPay.setOnClickListener(new View.OnClickListener() {
+                    pledgeButtons.setVisibility(View.GONE);
+                    btnPayNow.setVisibility(View.VISIBLE);
+                    btnPayNow.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
                      MakeBrainTreePayment();
-
                         }
                     });
                 } else {
@@ -206,31 +211,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 //        startActivityForResult(intent, SUBMIT_PAYMENT_REQUEST_CODE);
     }
 
-    private void startTimer() {
-        //set a new Timer
-        timer = new Timer();
-        //initialize the TimerTask's job
-        //RefreshGame();
 
-        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
-        timer.schedule(timerTask, 5000, 10000); //
-
-    }
-
-//    public void RefreshGame() {
-//
-//        timerTask = new TimerTask() {
-//            public void run() {
-//
-//                //use a handler to run a toast that shows the current timestamp
-//                handler.post(new Runnable() {
-//                    public void run() {
-//                        getCurrentGame(ActiveGameID);
-//                    }
-//                });
-//            }
-//        };
-//    }
 
     @Override
     protected void onActivityResult(int requestCode,
@@ -266,21 +247,6 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    //    public void getCurrentGame(Integer gameId) {
-//        if(gameId==null) gameId=Constant.DEFAULTGAMEID;
-//        final RequestPackage p = new RequestPackage();
-//        String method = "game";
-//        p.setMethod("POST");
-//        p.setUri(String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game"));
-//        p.setParam("token", null);
-//        p.setParam("page", Integer.toString(0));
-//        p.setParam("game_id", Integer.toString(gameId));
-//        String args = p.getEncodedParams();
-//    }
-    /*
-    *
-    * Select Game Show in GameBoard Screen
-    * */
     private void getGameName() {
         if (getIntent().getExtras() != null) {
             String games = getIntent().getExtras().getString("selectedgame");
@@ -304,17 +270,15 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private void addPledges(int value, int game_id, int team_id) {
         mUndoLastPledge.setEnabled(true);
         mMyLastPledge = value;
-        tvMyTeamPledgeTotals = findViewById(R.id.tv_HomeTeamPledges);
         player.setMyLastPledgeAmount(value);
         utilities.WriteSharedPref(Constant.GAMEDATAREFRESHED, "false", this, "b");
         utilities.WriteSharedPref(Constant.LASTPLEDGEDAMOUNT, Integer.toString(player.getMyTotalPledgeAmount(this)), this, "i");
-
         player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount(this) + value);
         mMyPledgeTotals = player.getMyTotalPledgeAmount(this);
-        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount(this)));
+        tv_pledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount(this)));
         utilities.WriteSharedPref(Constant.MYTOTALPLEDGEDAMOUNT, Integer.toString(player.getMyTotalPledgeAmount(this)), this, "i");
-        mMyTeamsPledgeTotals= utilities.RemoveCurrency(tvMyTeamPledgeTotals.getText().toString())+value;
-        tvMyTeamPledgeTotals.setText(utilities.FormatCurrency(mMyTeamsPledgeTotals));
+        mMyTeamsPledgeTotals = utilities.RemoveCurrency(tv_MyTeamPledgeTotals.getText().toString()) + value;
+        tv_MyTeamPledgeTotals.setText(utilities.FormatCurrency(mMyTeamsPledgeTotals));
         utilities.WriteSharedPref(Constant.MYTEAMTOTALPLEDGEDAMOUNT,Integer.toString(mMyTeamsPledgeTotals),this,"i");
         //Write the new total to Shared Preferences
         //Insert Pledge data in SQLLite Database
@@ -341,7 +305,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private void undoLastPledge(int game_id, int team_id) {
         mUndoLastPledge.setEnabled(false);
         player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount(this) - player.getMyLastPledgeAmount());
-        tvPledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount(this)));
+        tv_pledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount(this)));
         //TODO:Remove personal pledge from server totals
         Pledge pledge = new Pledge(this);
         pledge.setAmount(player.getMyLastPledgeAmount() * -1);
@@ -442,48 +406,22 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    public void UpdateGameBoard(Game mGame) {
-        Team homeTeam = null;
-        Team awayTeam = null;
-        TextView tv_homeTeamScore = findViewById(R.id.tv_HomeTeamScore);
-        TextView tv_awayTeamScore = findViewById(R.id.tv_AwayTeamScore);
-        TextView pledges = findViewById(R.id.pledges);
-        TextView tvMyTeamPledgeTotals = findViewById(R.id.tv_HomeTeamPledges);
-        TextView tvTheirTeamPledgeTotals = findViewById(R.id.tv_AwayTeamPledges);
+    public void UpdateGameBoard() {
         tv_homeTeamScore.setText(Integer.toString(mGame.getHome_score()));
-        tv_awayTeamScore.setText(Integer.toString(mGame.getAway_score()));
-        mTvYourTeam.setText(mGame.getHome_LongName());
-        mTvOpponentTeam.setText(mGame.getAway_LongName());
-        pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount(this))));
-        TextView tv_GamePeriod = findViewById(R.id.tv_GamePeriod);
+        tv_AwayTeamScore.setText(Integer.toString(mGame.getAway_score()));
+        tv_GamePeriod.setText(String.format("%s", mGame.getPeriod()));
+        tv_HomeTeamName.setText(mGame.getHomeTeam().getTeamName());
+        tv_VisitorTeamName.setText(mGame.getAwayTeam().getTeamName());
+        tv_pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount(this))));
         tv_GamePeriod.setText(String.format("%s in %s", mGame.getTimeLeft(), Integer.toString(mGame.getPeriod())));
-        tvMyTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getHometeam_pledge()));
-        tvTheirTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getVisitingteam_pledge()));
+        tv_MyTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getHometeam_pledge()));
+        tv_TheirTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getVisitingteam_pledge()));
         String homelogourl = String.format("%s%s.png", LOGO_BASE_URL, mGame.getHomeLogo());
         String awaylogourl = String.format("%s%s.png", LOGO_BASE_URL, mGame.getAwayLogo());
-        ImageView mHomeLogo = findViewById(R.id.hometeamlogo);
-        ImageView mAwayLogo = findViewById(R.id.awayteamlogo);
         SetTeamLogo(homelogourl, mHomeLogo);
         SetTeamLogo(awaylogourl, mAwayLogo);
     }
 
-//    public void getGame(int game_id) {
-//        try {
-//            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
-//            String method = "game";
-//            RequestPackage p = new RequestPackage();
-//            p.setMethod("POST");
-//            p.setUri(url);
-//            p.setParam("token", null);
-//            p.setParam("page", Integer.toString(0));
-//            p.setParam("game_id", Integer.toString(game_id));
-//            GetMyGame task = new GetMyGame();
-//            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
-//
-//        } catch (Exception exc) {
-//            Log.e(TAG, exc.toString());
-//        }
-//    }
 
     public Bitmap getBitmapFromMemCache(int key) {
         try {
@@ -553,15 +491,15 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             InputStream homeIn;
             InputStream awayIn;
             try {
-                homeBitmap = getBitmapFromMemCache(game.getHome_Id());
-                awayBitmap = getBitmapFromMemCache(game.getAway_Id());
+                homeBitmap = getBitmapFromMemCache(game.getHomeTeam().getTeamId());
+                awayBitmap = getBitmapFromMemCache(game.getAwayTeam().getTeamId());
                 if (homeBitmap == null) {
                     String homelogourl = String.format("%s%s.png", LOGO_BASE_URL, game.getHomeLogo());
                     homeIn = (InputStream) new URL(homelogourl).getContent();
                     homeBitmap = BitmapFactory.decodeStream(homeIn);
                     game.setHomeLogobitmap(homeBitmap);
                     homeIn.close();
-                    addBitmapToMemoryCache(game.getHome_Id(), homeBitmap);
+                    addBitmapToMemoryCache(game.getHomeTeam().getTeamId(), homeBitmap);
                 } else {
                     game.setHomeLogobitmap(homeBitmap);
                 }
@@ -573,7 +511,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                     awayBitmap = BitmapFactory.decodeStream(awayIn);
                     game.setAwayLogobitmap(awayBitmap);
                     awayIn.close();
-                    addBitmapToMemoryCache(game.getAway_Id(), awayBitmap);
+                    addBitmapToMemoryCache(game.getAwayTeam().getTeamId(), awayBitmap);
                 } else {
                     game.setAwayLogobitmap(awayBitmap);
                 }
@@ -592,9 +530,9 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 Log.i(TAG, "Can't connect to Webservice");
                 return;
             }
-            game.setUserteam_id(game.getHome_Id());
+            game.setUserteam_id(game.getHomeTeam().getTeamId());
             mUserTeamID = game.getUserteam_id();
-            UpdateGameBoard(game);
+            UpdateGameBoard();
 
         }
 
