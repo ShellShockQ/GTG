@@ -70,7 +70,7 @@
     <string name="pledgeamount3">$5</string>
     <string name="undo_last_pledge">UNDO LAST PLEDGE</string>
     <string name="game_board_title">Game Board</string>
-    <string name="period">Session</string>
+    <string name="period">Time Left</string>
     <string name="_0">0</string>
     <string name="_1">1</string>
     <string name="zerodollars">$0.00</string>

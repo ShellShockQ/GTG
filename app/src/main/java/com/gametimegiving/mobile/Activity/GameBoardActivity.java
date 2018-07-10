@@ -72,6 +72,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     private TextView tv_VisitorTeamName,
             tv_HomeTeamName,
             tv_homeTeamMascot,
+            tv_visitorTeamMascot,
             tv_AwayTeamScore,
             tv_homeTeamScore,
             tv_pledges,
@@ -97,10 +98,11 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         tv_HomeTeamName = findViewById(R.id.HomeTeamName);
         tv_homeTeamMascot = findViewById(R.id.HomeTeamMascot);
         tv_VisitorTeamName = findViewById(R.id.VisitorTeamName);
-        tv_pledges = findViewById(R.id.pledges);
+        tv_visitorTeamMascot = findViewById(R.id.VisitorTeamMascot);
+        tv_pledges = findViewById(R.id.pledge);
         tv_homeTeamScore = findViewById(R.id.tv_HomeTeamScore);
         tv_AwayTeamScore = findViewById(R.id.tv_AwayTeamScore);
-        tv_pledges = findViewById(R.id.pledges);
+        tv_pledges = findViewById(R.id.pledge);
         tv_MyTeamPledgeTotals = findViewById(R.id.tv_HomeTeamPledges);
         tv_TheirTeamPledgeTotals = findViewById(R.id.tv_AwayTeamPledges);
         tv_GamePeriod = findViewById(R.id.tv_GamePeriod);
@@ -148,7 +150,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     public void SetUpDemo(){
         mGame.setAway_score(14);
         mGame.setHome_score(21);
-        mGame.setPeriod(3);
+        mGame.setPeriod("3rd");
         mGame.setTimeLeft("7:56");
         mGame.setVisitingteam_pledge(23);
         if(mGame.getHometeam_pledge() ==0) {
@@ -158,7 +160,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         }
         if(mGame.getHometeam_pledge()>mGame.getVisitingteam_pledge()){
             mGame.setGameStatus(Constant.GAMEOVER);
-            mGame.setPeriod(4);
+            mGame.setPeriod("4th");
             mGame.setTimeLeft("0:00");
         }
     }
@@ -411,9 +413,11 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         tv_AwayTeamScore.setText(Integer.toString(mGame.getAway_score()));
         tv_GamePeriod.setText(String.format("%s", mGame.getPeriod()));
         tv_HomeTeamName.setText(mGame.getHomeTeam().getTeamName());
+        tv_homeTeamMascot.setText(mGame.getHomeTeam().getNickName());
         tv_VisitorTeamName.setText(mGame.getAwayTeam().getTeamName());
+        tv_visitorTeamMascot.setText(mGame.getAwayTeam().getNickName());
         tv_pledges.setText(String.format("%s", utilities.FormatCurrency(player.getMyTotalPledgeAmount(this))));
-        tv_GamePeriod.setText(String.format("%s in %s", mGame.getTimeLeft(), Integer.toString(mGame.getPeriod())));
+        tv_GamePeriod.setText(String.format("%s in the %s", mGame.getTimeLeft(), mGame.getPeriod()));
         tv_MyTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getHometeam_pledge()));
         tv_TheirTeamPledgeTotals.setText(utilities.FormatCurrency(mGame.getVisitingteam_pledge()));
         String homelogourl = String.format("%s%s.png", LOGO_BASE_URL, mGame.getHomeLogo());

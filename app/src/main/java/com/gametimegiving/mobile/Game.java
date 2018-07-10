@@ -16,10 +16,11 @@ public class Game {
     private Team AwayTeam;
     private int home_score;
     private int away_score;
-    private int period;
+    private String period;
 
     public Game() {
         setGameStatus(Constant.GAMEINPROGRESS);
+        setTimeLeft("00:00");
     }
 
     public Date getStartdate() {
@@ -104,11 +105,11 @@ public class Game {
         this.away_score = away_score;
     }
 
-    public int getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
-    public void setPeriod(int period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 
@@ -171,7 +172,7 @@ public class Game {
     public void ClearBoard() {
         setAway_score(0);
         setHome_score(0);
-        setPeriod(0);
+        setPeriod("1st");
         setPersonalPledgeAmt();
         setTimeLeft("0:00");
     }

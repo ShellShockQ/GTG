@@ -23,7 +23,7 @@ public class MyGameJSONParser {
                 game.setHome_score(obj.getInt("home_score"));
             game.getAwayTeam().setTeamName(obj.getString("away_long"));
                 game.setAway_score(obj.getInt("away_score"));
-                game.setPeriod(obj.getInt("period"));
+            game.setPeriod(obj.getString("period"));
                 game.setTimeLeft(obj.getString("clock"));
                 game.setHometeam_pledge(obj.getInt("home_pledge"));
                 game.setVisitingteam_pledge(obj.getInt("away_pledge"));

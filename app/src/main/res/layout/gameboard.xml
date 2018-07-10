@@ -9,7 +9,7 @@
     android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".Activity.GameBoardActivity">
-
+    <!--
     <ImageView
         android:id="@+id/Backdrop"
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         />
-
+-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -51,13 +51,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="#fff"
         app:layout_constraintBottom_toTopOf="@+id/hometeamlogo"
         app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
-        app:layout_constraintTop_toTopOf="@+id/Backdrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:text="North Bay"/>
 
     <ImageView
@@ -70,7 +70,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/GLTeamLogo"
         app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/teama"
         tools:layout_conversion_absoluteHeight="90dp"
         tools:layout_conversion_absoluteWidth="90dp"/>
@@ -82,10 +82,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="#fff"
         android:textAppearance="@android:style/TextAppearance"
+        android:textColor="#fff"
         app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hometeamlogo"
         tools:text="Guardian Angels"/>
 
@@ -102,10 +102,10 @@
         android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/GLScore"
+        app:layout_constraintBottom_toBottomOf="@+id/Period"
         app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
-        app:layout_constraintTop_toBottomOf="@+id/HomeTeamMascot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Period"
         tools:layout_conversion_absoluteHeight="16dp"
         tools:layout_conversion_absoluteWidth="102dp"/>
 
@@ -120,10 +120,11 @@
         android:textColor="#fff"
         android:textSize="@dimen/textsize_17"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/GLTotalPledges"
-        app:layout_constraintEnd_toStartOf="@+id/totalPledges"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_AwayTeamPledges"
+        app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/GLTotalPledges"
+        app:layout_constraintTop_toTopOf="@+id/tv_AwayTeamPledges"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_conversion_absoluteHeight="23dp"
         tools:layout_conversion_absoluteWidth="65dp"
         tools:text="$15.00"/>
@@ -135,12 +136,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="#fff"
-        app:layout_constraintBottom_toTopOf="@+id/awayteamlogo"
-        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintBottom_toBottomOf="@+id/HomeTeamName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintTop_toTopOf="@+id/Backdrop"
+        app:layout_constraintTop_toTopOf="@+id/HomeTeamName"
         tools:text="Essex"/>
 
     <ImageView
@@ -151,7 +153,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/GLTeamLogo"
-        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
         app:srcCompat="@drawable/teamknvp"
         tools:layout_conversion_absoluteHeight="90dp"
@@ -164,7 +166,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:textAppearance="@android:style/TextAppearance"
-        android:textColor="@color/com_facebook_likeboxcountview_text_color"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="@+id/HomeTeamMascot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
@@ -184,75 +186,80 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/GLScore"
-        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
         app:layout_constraintTop_toBottomOf="@+id/VisitorTeamMascot"
+        app:layout_constraintVertical_bias="0.124"
         tools:layout_conversion_absoluteHeight="16dp"
-        tools:layout_conversion_absoluteWidth="102dp"/>
+        tools:layout_conversion_absoluteWidth="102dp"
+        />
 
     <TextView
         android:id="@+id/tv_AwayTeamPledges"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="2"
         android:textColor="#fff"
-        android:textSize="@dimen/textsize_17"
+        android:textSize="@dimen/textsize_18"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/totalPledges"
+        app:layout_constraintBottom_toTopOf="@+id/GLTotalPledges"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintTop_toTopOf="@+id/totalPledges"
+        app:layout_constraintTop_toBottomOf="@+id/tv_AwayTeamScore"
         tools:layout_conversion_absoluteHeight="23dp"
         tools:layout_conversion_absoluteWidth="66dp"
-        tools:text="$45.00"
-        />
+        tools:text="$45.00"/>
 
     <!-- Scoreboard Elements -->
     <TextView
         android:id="@+id/Period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/period"
-        android:textColor="#fff"
         android:textAppearance="@android:style/TextAppearance"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/GLScore"
-        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
-        app:layout_constraintTop_toBottomOf="@+id/GLTeamLogo"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_AwayTeamScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_AwayTeamScore"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Period"/>
 
     <TextView
         android:id="@+id/tv_GamePeriod"
-        android:layout_width="31dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/custombuttontextview"
         android:gravity="center"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
         android:textAppearance="@android:style/TextAppearance"
-        android:textColor="@android:color/background_light"
+        android:textColor="#fff"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/GLScore"
-        app:layout_constraintEnd_toEndOf="@+id/Backdrop"
-        app:layout_constraintStart_toStartOf="@+id/Backdrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Period"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_conversion_absoluteHeight="30dp"
         tools:layout_conversion_absoluteWidth="102dp"
-        tools:layout_editor_absoluteY="245dp"
         tools:text="2"/>
 
     <TextView
         android:id="@+id/totalPledges"
-        android:layout_width="114dp"
-        android:layout_height="38dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -273,33 +280,35 @@
 
 
     <TextView
-        android:id="@+id/YourPledges"
+        android:id="@+id/myPledge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="3dp"
         android:textColor="#fff"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/GLTotalPledges"
         app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
-        tools:text="Your Pledges"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_HomeTeamPledges"
+        tools:text="My Pledge"/>
 
     <TextView
-        android:id="@+id/pledges"
+        android:id="@+id/pledge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:textColor="#fff"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/myPledge"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
+        app:layout_constraintTop_toTopOf="@+id/myPledge"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="$0.00"/>
 
     <Button
@@ -315,11 +324,10 @@
         android:textAppearance="@android:style/TextAppearance"
         android:textColor="#fff"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
-        android:visibility="gone"
         tools:text="Donate Now"/>
 
     <Button
@@ -335,26 +343,27 @@
 
     <Button
         android:id="@+id/PledgeButton3"
-        android:layout_width="127dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_dollor_button"
+        android:text="$5"
         android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/PledgeButton2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toEndOf="@+id/PledgeButton2"
-        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
+        app:layout_constraintTop_toTopOf="@+id/PledgeButton2"
+        app:layout_constraintVertical_bias="0.727"
         tools:text="$5"/>
 
     <Button
         android:id="@+id/PledgeButton1"
-        android:layout_width="126dp"
-        android:layout_height="40sp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -365,25 +374,31 @@
         android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/PledgeButton2"
+        app:layout_constraintBottom_toBottomOf="@+id/PledgeButton2"
+        app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
+        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
+        app:layout_constraintTop_toTopOf="@+id/PledgeButton2"
+        app:layout_constraintVertical_bias="0.421"
         tools:text="$1"/>
 
     <Button
         android:id="@+id/PledgeButton2"
-        android:layout_width="126dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_dollor_button"
-        android:textAppearance="@android:style/TextAppearance"
+        android:text="$3"
+        android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/GLVerticalCenter"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintTop_toBottomOf="@+id/Backdrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GLTotalPledges"
         tools:text="$3"/>
 
     <android.support.constraint.Group
@@ -403,7 +418,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="199dp"
+        app:layout_constraintGuide_begin="219dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -417,10 +432,9 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_end="206dp"
+        app:layout_constraintGuide_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/GLScore"
@@ -429,7 +443,7 @@
         android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="275dp"
+        app:layout_constraintGuide_begin="300dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -443,7 +457,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.502052"
+        app:layout_constraintGuide_percent="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
