@@ -78,7 +78,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             tv_pledges,
             tv_MyTeamPledgeTotals,
             tv_TheirTeamPledgeTotals,
-            tv_GamePeriod;
+            tv_GamePeriod,
+            tv_PreferredCharityNotice;
     private Button mUndoLastPledge,
             pledgeBtn1,
             pledgeBtn2,
@@ -142,9 +143,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         imageMemCache = new LruCache<>(cacheSize);
         Integer ag = utilities.ReadSharedPref("activegame", this);
         context = this;
-//        if (bFirstTimeIn) {
-//            showdialog();
-//        }
+        showdialog();
 
     }
     public void SetUpDemo(){
@@ -337,9 +336,8 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
     public void showdialog() {
         final CustomizeDialog customizeDialog = new CustomizeDialog(context);
-        customizeDialog.setContentView(R.layout.undolastpledgedialog);
-        TextView YourTeamName = customizeDialog.findViewById(R.id.tvyourteamname);
-        TextView SupportTeamName = customizeDialog.findViewById(R.id.tvsupportteamname);
+        customizeDialog.setContentView(R.layout.preferredcharitynotice);
+        tv_PreferredCharityNotice = customizeDialog.findViewById(R.id.tv_preferredCharityNotice);
         Button button = customizeDialog.findViewById(R.id.btnok);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -347,17 +345,20 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
                 customizeDialog.dismiss();
             }
         });
-        if (getIntent().getExtras() != null) {
-            String games = getIntent().getExtras().getString("selectedgame");
-            if (games != null) {
-                arr = games.split("vs");
-                YourTeamName.setText(arr[0]);
-                SupportTeamName.setText(arr[1]);
-            }
+        //Check if this is my first time in
+        if (bFirstTimeIn) {
+            String teamName = mGame.getMyTeam().getTeamName();
+            String charityName = mGame.getMyTeam().getPreferredCharity().getCharityName();
+            String preferredCharityMessage =
+                    String.format("NOTICE: Your team, %s, has chosen to support %s as a Preferred Charity. Your pledges will be split equally between the" +
+                            "charities you and %s have chosen.", teamName, charityName, teamName);
+            tv_PreferredCharityNotice.setText(preferredCharityMessage);
+            customizeDialog.show();
+            customizeDialog.setCancelable(false);
         }
-        customizeDialog.show();
-        customizeDialog.setCancelable(false);
     }
+
+
 
     @Override
     public void onClick(View v) {

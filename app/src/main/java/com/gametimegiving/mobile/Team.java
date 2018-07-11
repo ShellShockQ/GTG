@@ -12,6 +12,16 @@ public class Team {
     private String logo;
     private Bitmap bitmap;
 
+    private Charity preferredCharity;
+
+    public Charity getPreferredCharity() {
+        return preferredCharity;
+    }
+
+    public void setPreferredCharity(Charity preferredCharity) {
+        this.preferredCharity = preferredCharity;
+    }
+
     public int getTeamId() {
         return teamId;
     }

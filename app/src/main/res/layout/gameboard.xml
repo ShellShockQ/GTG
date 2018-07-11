@@ -285,14 +285,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="3dp"
         android:textColor="#fff"
-        android:textSize="24sp"
+        android:text="@string/your_pledges"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/GLTotalPledges"
         app:layout_constraintEnd_toStartOf="@+id/GLVerticalCenter"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_HomeTeamPledges"
         tools:text="My Pledge"/>
@@ -302,9 +303,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:textColor="#fff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/myPledge"
         app:layout_constraintStart_toStartOf="@+id/GLVerticalCenter"
         app:layout_constraintTop_toTopOf="@+id/myPledge"
@@ -343,8 +344,8 @@
 
     <Button
         android:id="@+id/PledgeButton3"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="80sp"
+        android:layout_height="40sp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_dollor_button"
@@ -362,8 +363,8 @@
 
     <Button
         android:id="@+id/PledgeButton1"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="80sp"
+        android:layout_height="40sp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -384,8 +385,8 @@
 
     <Button
         android:id="@+id/PledgeButton2"
-        android:layout_width="100dp"
-        android:layout_height="37dp"
+        android:layout_width="80sp"
+        android:layout_height="40sp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"

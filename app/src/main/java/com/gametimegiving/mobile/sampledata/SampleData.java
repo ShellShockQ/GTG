@@ -1,5 +1,6 @@
 package com.gametimegiving.mobile.sampledata;
 
+import com.gametimegiving.mobile.Charity;
 import com.gametimegiving.mobile.Game;
 import com.gametimegiving.mobile.Team;
 
@@ -62,12 +63,23 @@ public  class SampleData {
         AwayTeam.setTeamId(2);
         AwayTeam.setTeamName("Pittsburgh");
         AwayTeam.setNickName("Steelers");
+        Charity demoCharity1 = new Charity();
+        demoCharity1.setCharityId(1);
+        demoCharity1.setCharityName("United Manner");
+        demoCharity1.setDetail("We Save Lives");
+        Charity demoCharity2 = new Charity();
+        demoCharity2.setCharityId(2);
+        demoCharity2.setCharityName("Salvation Navy");
+        demoCharity2.setDetail("We Float Your Boat to help children");
+        HomeTeam.setPreferredCharity(demoCharity1);
+        AwayTeam.setPreferredCharity(demoCharity2);
         game1.setGameId(0);
         game1.setHome_score(7);
         game1.setAway_score(14);
         game1.setStartdate(today);
         game1.setPeriod("3rd");
         game1.setTimeLeft("07:42");
+        game1.setMyTeam(AwayTeam);
         game1.setHomeTeam(HomeTeam);
         game1.setAwayTeam(AwayTeam);
         return game1;

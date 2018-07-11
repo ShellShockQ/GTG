@@ -62,7 +62,7 @@
     <string name="versionnumber">Version 1.01</string>
     <string name="usersname">Your Name</string>
     <string name="user_image">User Image</string>
-    <string name="your_pledges">YOUR PLEDGES:</string>
+    <string name="your_pledges">My Pledge:</string>
     <string name="_0_00">$0.00</string>
     <string name="donate_now">Donate Now</string>
     <string name="pledgeamt1">$1</string>

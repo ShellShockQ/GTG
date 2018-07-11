@@ -14,6 +14,7 @@ public class Game {
     private int GameId;
     private Team HomeTeam;
     private Team AwayTeam;
+    private Team MyTeam;
     private int home_score;
     private int away_score;
     private String period;
@@ -197,6 +198,14 @@ public class Game {
 
     public void setHomeTeam(Team homeTeam) {
         HomeTeam = homeTeam;
+    }
+
+    public Team getMyTeam() {
+        return MyTeam;
+    }
+
+    public void setMyTeam(Team myTeam) {
+        MyTeam = myTeam;
     }
     public Game getCurrentGame() {
         int gameId = 1;
