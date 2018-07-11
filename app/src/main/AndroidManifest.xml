@@ -79,9 +79,12 @@
             android:name=".Activity.OnBoardingActivity"
             android:screenOrientation="portrait" />
 
+        <!--<meta-data-->
+        <!--android:name="API_SERVER_URL"-->
+        <!--android:value="http://api.gametimegiving.com" />-->
         <meta-data
             android:name="API_SERVER_URL"
-            android:value="http://api.gametimegiving.com" />
+            android:value="http://x1.gametimegiving.com/Experiment/"/>
         <meta-data
             android:name="LOGO_BASE_URL"
             android:value="http://api.gametimegiving.com/public/ph/" />

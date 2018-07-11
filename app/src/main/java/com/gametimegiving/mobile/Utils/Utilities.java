@@ -50,6 +50,11 @@ public class Utilities {
         return sharedPref.getInt(key, 0);
     }
 
+    public Boolean ReadBoolSharedPref(String key, Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(key, false);
+    }
+
 
     public String FormatCurrency(double num) {
         String value;

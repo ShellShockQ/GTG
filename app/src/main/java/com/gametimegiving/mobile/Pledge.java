@@ -1,8 +1,10 @@
 package com.gametimegiving.mobile;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 
 import com.gametimegiving.mobile.Application.BaseApplication;
+import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.Utils.Log;
@@ -99,7 +101,8 @@ public class Pledge extends BaseApplication {
             p.setParam("amount", Integer.toString(getAmount()));
             p.setParam("user", Integer.toString(getUser()));
             String args = p.getEncodedParams();
-
+            RecordPledge task = new RecordPledge();
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
         } catch (Exception exc) {
             Log.e(TAG, exc.toString());
         }
@@ -132,21 +135,20 @@ public class Pledge extends BaseApplication {
 //        return rtnVal;
 //    }
 
-//    private class RecordPledge extends AsyncTask<RequestPackage, Void, Integer> {
-//
-//        @Override
-//        protected Integer doInBackground(RequestPackage... params) {
-//            int result = 0;
-//            String content = HttpManager.getData(params[0]);
-//
-//            return result;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Integer integer) {
-//            super.onPostExecute(integer);
-//
-//
-//        }
-//    }
+    private class RecordPledge extends AsyncTask<RequestPackage, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(RequestPackage... params) {
+            int result = 0;
+            String content = HttpManager.getData(params[0]);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            int result = integer;
+        }
+    }
 }

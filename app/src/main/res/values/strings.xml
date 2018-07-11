@@ -74,5 +74,10 @@
     <string name="_0">0</string>
     <string name="_1">1</string>
     <string name="zerodollars">$0.00</string>
+    <string name="profile">My Profile</string>
+    <string name="charities">View Charities</string>
+    <string name="teams">View Teams</string>
+    <string name="teamstats">Team Stats</string>
+    <string name="mystats">My Stats</string>
 
 </resources>

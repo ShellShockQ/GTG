@@ -1,7 +1,10 @@
 package com.gametimegiving.mobile;
 
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.util.Log;
 
+import com.gametimegiving.mobile.Parse.HttpManager;
 import com.gametimegiving.mobile.Parse.RequestPackage;
 import com.gametimegiving.mobile.Utils.Constant;
 import com.gametimegiving.mobile.sampledata.SampleData;
@@ -213,19 +216,38 @@ public class Game {
         //TODO: Make an ajax call to get live game data
         Game mGame = SampleData.getDemoGame();
         RequestPackage p = new RequestPackage();
-//        try {
-//            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "game");
-//            String method = "game";
-//            p.setMethod("POST");
-//            p.setUri(url);
-//            p.setParam("token", null);
-//            p.setParam("page", Integer.toString(0));
-//            p.setParam("game_id", Integer.toString(gameId));
-//        } catch (Exception exc) {
-//            Log.e(TAG, exc.toString());
-//        }
+        try {
+            String url = String.format(java.util.Locale.ENGLISH, "%s/api/%s", Constant.APISERVERURL, "GetLiveGame");
+            String method = "game";
+            p.setMethod("POST");
+            p.setUri(url);
+            p.setParam("token", null);
+            p.setParam("page", Integer.toString(0));
+            p.setParam("game_id", Integer.toString(gameId));
+            GetGame task = new GetGame();
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, p);
+        } catch (Exception exc) {
+            Log.e(TAG, exc.toString());
+        }
         return mGame;
     }
 
+    private class GetGame extends AsyncTask<RequestPackage, Void, Integer> {
 
+        @Override
+        protected Integer doInBackground(RequestPackage... params) {
+            int result = 0;
+            String content = HttpManager.getData(params[0]);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            int result = integer;
+        }
+    }
 }
+
+

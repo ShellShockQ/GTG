@@ -268,7 +268,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     * Add Pledges
     *
     * */
-    private void addPledges(int value, int game_id, int team_id) {
+    private void addPledges(int value) {
         mUndoLastPledge.setEnabled(true);
         mMyLastPledge = value;
         player.setMyLastPledgeAmount(value);
@@ -291,11 +291,12 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         pledge.setUser(player.getPlayer_id());
   //      values.put(DBOpenHelper.USER_ID, player.getPlayer_id());
         pledge.setPreferredCharity_id();
-        pledge.setGame_id(game_id);
+        pledge.setGame_id(mGame.getGameId());
    //     values.put(DBOpenHelper.GAME_ID, game_id);
-        pledge.setTeam_id(team_id);
+        pledge.setTeam_id(mGame.getMyTeam().getTeamId());
        // getContentResolver().insert(PledgeProvider.CONTENT_URI, values);
         pledge.SubmitPledge();
+        openDailogPledgesAdd(value);
     }
 
     /*
@@ -303,17 +304,18 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
     * Undo Pledges
     *
     * */
-    private void undoLastPledge(int game_id, int team_id) {
+    private void undoLastPledge() {
         mUndoLastPledge.setEnabled(false);
         player.setMyTotalPledgeAmount(player.getMyTotalPledgeAmount(this) - player.getMyLastPledgeAmount());
         tv_pledges.setText(utilities.FormatCurrency(player.getMyTotalPledgeAmount(this)));
+        openDailogPledgesAdd(mMyLastPledge * -1);
         //TODO:Remove personal pledge from server totals
         Pledge pledge = new Pledge(this);
         pledge.setAmount(player.getMyLastPledgeAmount() * -1);
         pledge.setUser(player.getPlayer_id());//TODO:Get the User ID
         pledge.setPreferredCharity_id();
-        pledge.setGame_id(game_id);
-        pledge.setTeam_id(team_id);
+        pledge.setGame_id(mGame.getGameId());
+        pledge.setTeam_id(mGame.getMyTeam().getTeamId());
         pledge.SubmitPledge();
 
     }
@@ -346,6 +348,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             }
         });
         //Check if this is my first time in
+        bFirstTimeIn = utilities.ReadBoolSharedPref(Constant.ISFIRSTTIMEIN, this);
         if (bFirstTimeIn) {
             String teamName = mGame.getMyTeam().getTeamName();
             String charityName = mGame.getMyTeam().getPreferredCharity().getCharityName();
@@ -355,6 +358,7 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
             tv_PreferredCharityNotice.setText(preferredCharityMessage);
             customizeDialog.show();
             customizeDialog.setCancelable(false);
+            utilities.WriteSharedPref(Constant.ISFIRSTTIMEIN, "false", this, "b");
         }
     }
 
@@ -362,27 +366,23 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-           /* case R.id.btn_$1:
-                addPledges(1, ActiveGameID, mUserTeamID);
-                openDailogPledgesAdd(1);
+        int btnClicked = v.getId();
+        if (v == null) btnClicked = 0;
+        switch (btnClicked) {
+            case R.id.PledgeButton1:
+                addPledges(1);
                 break;
-            case R.id.btn_$2:
-                addPledges(2, ActiveGameID, mUserTeamID);
-                openDailogPledgesAdd(2);
+            case R.id.PledgeButton2:
+                addPledges(3);
                 break;
-            case R.id.btn_$5:
-                addPledges(5, ActiveGameID, mUserTeamID);
-                openDailogPledgesAdd(5);
+            case R.id.PledgeButton3:
+                addPledges(5);
                 break;
-            */
             case R.id.btnundolastpledge:
-                undoLastPledge(ActiveGameID, mUserTeamID);
-                openDailogPledgesAdd(mMyLastPledge * -1);
+                undoLastPledge();
                 break;
         }
-        //getGame(ActiveGameID);
-        //getCurrentGame(ActiveGameID);
+        mGame.getCurrentGame();
     }
 
     public void openDailogPledgesAdd(int pledge_value) {
@@ -391,10 +391,10 @@ public class GameBoardActivity extends AppCompatActivity implements View.OnClick
         pledgeDialog.setContentView(R.layout.dilogpledges);
         TextView tv_pledge_donation = pledgeDialog.findViewById(R.id.tv_pledge_donation);
         if (pledge_value < 0) {
-            sConfirmation = String.format("Your last pledge of <br /><b>%s</b><br /> has been undone", utilities.FormatCurrency(pledge_value).replace("-", ""));
+            sConfirmation = String.format("<center>Oops! Your last pledge of <br /><b>%s</b><br /> has been undone.</center>", utilities.FormatCurrency(pledge_value).replace("-", ""));
 
         } else {
-            sConfirmation = String.format("Your pledge of <br /><b>%s</b><br /> is confirmed", utilities.FormatCurrency(pledge_value));
+            sConfirmation = String.format("<center>Great Job! Your pledge of <br /><b>%s</b><br /> is confirmed.</center>", utilities.FormatCurrency(pledge_value));
         }
         tv_pledge_donation.setText(Html.fromHtml(sConfirmation));
         pledgeDialog.show();
